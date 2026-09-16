@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "experiment": "Phase 15: Apple Silicon Weak Memory Litmus Tests",
+    "experiment": "Phase 17: Rosetta 2 Hardware TSO Verification",
     "cpu": "Apple M2",
-    "architecture": "ARMv8.5-A native weakly ordered memory"
+    "architecture": "x86_64 translated via Rosetta 2 (Apple ACTLR_EL1 Hardware TSO Mode)"
   },
   "results": [
     {
       "test": "Store Buffering (SB)",
       "mode": "RELAXED",
       "iterations": 500000,
-      "sc_violations": 14,
-      "violation_rate_pct": 0.002800,
-      "elapsed_ms": 79.95
+      "sc_violations": 1187,
+      "violation_rate_pct": 0.237400,
+      "elapsed_ms": 53.89
     },
     {
       "test": "Store Buffering (SB)",
@@ -19,7 +19,7 @@
       "iterations": 500000,
       "sc_violations": 0,
       "violation_rate_pct": 0.000000,
-      "elapsed_ms": 127.92
+      "elapsed_ms": 72.98
     },
     {
       "test": "Store Buffering (SB)",
@@ -27,15 +27,15 @@
       "iterations": 500000,
       "sc_violations": 0,
       "violation_rate_pct": 0.000000,
-      "elapsed_ms": 86.16
+      "elapsed_ms": 78.16
     },
     {
       "test": "Message Passing (MP)",
       "mode": "RELAXED",
       "iterations": 500000,
-      "sc_violations": 399,
-      "violation_rate_pct": 0.079800,
-      "elapsed_ms": 57.50
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 55.72
     },
     {
       "test": "Message Passing (MP)",
@@ -43,7 +43,7 @@
       "iterations": 500000,
       "sc_violations": 0,
       "violation_rate_pct": 0.000000,
-      "elapsed_ms": 95.40
+      "elapsed_ms": 69.52
     },
     {
       "test": "Message Passing (MP)",
@@ -51,7 +51,7 @@
       "iterations": 500000,
       "sc_violations": 0,
       "violation_rate_pct": 0.000000,
-      "elapsed_ms": 78.07
+      "elapsed_ms": 55.42
     }
   ]
 }

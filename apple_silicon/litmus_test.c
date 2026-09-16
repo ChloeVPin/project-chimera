@@ -62,6 +62,14 @@ typedef struct {
 
 static HarnessState g_state;
 
+#if defined(__aarch64__)
+#define CPU_YIELD() __builtin_arm_yield()
+#elif defined(__x86_64__)
+#define CPU_YIELD() asm volatile("pause")
+#else
+#define CPU_YIELD() do {} while(0)
+#endif
+
 // ============================================================================
 // 1. Store Buffering (SB) Threads
 // ============================================================================
@@ -71,12 +79,13 @@ void* sb_thread_0(void* arg) {
     while (!g_state.terminate) {
         // Spin-wait for new round
         while (g_state.round == last_round && !g_state.terminate) {
-            __builtin_arm_yield();
+            CPU_YIELD();
         }
         if (g_state.terminate) break;
         last_round = g_state.round;
 
         uint32_t r0_val;
+#if defined(__aarch64__)
         if (g_state.mode == MODE_RELAXED) {
             asm volatile (
                 "str %w1, [%2]\n\t"
@@ -103,6 +112,36 @@ void* sb_thread_0(void* arg) {
                 : "memory"
             );
         }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_RELAXED) {
+            asm volatile (
+                "movl %1, (%2)\n\t"
+                "movl (%3), %0\n\t"
+                : "=r"(r0_val)
+                : "r"(1), "r"(&g_mem.x), "r"(&g_mem.y)
+                : "memory"
+            );
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile (
+                "movl %1, (%2)\n\t"
+                "mfence\n\t"
+                "movl (%3), %0\n\t"
+                : "=r"(r0_val)
+                : "r"(1), "r"(&g_mem.x), "r"(&g_mem.y)
+                : "memory"
+            );
+        } else { // MODE_ACQ_REL (atomic exchange on x86)
+            uint32_t val = 1;
+            asm volatile (
+                "xchgl %0, (%1)\n\t"
+                "movl (%2), %0\n\t"
+                : "+r"(val)
+                : "r"(&g_mem.x), "r"(&g_mem.y)
+                : "memory"
+            );
+            r0_val = val;
+        }
+#endif
         g_state.r0 = r0_val;
         __atomic_store_n(&g_state.t0_done, last_round, __ATOMIC_RELEASE);
     }
@@ -113,12 +152,13 @@ void* sb_thread_1(void* arg) {
     uint32_t last_round = 0;
     while (!g_state.terminate) {
         while (g_state.round == last_round && !g_state.terminate) {
-            __builtin_arm_yield();
+            CPU_YIELD();
         }
         if (g_state.terminate) break;
         last_round = g_state.round;
 
         uint32_t r1_val;
+#if defined(__aarch64__)
         if (g_state.mode == MODE_RELAXED) {
             asm volatile (
                 "str %w1, [%2]\n\t"
@@ -145,6 +185,36 @@ void* sb_thread_1(void* arg) {
                 : "memory"
             );
         }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_RELAXED) {
+            asm volatile (
+                "movl %1, (%2)\n\t"
+                "movl (%3), %0\n\t"
+                : "=r"(r1_val)
+                : "r"(1), "r"(&g_mem.y), "r"(&g_mem.x)
+                : "memory"
+            );
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile (
+                "movl %1, (%2)\n\t"
+                "mfence\n\t"
+                "movl (%3), %0\n\t"
+                : "=r"(r1_val)
+                : "r"(1), "r"(&g_mem.y), "r"(&g_mem.x)
+                : "memory"
+            );
+        } else { // MODE_ACQ_REL (atomic exchange on x86)
+            uint32_t val = 1;
+            asm volatile (
+                "xchgl %0, (%1)\n\t"
+                "movl (%2), %0\n\t"
+                : "+r"(val)
+                : "r"(&g_mem.y), "r"(&g_mem.x)
+                : "memory"
+            );
+            r1_val = val;
+        }
+#endif
         g_state.r1 = r1_val;
         __atomic_store_n(&g_state.t1_done, last_round, __ATOMIC_RELEASE);
     }
@@ -159,11 +229,12 @@ void* mp_thread_0(void* arg) { // Producer
     uint32_t last_round = 0;
     while (!g_state.terminate) {
         while (g_state.round == last_round && !g_state.terminate) {
-            __builtin_arm_yield();
+            CPU_YIELD();
         }
         if (g_state.terminate) break;
         last_round = g_state.round;
 
+#if defined(__aarch64__)
         if (g_state.mode == MODE_RELAXED) {
             asm volatile (
                 "str %w0, [%1]\n\t"
@@ -190,6 +261,35 @@ void* mp_thread_0(void* arg) { // Producer
                 : "memory"
             );
         }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_RELAXED) {
+            // Under x86 TSO, store-store is preserved in hardware without fences
+            asm volatile (
+                "movl %0, (%1)\n\t"
+                "movl %2, (%3)\n\t"
+                :
+                : "r"(42), "r"(&g_mem.data), "r"(1), "r"(&g_mem.flag)
+                : "memory"
+            );
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile (
+                "movl %0, (%1)\n\t"
+                "mfence\n\t"
+                "movl %2, (%3)\n\t"
+                :
+                : "r"(42), "r"(&g_mem.data), "r"(1), "r"(&g_mem.flag)
+                : "memory"
+            );
+        } else { // MODE_ACQ_REL
+            asm volatile (
+                "movl %0, (%1)\n\t"
+                "movl %2, (%3)\n\t"
+                :
+                : "r"(42), "r"(&g_mem.data), "r"(1), "r"(&g_mem.flag)
+                : "memory"
+            );
+        }
+#endif
         __atomic_store_n(&g_state.t0_done, last_round, __ATOMIC_RELEASE);
     }
     return NULL;
@@ -199,12 +299,13 @@ void* mp_thread_1(void* arg) { // Consumer
     uint32_t last_round = 0;
     while (!g_state.terminate) {
         while (g_state.round == last_round && !g_state.terminate) {
-            __builtin_arm_yield();
+            CPU_YIELD();
         }
         if (g_state.terminate) break;
         last_round = g_state.round;
 
         uint32_t rf, rd;
+#if defined(__aarch64__)
         if (g_state.mode == MODE_RELAXED) {
             asm volatile (
                 "ldr %w0, [%2]\n\t"
@@ -231,6 +332,35 @@ void* mp_thread_1(void* arg) { // Consumer
                 : "memory"
             );
         }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_RELAXED) {
+            // Under x86 TSO, load-load is preserved in hardware without fences
+            asm volatile (
+                "movl (%2), %0\n\t"
+                "movl (%3), %1\n\t"
+                : "=r"(rf), "=r"(rd)
+                : "r"(&g_mem.flag), "r"(&g_mem.data)
+                : "memory"
+            );
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile (
+                "movl (%2), %0\n\t"
+                "mfence\n\t"
+                "movl (%3), %1\n\t"
+                : "=r"(rf), "=r"(rd)
+                : "r"(&g_mem.flag), "r"(&g_mem.data)
+                : "memory"
+            );
+        } else { // MODE_ACQ_REL
+            asm volatile (
+                "movl (%2), %0\n\t"
+                "movl (%3), %1\n\t"
+                : "=r"(rf), "=r"(rd)
+                : "r"(&g_mem.flag), "r"(&g_mem.data)
+                : "memory"
+            );
+        }
+#endif
         g_state.r_flag = rf;
         g_state.r_data = rd;
         __atomic_store_n(&g_state.t1_done, last_round, __ATOMIC_RELEASE);
@@ -291,10 +421,10 @@ void run_sb_experiment(uint32_t iterations, BarrierMode mode, const char* mode_n
 
         // Wait for workers
         while (__atomic_load_n(&g_state.t0_done, __ATOMIC_ACQUIRE) != i) {
-            __builtin_arm_yield();
+            CPU_YIELD();
         }
         while (__atomic_load_n(&g_state.t1_done, __ATOMIC_ACQUIRE) != i) {
-            __builtin_arm_yield();
+            CPU_YIELD();
         }
 
         uint32_t r0 = g_state.r0;
@@ -356,10 +486,10 @@ void run_mp_experiment(uint32_t iterations, BarrierMode mode, const char* mode_n
         __atomic_store_n(&g_state.round, i, __ATOMIC_RELEASE);
 
         while (__atomic_load_n(&g_state.t0_done, __ATOMIC_ACQUIRE) != i) {
-            __builtin_arm_yield();
+            CPU_YIELD();
         }
         while (__atomic_load_n(&g_state.t1_done, __ATOMIC_ACQUIRE) != i) {
-            __builtin_arm_yield();
+            CPU_YIELD();
         }
 
         uint32_t rf = g_state.r_flag;
@@ -394,11 +524,19 @@ void save_json_results(const char* filepath) {
     FILE* fp = fopen(filepath, "w");
     if (!fp) return;
 
+#if defined(__x86_64__)
+    const char* exp_name = "Phase 17: Rosetta 2 Hardware TSO Verification";
+    const char* arch_name = "x86_64 translated via Rosetta 2 (Apple ACTLR_EL1 Hardware TSO Mode)";
+#else
+    const char* exp_name = "Phase 15: Apple Silicon Weak Memory Litmus Tests";
+    const char* arch_name = "ARMv8.5-A native weakly ordered memory";
+#endif
+
     fprintf(fp, "{\n");
     fprintf(fp, "  \"metadata\": {\n");
-    fprintf(fp, "    \"experiment\": \"Phase 15: Apple Silicon Weak Memory Litmus Tests\",\n");
-    fprintf(fp, "    \"cpu\": \"Apple M2 (ARM64)\",\n");
-    fprintf(fp, "    \"architecture\": \"ARMv8.5-A weakly ordered memory\"\n");
+    fprintf(fp, "    \"experiment\": \"%s\",\n", exp_name);
+    fprintf(fp, "    \"cpu\": \"Apple M2\",\n");
+    fprintf(fp, "    \"architecture\": \"%s\"\n", arch_name);
     fprintf(fp, "  },\n");
     fprintf(fp, "  \"results\": [\n");
     for (int i = 0; i < g_result_idx; i++) {
@@ -423,23 +561,37 @@ int main(int argc, char** argv) {
         iterations = (uint32_t)atoi(argv[1]);
     }
 
+    const char* out_json = "data/phase15_litmus_results.json";
+#if defined(__x86_64__)
+    out_json = "data/phase17_rosetta_results.json";
+#endif
+    if (argc > 2) {
+        out_json = argv[2];
+    }
+
     printf("================================================================\n");
+#if defined(__x86_64__)
+    printf("Project Chimera: Phase 17 - Silicon Rosetta 2 TSO Hardware Probe\n");
+    printf("Probing Apple ACTLR_EL1 Hardware TSO Bit via Rosetta Translation\n");
+    printf("Arch: x86_64 (Emulated via Rosetta 2) | Iterations: %u per test\n", iterations);
+#else
     printf("Project Chimera: Phase 15 - Physical Apple Silicon Litmus Tests\n");
     printf("ARMv8-A Weak Memory Ordering vs. Sequential Consistency (TSO)\n");
-    printf("Host: Apple M2 (ARM64) | Iterations: %u per test\n", iterations);
+    printf("Arch: ARM64 Native (Apple M2) | Iterations: %u per test\n", iterations);
+#endif
     printf("================================================================\n\n");
 
-    printf(">>> Experiment 15A: Store Buffering (SB / Dekker)\n");
+    printf(">>> Experiment A: Store Buffering (SB / Dekker)\n");
     run_sb_experiment(iterations, MODE_RELAXED, "RELAXED");
-    run_sb_experiment(iterations, MODE_FENCED, "DMB_ISH");
-    run_sb_experiment(iterations, MODE_ACQ_REL, "STLR_LDAR");
+    run_sb_experiment(iterations, MODE_FENCED, "FENCED");
+    run_sb_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
 
-    printf("\n>>> Experiment 15B: Message Passing (MP)\n");
+    printf("\n>>> Experiment B: Message Passing (MP)\n");
     run_mp_experiment(iterations, MODE_RELAXED, "RELAXED");
-    run_mp_experiment(iterations, MODE_FENCED, "DMB_ISH");
-    run_mp_experiment(iterations, MODE_ACQ_REL, "STLR_LDAR");
+    run_mp_experiment(iterations, MODE_FENCED, "FENCED");
+    run_mp_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
 
-    save_json_results("data/phase15_litmus_results.json");
+    save_json_results(out_json);
 
     printf("\n[OK] Litmus test suite complete.\n");
     return 0;

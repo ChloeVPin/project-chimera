@@ -78,7 +78,59 @@ Because `rustc` does not insert stack probes (e.g. via `stacker::ensure_sufficie
 
 ---
 
-## 5. Suggested Remediation / Compiler Patch
+## 5. Live Darwin Kernel Register Dump & Symbolicated Backtrace
+
+The fault occurred when `rustc` hit the thread stack guard boundary:
+- **Exception Code:** `EXC_BAD_ACCESS` (`SIGBUS`)
+- **Subtype / Fault Address:** `KERN_PROTECTION_FAILURE at 0x000000016b517f60`
+- **Message:** `Could not determine thread index for stack guard region`
+- **Crash Artifact:** `~/Library/Logs/DiagnosticReports/rustc-2026-09-15-220930.ips`
+
+### 5.1 Register State at Crash (`ARM_THREAD_STATE64`)
+```text
+    pc = 0x0000000112338520    lr = 0x000000011235ac54    sp = 0x000000016b517ed0    fp = 0x000000016b5182a0
+   far = 0x000000016b517f60   esr = 0x92000047 ((Data Abort) byte write Translation fault)  cpsr = 0x80001000
+
+    x0 = 0x000000011defc720   x1 = 0x000000016bcae860   x2 = 0x000000016bcae348   x3 = 0x000000011defc6f8
+    x4 = 0x00000002000001c5   x5 = 0x000000000000000c   x6 = 0x000000010ac0c580   x7 = 0x0000000000000002
+    x8 = 0x0000000117a466f6   x9 = 0x000000011235ac48  x10 = 0x000000000000002d  x11 = 0xfffffffffffffff9
+   x12 = 0x000000010a280c28  x13 = 0x0000000000000080  x14 = 0x0000000000000000  x15 = 0x0000000000000010
+   x16 = 0x00000001937e0d5c  x17 = 0x00000001935cea08  x18 = 0x0000000000000000  x19 = 0x000000011defc6f8
+   x20 = 0x000000016bcae860  x21 = 0x000000011da75000  x22 = 0x0000000000000001  x23 = 0x000000016bcd1320
+   x24 = 0x000000011dbfc0f0  x25 = 0x0000000000000014  x26 = 0x000000016b518120  x27 = 0x0000000000000005
+   x28 = 0x000000016bcaed10
+```
+
+### 5.2 Symbolicated Activation Frames (Stack Exhaustion Trajectory)
+| Frame | Binary / Image | Demangled Symbol | Offset |
+|---|---|---|---|
+| `#0` | `librustc_driver-22cdaff06538ddcd.dylib` | `<&rustc_middle::ty::list::RawList<(), rustc_middle::ty::generic_args::GenericArg> as rustc_type_ir::fold::TypeFoldable<rustc_middle::ty::context::TyCtxt>>::fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+4` |
+| `#1` | `librustc_driver-22cdaff06538ddcd.dylib` | `<rustc_middle::ty::Ty as rustc_type_ir::fold::TypeSuperFoldable<rustc_middle::ty::context::TyCtxt>>::super_fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+268` |
+| `#2` | `librustc_driver-22cdaff06538ddcd.dylib` | `<&rustc_middle::ty::list::RawList<(), rustc_middle::ty::generic_args::GenericArg> as rustc_type_ir::fold::TypeFoldable<rustc_middle::ty::context::TyCtxt>>::fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+440` |
+| `#3` | `librustc_driver-22cdaff06538ddcd.dylib` | `<rustc_middle::ty::Ty as rustc_type_ir::fold::TypeSuperFoldable<rustc_middle::ty::context::TyCtxt>>::super_fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+268` |
+| `#4` | `librustc_driver-22cdaff06538ddcd.dylib` | `<&rustc_middle::ty::list::RawList<(), rustc_middle::ty::generic_args::GenericArg> as rustc_type_ir::fold::TypeFoldable<rustc_middle::ty::context::TyCtxt>>::fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+440` |
+| `#5` | `librustc_driver-22cdaff06538ddcd.dylib` | `<rustc_middle::ty::Ty as rustc_type_ir::fold::TypeSuperFoldable<rustc_middle::ty::context::TyCtxt>>::super_fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+268` |
+| `#6` | `librustc_driver-22cdaff06538ddcd.dylib` | `<&rustc_middle::ty::list::RawList<(), rustc_middle::ty::generic_args::GenericArg> as rustc_type_ir::fold::TypeFoldable<rustc_middle::ty::context::TyCtxt>>::fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+440` |
+| `#7` | `librustc_driver-22cdaff06538ddcd.dylib` | `<rustc_middle::ty::Ty as rustc_type_ir::fold::TypeSuperFoldable<rustc_middle::ty::context::TyCtxt>>::super_fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+268` |
+| `#8` | `librustc_driver-22cdaff06538ddcd.dylib` | `<&rustc_middle::ty::list::RawList<(), rustc_middle::ty::generic_args::GenericArg> as rustc_type_ir::fold::TypeFoldable<rustc_middle::ty::context::TyCtxt>>::fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+440` |
+| `#9` | `librustc_driver-22cdaff06538ddcd.dylib` | `<rustc_middle::ty::Ty as rustc_type_ir::fold::TypeSuperFoldable<rustc_middle::ty::context::TyCtxt>>::super_fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+268` |
+| `#10` | `librustc_driver-22cdaff06538ddcd.dylib` | `<&rustc_middle::ty::list::RawList<(), rustc_middle::ty::generic_args::GenericArg> as rustc_type_ir::fold::TypeFoldable<rustc_middle::ty::context::TyCtxt>>::fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+440` |
+| `#11` | `librustc_driver-22cdaff06538ddcd.dylib` | `<rustc_middle::ty::Ty as rustc_type_ir::fold::TypeSuperFoldable<rustc_middle::ty::context::TyCtxt>>::super_fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>` | `+268` |
+| `#12` | `librustc_driver-22cdaff06538ddcd.dylib` | `<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_path_segment` | `+992` |
+| `#13` | `librustc_driver-22cdaff06538ddcd.dylib` | `<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_ty` | `+1616` |
+| `#14` | `librustc_driver-22cdaff06538ddcd.dylib` | `<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path::{closure#0}` | `+2624` |
+| `#15` | `librustc_driver-22cdaff06538ddcd.dylib` | `<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_path_segment` | `+104` |
+| `#16` | `librustc_driver-22cdaff06538ddcd.dylib` | `<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_ty` | `+1616` |
+| `#17` | `librustc_driver-22cdaff06538ddcd.dylib` | `<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_ty` | `+1588` |
+| `#18` | `librustc_driver-22cdaff06538ddcd.dylib` | `rustc_hir_analysis::collect::type_of::type_of` | `+2176` |
+| `#19` | `librustc_driver-22cdaff06538ddcd.dylib` | `rustc_query_impl::query_impl::type_of::invoke_provider_fn::__rust_begin_short_backtrace` | `+36` |
+| `#20` | `librustc_driver-22cdaff06538ddcd.dylib` | `rustc_query_impl::execution::try_execute_query::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>, false>` | `+1556` |
+| `#21` | `librustc_driver-22cdaff06538ddcd.dylib` | `rustc_query_impl::query_impl::type_of::execute_query_non_incr::__rust_end_short_backtrace` | `+220` |
+| `#22` | `librustc_driver-22cdaff06538ddcd.dylib` | `rustc_hir_analysis::check::check::check_item_type` | `+9308` |
+| `#23` | `librustc_driver-22cdaff06538ddcd.dylib` | `rustc_hir_analysis::check::wfcheck::check_well_formed` | `+64` |
+| `#24` | `librustc_driver-22cdaff06538ddcd.dylib` | `rustc_query_impl::query_impl::check_well_formed::invoke_provider_fn::__rust_begin_short_backtrace` | `+20` |
+
+## 6. Suggested Remediation / Compiler Patch
 
 1. **Stacker Probing in Trait Projection:**  
    Introduce a stack probe check in `rustc_trait_selection::traits::project`:
