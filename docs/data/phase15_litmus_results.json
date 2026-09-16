@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "experiment": "Phase 15: Apple Silicon Weak Memory Litmus Tests",
+    "cpu": "Apple M2",
+    "architecture": "ARMv8.5-A native weakly ordered memory"
+  },
+  "results": [
+    {
+      "test": "Store Buffering (SB)",
+      "mode": "RELAXED",
+      "iterations": 500000,
+      "sc_violations": 14,
+      "violation_rate_pct": 0.002800,
+      "elapsed_ms": 79.95
+    },
+    {
+      "test": "Store Buffering (SB)",
+      "mode": "FENCED",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 127.92
+    },
+    {
+      "test": "Store Buffering (SB)",
+      "mode": "ACQ_REL",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 86.16
+    },
+    {
+      "test": "Message Passing (MP)",
+      "mode": "RELAXED",
+      "iterations": 500000,
+      "sc_violations": 399,
+      "violation_rate_pct": 0.079800,
+      "elapsed_ms": 57.50
+    },
+    {
+      "test": "Message Passing (MP)",
+      "mode": "FENCED",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 95.40
+    },
+    {
+      "test": "Message Passing (MP)",
+      "mode": "ACQ_REL",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 78.07
+    }
+  ]
+}

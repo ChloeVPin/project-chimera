@@ -1,0 +1,115 @@
+{
+  "typescript_quaternary_freeze": [
+    {
+      "depth": 5,
+      "branching_factor": 4,
+      "leaves": 1024,
+      "instantiations": 63178,
+      "heap_mb": 81.8056640625,
+      "check_time_s": 0.143,
+      "wall_ms": 645.4930305480957,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 6,
+      "branching_factor": 4,
+      "leaves": 4096,
+      "instantiations": 155338,
+      "heap_mb": 137.990234375,
+      "check_time_s": 0.184,
+      "wall_ms": 468.14632415771484,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 7,
+      "branching_factor": 4,
+      "leaves": 16384,
+      "instantiations": 540362,
+      "heap_mb": 365.09765625,
+      "check_time_s": 0.634,
+      "wall_ms": 982.8400611877441,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 8,
+      "branching_factor": 4,
+      "leaves": 65536,
+      "instantiations": 2145994,
+      "heap_mb": 1286.0625,
+      "check_time_s": 3.017,
+      "wall_ms": 4033.7889194488525,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 9,
+      "branching_factor": 4,
+      "leaves": 262144,
+      "instantiations": 5034483,
+      "heap_mb": 2840.1767578125,
+      "check_time_s": 13.565,
+      "wall_ms": 22232.19609260559,
+      "exit_code": 1,
+      "success": false
+    }
+  ],
+  "rust_exponential_projection_freeze": [
+    {
+      "depth": 14,
+      "branching_factor": 2,
+      "nodes": 16384,
+      "wall_ms": 806.1587810516357,
+      "wall_s": 0.8061587810516357,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 16,
+      "branching_factor": 2,
+      "nodes": 65536,
+      "wall_ms": 221.16589546203613,
+      "wall_s": 0.22116589546203613,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 18,
+      "branching_factor": 2,
+      "nodes": 262144,
+      "wall_ms": 691.2190914154053,
+      "wall_s": 0.6912190914154053,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 20,
+      "branching_factor": 2,
+      "nodes": 1048576,
+      "wall_ms": 2590.345859527588,
+      "wall_s": 2.590345859527588,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 22,
+      "branching_factor": 2,
+      "nodes": 4194304,
+      "wall_ms": 12865.13090133667,
+      "wall_s": 12.86513090133667,
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "depth": 23,
+      "branching_factor": 2,
+      "nodes": 8388608,
+      "wall_ms": 30392.927885055542,
+      "wall_s": 30.392927885055542,
+      "exit_code": 0,
+      "success": true
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "metadata": {
+    "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "standard": "C++20",
+    "model": "Rule 110 Cellular Automaton via Template Metaprogramming",
+    "default_template_depth": 1024
+  },
+  "default_limit_sweep": [
+    {
+      "steps": 1,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 54.42,
+      "real_time_s": 0.05,
+      "max_rss_mb": 27.45,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 10,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 29.57,
+      "real_time_s": 0.02,
+      "max_rss_mb": 27.98,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 50,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 30.36,
+      "real_time_s": 0.02,
+      "max_rss_mb": 28.12,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 100,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 28.7,
+      "real_time_s": 0.02,
+      "max_rss_mb": 28.66,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 250,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 29.09,
+      "real_time_s": 0.02,
+      "max_rss_mb": 29.78,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 500,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 32.01,
+      "real_time_s": 0.02,
+      "max_rss_mb": 31.8,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 750,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 33.91,
+      "real_time_s": 0.03,
+      "max_rss_mb": 33.94,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 1000,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 37.34,
+      "real_time_s": 0.03,
+      "max_rss_mb": 35.42,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 1020,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 36.96,
+      "real_time_s": 0.03,
+      "max_rss_mb": 35.58,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 1023,
+      "template_depth": 1024,
+      "success": true,
+      "wall_time_ms": 39.52,
+      "real_time_s": 0.03,
+      "max_rss_mb": 35.78,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 1024,
+      "template_depth": 1024,
+      "success": false,
+      "wall_time_ms": 33.19,
+      "real_time_s": 0.03,
+      "max_rss_mb": 35.88,
+      "depth_exceeded": true
+    },
+    {
+      "steps": 1025,
+      "template_depth": 1024,
+      "success": false,
+      "wall_time_ms": 32.18,
+      "real_time_s": 0.03,
+      "max_rss_mb": 35.78,
+      "depth_exceeded": true
+    }
+  ],
+  "extended_limit_sweep": [
+    {
+      "steps": 100,
+      "template_depth": 30000,
+      "success": true,
+      "wall_time_ms": 28.98,
+      "real_time_s": 0.02,
+      "max_rss_mb": 28.59,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 500,
+      "template_depth": 30000,
+      "success": true,
+      "wall_time_ms": 30.98,
+      "real_time_s": 0.02,
+      "max_rss_mb": 31.84,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 1000,
+      "template_depth": 30000,
+      "success": true,
+      "wall_time_ms": 36.67,
+      "real_time_s": 0.03,
+      "max_rss_mb": 35.61,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 2000,
+      "template_depth": 30000,
+      "success": true,
+      "wall_time_ms": 58.12,
+      "real_time_s": 0.05,
+      "max_rss_mb": 42.45,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 3000,
+      "template_depth": 30000,
+      "success": true,
+      "wall_time_ms": 82.22,
+      "real_time_s": 0.07,
+      "max_rss_mb": 50.81,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 5000,
+      "template_depth": 30000,
+      "success": true,
+      "wall_time_ms": 159.16,
+      "real_time_s": 0.15,
+      "max_rss_mb": 66.39,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 7500,
+      "template_depth": 30000,
+      "success": true,
+      "wall_time_ms": 313.53,
+      "real_time_s": 0.31,
+      "max_rss_mb": 82.38,
+      "depth_exceeded": false
+    },
+    {
+      "steps": 10000,
+      "template_depth": 30000,
+      "success": true,
+      "wall_time_ms": 481.95,
+      "real_time_s": 0.47,
+      "max_rss_mb": 104.8,
+      "depth_exceeded": false
+    }
+  ],
+  "triad_comparison": [
+    {
+      "steps": 100,
+      "typescript_ms": 151.0,
+      "typescript_status": "PASS",
+      "rust_ms": 35.2,
+      "rust_status": "PASS",
+      "cpp_ms": 28.7,
+      "cpp_status": "PASS"
+    },
+    {
+      "steps": 500,
+      "typescript_ms": 279.0,
+      "typescript_status": "PASS",
+      "rust_ms": 94.3,
+      "rust_status": "PASS",
+      "cpp_ms": 32.01,
+      "cpp_status": "PASS"
+    },
+    {
+      "steps": 1000,
+      "typescript_ms": 620.0,
+      "typescript_status": "FAIL (TS2589: 999 Fuel Fuse)",
+      "rust_ms": 266.0,
+      "rust_status": "PASS",
+      "cpp_ms": 37.34,
+      "cpp_status": "PASS"
+    },
+    {
+      "steps": 1024,
+      "typescript_ms": null,
+      "typescript_status": "FAIL (TS2589)",
+      "rust_ms": 275.0,
+      "rust_status": "PASS",
+      "cpp_ms": 33.19,
+      "cpp_status": "FAIL (Exceeded max depth 1024)"
+    },
+    {
+      "steps": 10000,
+      "typescript_ms": 185.0,
+      "typescript_status": "FAIL linear / PASS trampolined",
+      "rust_ms": 4820.0,
+      "rust_status": "PASS",
+      "cpp_ms": 481.95,
+      "cpp_status": "PASS"
+    }
+  ]
+}

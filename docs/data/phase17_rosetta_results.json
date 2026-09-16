@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "experiment": "Phase 17: Rosetta 2 Hardware TSO Verification",
+    "cpu": "Apple M2",
+    "architecture": "x86_64 translated via Rosetta 2 (Apple ACTLR_EL1 Hardware TSO Mode)"
+  },
+  "results": [
+    {
+      "test": "Store Buffering (SB)",
+      "mode": "RELAXED",
+      "iterations": 500000,
+      "sc_violations": 1187,
+      "violation_rate_pct": 0.237400,
+      "elapsed_ms": 53.89
+    },
+    {
+      "test": "Store Buffering (SB)",
+      "mode": "FENCED",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 72.98
+    },
+    {
+      "test": "Store Buffering (SB)",
+      "mode": "ACQ_REL",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 78.16
+    },
+    {
+      "test": "Message Passing (MP)",
+      "mode": "RELAXED",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 55.72
+    },
+    {
+      "test": "Message Passing (MP)",
+      "mode": "FENCED",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 69.52
+    },
+    {
+      "test": "Message Passing (MP)",
+      "mode": "ACQ_REL",
+      "iterations": 500000,
+      "sc_violations": 0,
+      "violation_rate_pct": 0.000000,
+      "elapsed_ms": 55.42
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "experiment": "Phase 16: Apple Silicon Asymmetric Core Scheduling & Mach IPC",
+    "cpu": "Apple M2 (ARM64)",
+    "topology": "4 Avalanche P-Cores + 4 Blizzard E-Cores",
+    "ipc_mechanism": "XNU Native Mach Message Trap (mach_msg)"
+  },
+  "configs": [
+    {
+      "config_name": "P-Core <-> P-Core",
+      "description": "Intra-cluster Performance Core messaging (Avalanche <-> Avalanche)",
+      "rounds": 50000,
+      "min_ns": 2291.7,
+      "mean_ns": 3178.5,
+      "median_ns": 2583.3,
+      "p99_ns": 9250.0,
+      "max_ns": 51666.7,
+      "jitter_stddev_ns": 1448.5,
+      "msgs_per_sec": 625147
+    },
+    {
+      "config_name": "E-Core <-> E-Core",
+      "description": "Intra-cluster Efficiency Core messaging (Blizzard <-> Blizzard)",
+      "rounds": 50000,
+      "min_ns": 5125.0,
+      "mean_ns": 18233.6,
+      "median_ns": 17958.3,
+      "p99_ns": 38000.0,
+      "max_ns": 1752750.0,
+      "jitter_stddev_ns": 13288.1,
+      "msgs_per_sec": 109355
+    },
+    {
+      "config_name": "P-Core <-> E-Core",
+      "description": "Inter-cluster Asymmetric messaging (Avalanche <-> Blizzard)",
+      "rounds": 50000,
+      "min_ns": 5166.7,
+      "mean_ns": 31148.2,
+      "median_ns": 33291.7,
+      "p99_ns": 44375.0,
+      "max_ns": 1583375.0,
+      "jitter_stddev_ns": 16180.7,
+      "msgs_per_sec": 64139
+    }
+  ]
+}

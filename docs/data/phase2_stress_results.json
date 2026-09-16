@@ -1,0 +1,456 @@
+{
+  "exp2A_binaryTree": [
+    {
+      "name": "exp2a_tree_d1",
+      "parameters": {
+        "depth": 1,
+        "leaves": 2
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.126,
+      "totalTimeSec": 0.165,
+      "parseTimeSec": 0.027,
+      "bindTimeSec": 0.007,
+      "compilerMemoryUsedKB": 65037,
+      "compilerMemoryAllocs": 277774,
+      "typeCount": 35376,
+      "instantiationCount": 34308,
+      "symbolCount": 60076,
+      "identifierCount": 49736,
+      "wallClockMs": 439
+    },
+    {
+      "name": "exp2a_tree_d2",
+      "parameters": {
+        "depth": 2,
+        "leaves": 4
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.189,
+      "totalTimeSec": 0.229,
+      "parseTimeSec": 0.028,
+      "bindTimeSec": 0.007,
+      "compilerMemoryUsedKB": 65030,
+      "compilerMemoryAllocs": 277968,
+      "typeCount": 35393,
+      "instantiationCount": 34388,
+      "symbolCount": 60244,
+      "identifierCount": 49736,
+      "wallClockMs": 489
+    },
+    {
+      "name": "exp2a_tree_d4",
+      "parameters": {
+        "depth": 4,
+        "leaves": 16
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.144,
+      "totalTimeSec": 0.167,
+      "parseTimeSec": 0.016,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 65385,
+      "compilerMemoryAllocs": 279514,
+      "typeCount": 35484,
+      "instantiationCount": 34908,
+      "symbolCount": 61301,
+      "identifierCount": 49736,
+      "wallClockMs": 424
+    },
+    {
+      "name": "exp2a_tree_d6",
+      "parameters": {
+        "depth": 6,
+        "leaves": 64
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.126,
+      "totalTimeSec": 0.148,
+      "parseTimeSec": 0.016,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 66674,
+      "compilerMemoryAllocs": 285847,
+      "typeCount": 35795,
+      "instantiationCount": 37180,
+      "symbolCount": 65698,
+      "identifierCount": 49736,
+      "wallClockMs": 410
+    },
+    {
+      "name": "exp2a_tree_d8",
+      "parameters": {
+        "depth": 8,
+        "leaves": 256
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.135,
+      "totalTimeSec": 0.158,
+      "parseTimeSec": 0.017,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 71985,
+      "compilerMemoryAllocs": 310658,
+      "typeCount": 36974,
+      "instantiationCount": 47036,
+      "symbolCount": 84019,
+      "identifierCount": 49736,
+      "wallClockMs": 397
+    },
+    {
+      "name": "exp2a_tree_d10",
+      "parameters": {
+        "depth": 10,
+        "leaves": 1024
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.205,
+      "totalTimeSec": 0.233,
+      "parseTimeSec": 0.018,
+      "bindTimeSec": 0.009,
+      "compilerMemoryUsedKB": 94023,
+      "compilerMemoryAllocs": 415439,
+      "typeCount": 41613,
+      "instantiationCount": 89532,
+      "symbolCount": 160328,
+      "identifierCount": 49736,
+      "wallClockMs": 494
+    },
+    {
+      "name": "exp2a_tree_d12",
+      "parameters": {
+        "depth": 12,
+        "leaves": 4096
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.266,
+      "totalTimeSec": 0.289,
+      "parseTimeSec": 0.017,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 184494,
+      "compilerMemoryAllocs": 834305,
+      "typeCount": 60080,
+      "instantiationCount": 271804,
+      "symbolCount": 477793,
+      "identifierCount": 49736,
+      "wallClockMs": 567
+    },
+    {
+      "name": "exp2a_tree_d14",
+      "parameters": {
+        "depth": 14,
+        "leaves": 16384
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 1.171,
+      "totalTimeSec": 1.194,
+      "parseTimeSec": 0.016,
+      "bindTimeSec": 0.005,
+      "compilerMemoryUsedKB": 555868,
+      "compilerMemoryAllocs": 2477319,
+      "typeCount": 133847,
+      "instantiationCount": 1050044,
+      "symbolCount": 1796734,
+      "identifierCount": 49736,
+      "wallClockMs": 1577
+    },
+    {
+      "name": "exp2a_tree_d15",
+      "parameters": {
+        "depth": 15,
+        "leaves": 32768
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 2.401,
+      "totalTimeSec": 2.423,
+      "parseTimeSec": 0.015,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 1063656,
+      "compilerMemoryAllocs": 4647658,
+      "typeCount": 232172,
+      "instantiationCount": 2131388,
+      "symbolCount": 3598990,
+      "identifierCount": 49736,
+      "wallClockMs": 3025
+    },
+    {
+      "name": "exp2a_tree_d16",
+      "parameters": {
+        "depth": 16,
+        "leaves": 65536
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 6.502,
+      "totalTimeSec": 6.524,
+      "parseTimeSec": 0.016,
+      "bindTimeSec": 0.005,
+      "compilerMemoryUsedKB": 2214585,
+      "compilerMemoryAllocs": 9123400,
+      "typeCount": 428802,
+      "instantiationCount": 4359612,
+      "symbolCount": 7269023,
+      "identifierCount": 49736,
+      "wallClockMs": 8774
+    },
+    {
+      "name": "exp2a_tree_d17",
+      "parameters": {
+        "depth": 17,
+        "leaves": 131072
+      },
+      "success": false,
+      "exitCode": 1,
+      "tsErrors": [
+        "TS2589"
+      ],
+      "checkTimeSec": 8.354,
+      "totalTimeSec": 8.379,
+      "parseTimeSec": 0.018,
+      "bindTimeSec": 0.005,
+      "compilerMemoryUsedKB": 2647316,
+      "compilerMemoryAllocs": 10572119,
+      "typeCount": 476832,
+      "instantiationCount": 5034645,
+      "symbolCount": 8296333,
+      "identifierCount": 49736,
+      "wallClockMs": 11916
+    }
+  ],
+  "exp2B_cartesianUnion": [
+    {
+      "name": "exp2b_cartesian_50",
+      "parameters": {
+        "size": 50,
+        "totalPairs": 2500
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.123,
+      "totalTimeSec": 0.147,
+      "parseTimeSec": 0.017,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 65638,
+      "compilerMemoryAllocs": 288358,
+      "typeCount": 38085,
+      "instantiationCount": 44332,
+      "symbolCount": 59777,
+      "identifierCount": 49732,
+      "wallClockMs": 558
+    },
+    {
+      "name": "exp2b_cartesian_100",
+      "parameters": {
+        "size": 100,
+        "totalPairs": 10000
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.137,
+      "totalTimeSec": 0.162,
+      "parseTimeSec": 0.017,
+      "bindTimeSec": 0.004,
+      "compilerMemoryUsedKB": 67954,
+      "compilerMemoryAllocs": 319323,
+      "typeCount": 45835,
+      "instantiationCount": 74432,
+      "symbolCount": 59777,
+      "identifierCount": 49732,
+      "wallClockMs": 442
+    },
+    {
+      "name": "exp2b_cartesian_200",
+      "parameters": {
+        "size": 200,
+        "totalPairs": 40000
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.144,
+      "totalTimeSec": 0.165,
+      "parseTimeSec": 0.015,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 76942,
+      "compilerMemoryAllocs": 441560,
+      "typeCount": 76335,
+      "instantiationCount": 194632,
+      "symbolCount": 59777,
+      "identifierCount": 49732,
+      "wallClockMs": 399
+    },
+    {
+      "name": "exp2b_cartesian_400",
+      "parameters": {
+        "size": 400,
+        "totalPairs": 160000
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.222,
+      "totalTimeSec": 0.245,
+      "parseTimeSec": 0.016,
+      "bindTimeSec": 0.005,
+      "compilerMemoryUsedKB": 112475,
+      "compilerMemoryAllocs": 926554,
+      "typeCount": 197335,
+      "instantiationCount": 675032,
+      "symbolCount": 59777,
+      "identifierCount": 49732,
+      "wallClockMs": 495
+    },
+    {
+      "name": "exp2b_cartesian_600",
+      "parameters": {
+        "size": 600,
+        "totalPairs": 360000
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.491,
+      "totalTimeSec": 0.512,
+      "parseTimeSec": 0.015,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 169419,
+      "compilerMemoryAllocs": 1731592,
+      "typeCount": 398335,
+      "instantiationCount": 1475432,
+      "symbolCount": 59777,
+      "identifierCount": 49732,
+      "wallClockMs": 777
+    },
+    {
+      "name": "exp2b_cartesian_800",
+      "parameters": {
+        "size": 800,
+        "totalPairs": 640000
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 1.179,
+      "totalTimeSec": 1.216,
+      "parseTimeSec": 0.021,
+      "bindTimeSec": 0.01,
+      "compilerMemoryUsedKB": 253582,
+      "compilerMemoryAllocs": 2858448,
+      "typeCount": 679335,
+      "instantiationCount": 2595832,
+      "symbolCount": 59777,
+      "identifierCount": 49732,
+      "wallClockMs": 1545
+    },
+    {
+      "name": "exp2b_cartesian_1000",
+      "parameters": {
+        "size": 1000,
+        "totalPairs": 1000000
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 1.46,
+      "totalTimeSec": 1.483,
+      "parseTimeSec": 0.016,
+      "bindTimeSec": 0.004,
+      "compilerMemoryUsedKB": 371921,
+      "compilerMemoryAllocs": 4306746,
+      "typeCount": 1040335,
+      "instantiationCount": 4036232,
+      "symbolCount": 59777,
+      "identifierCount": 49732,
+      "wallClockMs": 1777
+    },
+    {
+      "name": "exp2b_cartesian_1200",
+      "parameters": {
+        "size": 1200,
+        "totalPairs": 1440000
+      },
+      "success": false,
+      "exitCode": 1,
+      "tsErrors": [
+        "TS2589"
+      ],
+      "checkTimeSec": 1.871,
+      "totalTimeSec": 1.892,
+      "parseTimeSec": 0.015,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 423808,
+      "compilerMemoryAllocs": 5310813,
+      "typeCount": 1290654,
+      "instantiationCount": 5034231,
+      "symbolCount": 59777,
+      "identifierCount": 49732,
+      "wallClockMs": 2201
+    }
+  ],
+  "exp2C_cycleDetection": [
+    {
+      "name": "exp2c_direct_cycle",
+      "parameters": {
+        "mode": "direct_unconditional"
+      },
+      "success": false,
+      "exitCode": 1,
+      "tsErrors": [
+        "TS2456",
+        "TS2315"
+      ],
+      "checkTimeSec": 0.121,
+      "totalTimeSec": 0.142,
+      "parseTimeSec": 0.015,
+      "bindTimeSec": 0.005,
+      "compilerMemoryUsedKB": 64877,
+      "compilerMemoryAllocs": 277544,
+      "typeCount": 35329,
+      "instantiationCount": 34231,
+      "symbolCount": 59774,
+      "identifierCount": 49725,
+      "wallClockMs": 380
+    },
+    {
+      "name": "exp2c_deferred_cycle",
+      "parameters": {
+        "mode": "deferred_conditional"
+      },
+      "success": false,
+      "exitCode": 1,
+      "tsErrors": [
+        "TS2589"
+      ],
+      "checkTimeSec": 0.12,
+      "totalTimeSec": 0.141,
+      "parseTimeSec": 0.015,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 64845,
+      "compilerMemoryAllocs": 277920,
+      "typeCount": 35330,
+      "instantiationCount": 34432,
+      "symbolCount": 59774,
+      "identifierCount": 49726,
+      "wallClockMs": 361
+    }
+  ]
+}
