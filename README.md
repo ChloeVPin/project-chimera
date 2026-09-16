@@ -23,8 +23,8 @@
   - 📐 **Montgomery Proof:** [`riemann/spectral_analysis.py`](riemann/spectral_analysis.py) *(GUE $N=1000$ random matrix simulation & $\Delta_3(L)$ spectral rigidity)*
   - 📊 **Datasets:** [`data/riemann_5000_zeros.json`](data/riemann_5000_zeros.json) & [`data/riemann_gue_statistical_proof.json`](data/riemann_gue_statistical_proof.json)
 - 🐛 **Upstream Bug Reports:**
-  - [`reports/rustc_sigbus_issue.md`](reports/rustc_sigbus_issue.md) --- `rustc 1.97.0` SIGBUS (Signal 10) on deep nominal trait projection
-  - [`reports/clang_sigill_issue.md`](reports/clang_sigill_issue.md) --- `Apple Clang 21.0.0` SIGILL (Signal 4) parser recursion limit trap
+  - [`reports/rustc_sigbus_issue.md`](reports/rustc_sigbus_issue.md) --- `rustc 1.97.0` SIGBUS (Signal 10) on deep nominal trait projection (Live Issue: [rust-lang/rust#162863](https://github.com/rust-lang/rust/issues/162863))
+  - [`reports/clang_sigill_issue.md`](reports/clang_sigill_issue.md) --- `Clang` parser SIGSEGV/SIGILL on deep template arguments (Live Issue: [llvm/llvm-project#224114](https://github.com/llvm/llvm-project/issues/224114))
 - 📜 **Full Living Monograph:** [`RESEARCH_JOURNAL.md`](RESEARCH_JOURNAL.md) *(Exhaustive theoretical and empirical record of all 19 phases + Project Riemann Act I)*
 
 ---
