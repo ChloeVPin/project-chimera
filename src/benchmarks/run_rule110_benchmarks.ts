@@ -12,17 +12,17 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { CompilerHarness, BenchmarkMetrics } from './harness';
 
-function generateRandomTape(width: number): number[] {
+function generateRandomTape(width: number): (0 | 1)[] {
   // Deterministic pseudo-random tape using LCG for absolute reproducibility
-  const tape: number[] = [];
+  const tape: (0 | 1)[] = [];
   let seed = 42;
   for (let i = 0; i < width; i++) {
     seed = (seed * 1664525 + 1013904223) % 4294967296;
-    tape.push((seed >>> 16) & 1);
+    tape.push(((seed >>> 16) & 1) as 0 | 1);
   }
   // Ensure at least one 1 to avoid trivial null dynamics
-  if (tape.every(x => x === 0)) {
-    tape[Math.floor(width / 2)] = 1;
+  if (!tape.includes(1)) {
+    (tape as (0 | 1)[])[Math.floor(width / 2)] = 1;
   }
   return tape;
 }

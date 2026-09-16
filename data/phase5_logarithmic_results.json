@@ -1,0 +1,180 @@
+{
+  "logarithmic_horizons": [
+    {
+      "name": "exp5_s1024",
+      "parameters": {
+        "steps": 1024,
+        "chunks": 2,
+        "exponent": 10
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.188,
+      "totalTimeSec": 0.218,
+      "parseTimeSec": 0.022,
+      "bindTimeSec": 0.007,
+      "compilerMemoryUsedKB": 157158,
+      "compilerMemoryAllocs": 568648,
+      "typeCount": 170918,
+      "instantiationCount": 180059,
+      "symbolCount": 348020,
+      "identifierCount": 50043,
+      "wallClockMs": 548
+    },
+    {
+      "name": "exp5_s2048",
+      "parameters": {
+        "steps": 2048,
+        "chunks": 4,
+        "exponent": 11
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.22,
+      "totalTimeSec": 0.244,
+      "parseTimeSec": 0.017,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 157171,
+      "compilerMemoryAllocs": 568659,
+      "typeCount": 170918,
+      "instantiationCount": 180079,
+      "symbolCount": 348020,
+      "identifierCount": 50043,
+      "wallClockMs": 525
+    },
+    {
+      "name": "exp5_s4096",
+      "parameters": {
+        "steps": 4096,
+        "chunks": 8,
+        "exponent": 12
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.522,
+      "totalTimeSec": 0.552,
+      "parseTimeSec": 0.021,
+      "bindTimeSec": 0.008,
+      "compilerMemoryUsedKB": 157159,
+      "compilerMemoryAllocs": 568734,
+      "typeCount": 170918,
+      "instantiationCount": 180119,
+      "symbolCount": 348020,
+      "identifierCount": 50043,
+      "wallClockMs": 822
+    },
+    {
+      "name": "exp5_s8192",
+      "parameters": {
+        "steps": 8192,
+        "chunks": 16,
+        "exponent": 13
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.185,
+      "totalTimeSec": 0.211,
+      "parseTimeSec": 0.017,
+      "bindTimeSec": 0.005,
+      "compilerMemoryUsedKB": 157164,
+      "compilerMemoryAllocs": 568946,
+      "typeCount": 170918,
+      "instantiationCount": 180199,
+      "symbolCount": 348020,
+      "identifierCount": 50043,
+      "wallClockMs": 466
+    },
+    {
+      "name": "exp5_s16384",
+      "parameters": {
+        "steps": 16384,
+        "chunks": 32,
+        "exponent": 14
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.153,
+      "totalTimeSec": 0.175,
+      "parseTimeSec": 0.015,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 157110,
+      "compilerMemoryAllocs": 569409,
+      "typeCount": 170919,
+      "instantiationCount": 180359,
+      "symbolCount": 348020,
+      "identifierCount": 50043,
+      "wallClockMs": 448
+    },
+    {
+      "name": "exp5_s32768",
+      "parameters": {
+        "steps": 32768,
+        "chunks": 64,
+        "exponent": 15
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.168,
+      "totalTimeSec": 0.192,
+      "parseTimeSec": 0.017,
+      "bindTimeSec": 0.006,
+      "compilerMemoryUsedKB": 157213,
+      "compilerMemoryAllocs": 570468,
+      "typeCount": 170919,
+      "instantiationCount": 180679,
+      "symbolCount": 348020,
+      "identifierCount": 50043,
+      "wallClockMs": 450
+    },
+    {
+      "name": "exp5_s65536",
+      "parameters": {
+        "steps": 65536,
+        "chunks": 128,
+        "exponent": 16
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.188,
+      "totalTimeSec": 0.216,
+      "parseTimeSec": 0.018,
+      "bindTimeSec": 0.01,
+      "compilerMemoryUsedKB": 157168,
+      "compilerMemoryAllocs": 572512,
+      "typeCount": 170919,
+      "instantiationCount": 181319,
+      "symbolCount": 348020,
+      "identifierCount": 50043,
+      "wallClockMs": 499
+    },
+    {
+      "name": "exp5_s131072",
+      "parameters": {
+        "steps": 131072,
+        "chunks": 256,
+        "exponent": 17
+      },
+      "success": true,
+      "exitCode": 0,
+      "tsErrors": [],
+      "checkTimeSec": 0.214,
+      "totalTimeSec": 0.245,
+      "parseTimeSec": 0.024,
+      "bindTimeSec": 0.005,
+      "compilerMemoryUsedKB": 157138,
+      "compilerMemoryAllocs": 576961,
+      "typeCount": 170919,
+      "instantiationCount": 182599,
+      "symbolCount": 348020,
+      "identifierCount": 50043,
+      "wallClockMs": 542
+    }
+  ]
+}
