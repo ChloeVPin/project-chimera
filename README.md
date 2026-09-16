@@ -16,9 +16,10 @@
 
 ## 📑 Quick Navigation & Core Deliverables
 
+- 🌐 **Live Web Visualizer:** [https://chloevpin.github.io/project-chimera/](https://chloevpin.github.io/project-chimera/) *(Interactive dashboard & quantum chaos sonification)*
 - 📄 **Formal Monograph (PDF):** [`paper/project_chimera_monograph.pdf`](paper/project_chimera_monograph.pdf) *(7-page IEEE Transactions double-column monograph)*
 - 🌌 **Project Riemann (Act I):**
-  - 🔬 **Interactive Visualizer:** [`visualizer/riemann.html`](visualizer/riemann.html) *(Quantum Chaos dashboard, energy tape, real-time $R_2(x)$, and Web Audio sonification)*
+  - 🔬 **Interactive Visualizer:** [Live Demo](https://chloevpin.github.io/project-chimera/riemann.html) / [`visualizer/riemann.html`](visualizer/riemann.html) *(Quantum Chaos dashboard, energy tape, real-time $R_2(x)$, and Web Audio sonification)*
   - ⚡ **Accelerated Hunter:** [`riemann/accelerated_hunter.py`](riemann/accelerated_hunter.py) *(Vectorized 5,000 zeros at $t \ge 100,000$ at $1,666\text{ zeros/s}$)*
   - 📐 **Montgomery Proof:** [`riemann/spectral_analysis.py`](riemann/spectral_analysis.py) *(GUE $N=1000$ random matrix simulation & $\Delta_3(L)$ spectral rigidity)*
   - 📊 **Datasets:** [`data/riemann_5000_zeros.json`](data/riemann_5000_zeros.json) & [`data/riemann_gue_statistical_proof.json`](data/riemann_gue_statistical_proof.json)
