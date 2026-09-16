@@ -1,3 +1,7 @@
 node_modules/
 .chimera_bench/
+.chimera_bench_p2/
+rust_chimera/target/
+.temp_bench_rust*
 *.log
+
