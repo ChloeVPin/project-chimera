@@ -4,4 +4,7 @@ node_modules/
 rust_chimera/target/
 .temp_bench_rust*
 *.log
+*.rlib
+__pycache__/
+
 

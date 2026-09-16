@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "experiment": "Phase 13: Project Hydra Compiler Fuzzing & ICE Hunter",
+    "timestamp": "2026-09-15 21:48:44",
+    "targets": [
+      "rustc 1.97.0",
+      "Apple Clang 21.0.0",
+      "TypeScript 7.0.2"
+    ]
+  },
+  "total_tests": 9,
+  "total_crashes": 2,
+  "crashes": [
+    {
+      "target": "rustc",
+      "test_name": "rust_deep_projection_sigbus",
+      "returncode": -10,
+      "signal": 10,
+      "stderr_snippet": "error: rustc interrupted by SIGBUS, printing backtrace\n\n0   librustc_driver-22cdaff06538ddcd.dy 0x000000010e056428 _RNvNtCs3Z9OGp4qESS_17rustc_driver_impl14signal_handler17print_stack_trace + 140\n1   libsystem_platform.dylib            0x00000001937f0144 _sigtramp + 56\n2   librustc_driver-22cdaff06538ddcd.dy 0x000000010eacdc2c _RNvXs_NtCs4scqkk2JIvp_10rustc_lint5earlyINtB4_19EarlyContextAndPassNtB"
+    },
+    {
+      "target": "clang++",
+      "test_name": "clang_deep_template_sigill",
+      "returncode": 1,
+      "signal": 4,
+      "stderr_snippet": "clang++: error: unable to execute command: Illegal instruction: 4\nclang++: error: clang frontend command failed due to signal (use -v to see invocation)\nApple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\nclang++: note: diagnostic msg: \n**************"
+    }
+  ],
+  "runs": [
+    {
+      "target": "rustc",
+      "test_name": "rust_shallow_projection",
+      "returncode": 0,
+      "duration_sec": 0.343,
+      "is_crash": false
+    },
+    {
+      "target": "rustc",
+      "test_name": "rust_mid_projection",
+      "returncode": 0,
+      "duration_sec": 0.04,
+      "is_crash": false
+    },
+    {
+      "target": "rustc",
+      "test_name": "rust_deep_projection_sigbus",
+      "returncode": -10,
+      "duration_sec": 0.093,
+      "is_crash": true
+    },
+    {
+      "target": "clang++",
+      "test_name": "clang_shallow_template",
+      "returncode": 0,
+      "duration_sec": 0.204,
+      "is_crash": false
+    },
+    {
+      "target": "clang++",
+      "test_name": "clang_mid_template",
+      "returncode": 0,
+      "duration_sec": 0.032,
+      "is_crash": false
+    },
+    {
+      "target": "clang++",
+      "test_name": "clang_deep_template_sigill",
+      "returncode": 1,
+      "duration_sec": 0.039,
+      "is_crash": true
+    },
+    {
+      "target": "tsc",
+      "test_name": "ts_quaternary_tree_d7",
+      "returncode": 0,
+      "duration_sec": 0.889,
+      "is_crash": false
+    },
+    {
+      "target": "tsc",
+      "test_name": "ts_quaternary_tree_d9",
+      "returncode": 1,
+      "duration_sec": 9.669,
+      "is_crash": false
+    },
+    {
+      "target": "tsc",
+      "test_name": "ts_cartesian_product_stress",
+      "returncode": 0,
+      "duration_sec": 3.781,
+      "is_crash": false
+    }
+  ]
+}

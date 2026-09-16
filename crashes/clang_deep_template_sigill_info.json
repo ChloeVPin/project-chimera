@@ -1,0 +1,8 @@
+{
+  "target": "clang++",
+  "test_name": "clang_deep_template_sigill",
+  "returncode": 1,
+  "signal": 4,
+  "duration_sec": 0.039,
+  "stderr_snippet": "clang++: error: unable to execute command: Illegal instruction: 4\nclang++: error: clang frontend command failed due to signal (use -v to see invocation)\nApple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\nclang++: note: diagnostic msg: \n**************"
+}

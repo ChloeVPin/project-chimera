@@ -1,0 +1,8 @@
+{
+  "target": "rustc",
+  "test_name": "rust_deep_projection_sigbus",
+  "returncode": -10,
+  "signal": 10,
+  "duration_sec": 0.093,
+  "stderr_snippet": "error: rustc interrupted by SIGBUS, printing backtrace\n\n0   librustc_driver-22cdaff06538ddcd.dy 0x000000010e056428 _RNvNtCs3Z9OGp4qESS_17rustc_driver_impl14signal_handler17print_stack_trace + 140\n1   libsystem_platform.dylib            0x00000001937f0144 _sigtramp + 56\n2   librustc_driver-22cdaff06538ddcd.dy 0x000000010eacdc2c _RNvXs_NtCs4scqkk2JIvp_10rustc_lint5earlyINtB4_19EarlyContextAndPassNtB"
+}

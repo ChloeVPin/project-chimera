@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "experiment": "Phase 12: Type-Level NP-Completeness & 3-SAT Phase Transition",
+    "compiler": "TypeScript 7.0.2",
+    "solver": "Pure Type-Level DPLL Backtracking Decision Engine"
+  },
+  "benchmarks": [
+    {
+      "name": "underconstrained_n3_m3",
+      "description": "Under-constrained (n=3, m=3, ratio=1.0) - Fast SAT",
+      "expected_sat": true,
+      "success": true,
+      "wall_time_ms": 622.74,
+      "checkTimeSec": 0.186,
+      "totalTimeSec": 0.255,
+      "memoryUsedMB": 65.6,
+      "instantiationCount": 35606
+    },
+    {
+      "name": "underconstrained_n4_m8",
+      "description": "Under-constrained (n=4, m=8, ratio=2.0) - SAT",
+      "expected_sat": true,
+      "success": true,
+      "wall_time_ms": 537.74,
+      "checkTimeSec": 0.136,
+      "totalTimeSec": 0.169,
+      "memoryUsedMB": 66.48,
+      "instantiationCount": 36855
+    },
+    {
+      "name": "phase_transition_n3_m13",
+      "description": "Phase Transition Threshold (n=3, m=13, ratio=4.33)",
+      "expected_sat": true,
+      "success": true,
+      "wall_time_ms": 506.28,
+      "checkTimeSec": 0.215,
+      "totalTimeSec": 0.245,
+      "memoryUsedMB": 66.13,
+      "instantiationCount": 36539
+    },
+    {
+      "name": "overconstrained_n3_m8_unsat",
+      "description": "Over-constrained Complete Contradiction (n=3, m=8, all 2^3 minterms excluded)",
+      "expected_sat": false,
+      "success": true,
+      "wall_time_ms": 458.67,
+      "checkTimeSec": 0.148,
+      "totalTimeSec": 0.176,
+      "memoryUsedMB": 66.21,
+      "instantiationCount": 36937
+    },
+    {
+      "name": "php_2_1",
+      "description": "Pigeonhole Principle PHP(2, 1) - 2 Pigeons into 1 Hole (n=2, m=3, UNSAT)",
+      "expected_sat": false,
+      "success": true,
+      "wall_time_ms": 417.55,
+      "checkTimeSec": 0.135,
+      "totalTimeSec": 0.161,
+      "memoryUsedMB": 65.55,
+      "instantiationCount": 35562
+    },
+    {
+      "name": "php_3_2",
+      "description": "Pigeonhole Principle PHP(3, 2) - 3 Pigeons into 2 Holes (n=6, m=9, Exponential Refutation)",
+      "expected_sat": false,
+      "success": true,
+      "wall_time_ms": 388.21,
+      "checkTimeSec": 0.125,
+      "totalTimeSec": 0.147,
+      "memoryUsedMB": 66.25,
+      "instantiationCount": 36761
+    }
+  ]
+}
