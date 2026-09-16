@@ -20,6 +20,11 @@ mkdir -p "$DOCS_DIR/paper"
 echo "[2/4] Copying visualizer frontend and data bundles..."
 cp "$ROOT_DIR/visualizer/index.html" "$DOCS_DIR/index.html"
 cp "$ROOT_DIR/visualizer/data_bundle.js" "$DOCS_DIR/data_bundle.js"
+if [ -f "$ROOT_DIR/visualizer/riemann.html" ]; then
+  cp "$ROOT_DIR/visualizer/riemann.html" "$DOCS_DIR/riemann.html"
+  cp "$ROOT_DIR/visualizer/riemann_data.js" "$DOCS_DIR/riemann_data.js"
+  echo "  -> Bundled Project Riemann Quantum Chaos Visualizer"
+fi
 
 echo "[3/4] Packaging research assets and PDF monograph..."
 if [ -f "$ROOT_DIR/paper/project_chimera_monograph.pdf" ]; then

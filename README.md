@@ -17,12 +17,15 @@
 ## 📑 Quick Navigation & Core Deliverables
 
 - 📄 **Formal Monograph (PDF):** [`paper/project_chimera_monograph.pdf`](paper/project_chimera_monograph.pdf) *(7-page IEEE Transactions double-column monograph)*
-- 🌐 **Interactive Visualizer:** [`visualizer/index.html`](visualizer/index.html) *(Standalone Canvas/SVG cellular automaton and benchmark portal)*
-- 🌌 **Project Riemann (Prologue):** [`riemann/riemann_siegel.py`](riemann/riemann_siegel.py) *(Riemann-Siegel critical line zeros & GUE quantum chaos baseline)*
+- 🌌 **Project Riemann (Act I):**
+  - 🔬 **Interactive Visualizer:** [`visualizer/riemann.html`](visualizer/riemann.html) *(Quantum Chaos dashboard, energy tape, real-time $R_2(x)$, and Web Audio sonification)*
+  - ⚡ **Accelerated Hunter:** [`riemann/accelerated_hunter.py`](riemann/accelerated_hunter.py) *(Vectorized 5,000 zeros at $t \ge 100,000$ at $1,666\text{ zeros/s}$)*
+  - 📐 **Montgomery Proof:** [`riemann/spectral_analysis.py`](riemann/spectral_analysis.py) *(GUE $N=1000$ random matrix simulation & $\Delta_3(L)$ spectral rigidity)*
+  - 📊 **Datasets:** [`data/riemann_5000_zeros.json`](data/riemann_5000_zeros.json) & [`data/riemann_gue_statistical_proof.json`](data/riemann_gue_statistical_proof.json)
 - 🐛 **Upstream Bug Reports:**
   - [`reports/rustc_sigbus_issue.md`](reports/rustc_sigbus_issue.md) --- `rustc 1.97.0` SIGBUS (Signal 10) on deep nominal trait projection
   - [`reports/clang_sigill_issue.md`](reports/clang_sigill_issue.md) --- `Apple Clang 21.0.0` SIGILL (Signal 4) parser recursion limit trap
-- 📜 **Full Living Monograph:** [`RESEARCH_JOURNAL.md`](RESEARCH_JOURNAL.md) *(Exhaustive theoretical and empirical record of all 19 phases)*
+- 📜 **Full Living Monograph:** [`RESEARCH_JOURNAL.md`](RESEARCH_JOURNAL.md) *(Exhaustive theoretical and empirical record of all 19 phases + Project Riemann Act I)*
 
 ---
 
@@ -130,7 +133,9 @@ ACT IV: THE GRAND SYNTHESIS & THE SILICON ROSETTA SWITCH (Phases 17–19)
 │   └── project_chimera_monograph.pdf  # High-resolution compiled research PDF
 ├── visualizer/
 │   ├── index.html                     # Zero-dependency HTML5/Canvas visualization portal
-│   └── data_bundle.js                 # Embedded empirical benchmark datasets
+│   ├── data_bundle.js                 # Embedded empirical benchmark datasets
+│   ├── riemann.html                   # Interactive Quantum Chaos & Zeta Zero dashboard
+│   └── riemann_data.js                # High-altitude spectral dataset bundle
 ├── docs/                              # Exported static site for GitHub Pages hosting
 ├── reports/
 │   ├── rustc_sigbus_issue.md          # Formal disclosure report for rust-lang/rust
@@ -139,7 +144,9 @@ ACT IV: THE GRAND SYNTHESIS & THE SILICON ROSETTA SWITCH (Phases 17–19)
 │   ├── rust_deep_projection_sigbus_min.rs   # 10-line safe Rust MRE reproducing SIGBUS
 │   └── clang_deep_template_sigill_min.cpp   # 5-line C++20 MRE reproducing SIGILL
 ├── riemann/
-│   └── riemann_siegel.py              # Riemann-Siegel critical line zeros & GUE analysis
+│   ├── accelerated_hunter.py          # High-altitude vectorized zero hunter (5,000 zeros)
+│   ├── spectral_analysis.py           # Dyson GUE simulation & Montgomery pair correlation proof
+│   └── riemann_siegel.py              # Prologue Riemann-Siegel baseline calculator
 ├── apple_silicon/
 │   ├── litmus_test.c                  # Dual ARM64/x86 concurrent litmus test harness
 │   ├── run_rosetta_litmus.sh          # Rosetta 2 compilation & execution runner
