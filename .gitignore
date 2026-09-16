@@ -5,6 +5,10 @@ rust_chimera/target/
 .temp_bench_rust*
 *.log
 *.rlib
+*.dSYM
+apple_silicon/litmus_test
+apple_silicon/mach_ipc_bench
 __pycache__/
+
 
 
