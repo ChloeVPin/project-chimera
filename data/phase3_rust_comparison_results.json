@@ -1,0 +1,193 @@
+{
+  "metadata": {
+    "compiler": "rustc 1.97.0",
+    "model": "Rule 110 Cellular Automaton via Horn-Clause Trait Resolution",
+    "default_recursion_limit": 128
+  },
+  "default_limit_sweep": [
+    {
+      "steps": 1,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 249.36795234680176,
+      "error_e0275": false
+    },
+    {
+      "steps": 5,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 33.709049224853516,
+      "error_e0275": false
+    },
+    {
+      "steps": 10,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 31.64219856262207,
+      "error_e0275": false
+    },
+    {
+      "steps": 25,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 31.76403045654297,
+      "error_e0275": false
+    },
+    {
+      "steps": 50,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 33.17093849182129,
+      "error_e0275": false
+    },
+    {
+      "steps": 75,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 37.44697570800781,
+      "error_e0275": false
+    },
+    {
+      "steps": 100,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 38.67697715759277,
+      "error_e0275": false
+    },
+    {
+      "steps": 110,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 35.15124320983887,
+      "error_e0275": false
+    },
+    {
+      "steps": 120,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 36.18216514587402,
+      "error_e0275": false
+    },
+    {
+      "steps": 125,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 36.6978645324707,
+      "error_e0275": false
+    },
+    {
+      "steps": 126,
+      "recursion_limit": 128,
+      "success": true,
+      "wall_time_ms": 37.0481014251709,
+      "error_e0275": false
+    },
+    {
+      "steps": 127,
+      "recursion_limit": 128,
+      "success": false,
+      "wall_time_ms": 103.93595695495605,
+      "error_e0275": true
+    },
+    {
+      "steps": 128,
+      "recursion_limit": 128,
+      "success": false,
+      "wall_time_ms": 39.77799415588379,
+      "error_e0275": true
+    }
+  ],
+  "extended_limit_sweep": [
+    {
+      "steps": 10,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 30.9603214263916,
+      "error_e0275": false
+    },
+    {
+      "steps": 50,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 32.618045806884766,
+      "error_e0275": false
+    },
+    {
+      "steps": 100,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 35.19916534423828,
+      "error_e0275": false
+    },
+    {
+      "steps": 250,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 49.191951751708984,
+      "error_e0275": false
+    },
+    {
+      "steps": 500,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 94.30503845214844,
+      "error_e0275": false
+    },
+    {
+      "steps": 750,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 167.88506507873535,
+      "error_e0275": false
+    },
+    {
+      "steps": 1000,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 265.99812507629395,
+      "error_e0275": false
+    },
+    {
+      "steps": 1250,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 395.7407474517822,
+      "error_e0275": false
+    },
+    {
+      "steps": 1500,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 557.1951866149902,
+      "error_e0275": false
+    },
+    {
+      "steps": 1750,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 732.0177555084229,
+      "error_e0275": false
+    },
+    {
+      "steps": 2000,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 956.6347599029541,
+      "error_e0275": false
+    },
+    {
+      "steps": 2046,
+      "recursion_limit": 2048,
+      "success": true,
+      "wall_time_ms": 983.8540554046631,
+      "error_e0275": false
+    },
+    {
+      "steps": 2047,
+      "recursion_limit": 2048,
+      "success": false,
+      "wall_time_ms": 920.3100204467773,
+      "error_e0275": true
+    }
+  ]
+}
