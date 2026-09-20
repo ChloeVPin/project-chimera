@@ -1618,3 +1618,22 @@ Literature pass before claiming novelty:
 | Clang burns stack per recursive step | **Qualitatively known** — LLVM discourse #56310, D66361. **Bytes-per-frame numbers: unpublished** — ours are new measurements. |
 | tsgo/tsc5 instantiation delta | **Novel**, and now controlled: `--checkers 1` shows the full ~26% gap (36,931 vs 50,221 @NONTCO_47); c=8 adds only ~5% → the delta is per-checker *accounting*, orthogonal to the known `--checkers` pool duplication (typescript-go#4201). Source diff confirms identical guard/fuse/count ordering in both compilers — tsgo requests **~26% less instantiation work** on identical input. |
 | gcc wall non-monotonicity | **Novel observation** — 41,518 clean / 41,519 SIGSEGV jitter = physical stack signature; `ulimit -s unlimited` proves it. |
+
+---
+
+# ACT VIII: THE WILD RESULTS — Semantics Nobody Has Baselines For
+
+## W1. The 5M ceiling is a PER-STATEMENT window — the budget is unlimited
+
+**Probe:** 10 tagged `QFreezeTag<8, i>` statements in one file.
+**Result:** 13,418,995 instantiations, compiled clean in 11.1s — nearly 3× over the "ceiling."
+
+`instantiationCount` resets per top-level statement (checker.go:2252/2515/7653); cache hits return before the counter even increments (4 identical statements ≈ same count as 1). **TS2589 is a granularity rule, not a budget**: arbitrary-scale type-level computation compiles if you split it across statements. The "maximum work" of a TypeScript compilation is unbounded — bounded only per-statement.
+
+## W2. tsgo's parser cannot crash — the wall moved from memory to time
+
+Nested `[[[...]]]` source-depth sweep: depth 200 → graceful **TS2321** ("Excessive stack depth comparing types" — a fourth fuse, in the *relater*); depth 500 → >30s; depth 5000 → >300s. Go's growable goroutine stacks mean there is **no stack-overflow crash path** — where rustc dies at 4,102 frames and clang at ~1,274, tsgo degrades to a super-linear *time* wall. The crash class eliminated by porting to Go is measurable fact.
+
+## W3. GCC's crash wall is STOCHASTIC
+
+Six trials each at the boundary: depth 41,519 → 6/6 clean (it crashed earlier in the session!); 41,520 → 5/6 clean; 41,521 → 3/6. **The wall is a ~6-frame-wide probabilistic phase boundary** — ASLR/stack-layout decides whether the same input compiles or ICEs. "Does this compile?" is not deterministic at the frontier; it's a coin flip biased by address-space layout.
