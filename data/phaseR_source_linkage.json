@@ -32,7 +32,29 @@
     "exit_codes": {
       "tsgo": "rc=1 on TS2589",
       "tsc5": "rc=2 on TS2589"
-    }
+    },
+    "checkers_control": {
+      "NONTCO_47": {
+        "c1": 36931,
+        "c4": 38486,
+        "c8": 38944,
+        "tsc5": 50221
+      },
+      "TCO_999": {
+        "c1": 547821,
+        "c4": 549377,
+        "c8": 549835,
+        "tsc5": 563047
+      },
+      "FREEZE_9": {
+        "c1": 5033989,
+        "c4": 5035414,
+        "c8": 5035872,
+        "tsc5": 5047134
+      },
+      "verdict": "delta is per-checker accounting, NOT pool duplication (c1 shows full ~26% gap; c8 adds only ~5%)"
+    },
+    "mechanism": "identical counting-site order in both sources (couldContainTypeVariables guard -> fuse check -> instantiationCount++): tsgo makes ~26% FEWER instantiation calls \u2014 less work requested per identical input, not a counting artifact"
   },
   "rust_ast_visitor_crash": {
     "actual_frame": "rustc_ast::visit::Walkable: Ty::walk_ref <-> GenericArgs::walk_ref mutual recursion",
@@ -45,5 +67,11 @@
     "clang++": 6584,
     "rustc_ast_walker": 2045,
     "note": "8MB default stack / measured wall; explains g++ surviving ~32x deeper than clang on identical input"
+  },
+  "novelty_audit": {
+    "fuse_constants_in_source": "PUBLIC KNOWLEDGE (TS PRs 32079/44997, 2019). Our addition: measured external trip points mapped to the tsgo constants.",
+    "clang_stack_concern": "QUALITATIVELY KNOWN (LLVM discourse 56310, D66361). Bytes-per-frame numbers: not published anywhere found.",
+    "tsgo_accounting_delta": "NOVEL \u2014 no published comparison of per-checker instantiation counts vs tsc; distinct from typescript-go#4201 pool duplication.",
+    "gcc_wall_nonmonotonic": "novel observation w/ ulimit rescue proof."
   }
 }

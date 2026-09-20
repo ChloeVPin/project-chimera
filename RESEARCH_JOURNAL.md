@@ -1607,3 +1607,14 @@ GCC surviving 100k-deep templates at unlimited stack isn't an algorithmic edge �
 ✔ gdb-attributed rustc wall to the pre-expansion LINT walker, not the parser
 ✔ Per-frame stack-cost table: 202B g++ / 2KB rustc / 6.6KB clang++
 ```
+
+## Act VII Addendum — Novelty Audit & the `--checkers` Control
+
+Literature pass before claiming novelty:
+
+| Claim | Verdict |
+|:---|:---|
+| tsc fuse constants exist in source | **Public** — TS PRs #32079/#44997 (2019). Our part: first *measured* trip-point mapping to the tsgo lines. |
+| Clang burns stack per recursive step | **Qualitatively known** — LLVM discourse #56310, D66361. **Bytes-per-frame numbers: unpublished** — ours are new measurements. |
+| tsgo/tsc5 instantiation delta | **Novel**, and now controlled: `--checkers 1` shows the full ~26% gap (36,931 vs 50,221 @NONTCO_47); c=8 adds only ~5% → the delta is per-checker *accounting*, orthogonal to the known `--checkers` pool duplication (typescript-go#4201). Source diff confirms identical guard/fuse/count ordering in both compilers — tsgo requests **~26% less instantiation work** on identical input. |
+| gcc wall non-monotonicity | **Novel observation** — 41,518 clean / 41,519 SIGSEGV jitter = physical stack signature; `ulimit -s unlimited` proves it. |
