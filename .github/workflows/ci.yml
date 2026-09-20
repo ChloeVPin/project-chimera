@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  litmus-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile x86 litmus harness (compile-only smoke)
+        run: gcc -O2 -pthread -Wall -Wextra linux/litmus/litmus_test.c -o litmus_test
+      - name: Compile IPC ping-pong harness (compile-only smoke)
+        run: gcc -O2 -pthread -Wall -Wextra linux/ipc/core_pingpong.c -o core_pingpong
