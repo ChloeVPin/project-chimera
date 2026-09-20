@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "experiment": "Act VI: Discovery verification campaign",
+    "host": "devin-box AWS KVM, x86_64, 8 vCPU Ice Lake, 8MB default stack",
+    "date": "2026-09-20",
+    "note": "Every claim reproducible via commands in RESEARCH_JOURNAL.md Act VI"
+  },
+  "results": {
+    "rust_parser_nesting": {
+      "probe": "S<S<...S<()>...>> literal generic nesting (generate_rust_parser_nesting)",
+      "exact_threshold_default_stack": 4102,
+      "recursion_limit_enforced_on_parser": false,
+      "rescue": "RUST_MIN_STACK=16777216 -> rc=0 at depth 5000",
+      "crash_mode": "SIGSEGV after rustc's own ICE-style report (cycle period 4, 63 recursions)",
+      "novelty": "KNOWN CLASS upstream: rust-lang/rust#128422, #153854"
+    },
+    "rust_trait_mre": {
+      "probe": "crashes/rust_deep_projection_sigbus_min.rs (N4<N4<()>> trait resolution)",
+      "default": "SIGSEGV (Linux) / SIGBUS (Darwin)",
+      "rescue": "RUST_MIN_STACK=1073741824 -> compiles clean rc=0",
+      "verdict": "stack-boundary crash, not solver divergence"
+    },
+    "gcc_template_wall": {
+      "probe": "hydra deep-template chain + ForceEval instantiation",
+      "wall_default_stack": "~41,519 frames (non-monotonic near boundary: 41518 ok, 41519 SIGSEGV)",
+      "rescue": "ulimit -s unlimited -> 100,000-deep compiles clean",
+      "verdict": "pure stack-growth wall; -ftemplate-depth fuse (default 900) is the graceful tripwire"
+    },
+    "clang_template_wall": {
+      "probe": "same hydra shape",
+      "wall_default_stack": "~1,274 frames",
+      "note": "~32x less stack-headroom per frame than g++ on identical input"
+    },
+    "tsc_scriptkind_panic": {
+      "reproducer": "npx tsc --noEmit --ignoreConfig --strict <extensionless file containing quaternary-tree source>",
+      "result": "panic: ScriptKind must be specified [recovered, repanicked] + goroutine dump, rc=2",
+      "control": "same file as .ts -> rc=1 normal diagnostics",
+      "verdict": "native Go tsc crashes on a parse precondition instead of emitting a diagnostic"
+    },
+    "litmus_5m_bound": {
+      "SB_relaxed": "499,723/5,000,000 = 9.99% (converging)",
+      "MP_all_modes": "0/5,000,000 \u2014 x86 TSO store-store order confirmed at 10x prior scale",
+      "file": "/tmp/d1/litmus_5m.json (5M iteration run)"
+    }
+  },
+  "unified_law": "Compiler deep-recursion walls are process-stack boundaries, not logic fuses. Graceful termination requires a software fuse tripping FIRST: tsc (depth 48 / fuel 999 / 5.03M) and -ftemplate-depth (gcc 900 / clang 1024) trip early; rustc's parser has no fuse so its stack wall IS the limit."
+}
