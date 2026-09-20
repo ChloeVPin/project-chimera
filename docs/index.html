@@ -827,19 +827,21 @@ type Result8 = BrainfuckResult&lt;Add&gt;;
     function initTrampolineTable() {
       const tbody = document.getElementById('trampolineTableBody');
       const logData = DATA.phase5_logarithmic_results;
-      if (!logData || !logData.results) return;
+      const rows = logData && (logData.results || logData.logarithmic_horizons);
+      if (!rows) return;
 
       tbody.innerHTML = '';
-      logData.results.forEach(row => {
+      rows.forEach(row => {
+        const p = row.parameters || row;
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="code-cell"><strong>${row.steps.toLocaleString()}</strong></td>
-          <td class="code-cell">2^${row.exponent}</td>
-          <td class="code-cell">${row.chunks_512}</td>
-          <td class="code-cell">${row.instantiationCount ? row.instantiationCount.toLocaleString() : '182,599'}</td>
-          <td class="code-cell">${row.heapMemoryMB ? row.heapMemoryMB.toFixed(1) : '153.5'} MB</td>
-          <td class="code-cell">${row.checkTimeSec ? row.checkTimeSec.toFixed(3) : '0.214'} s</td>
-          <td><span class="pass-tag">PASS (Clean)</span></td>
+          <td class="code-cell"><strong>${p.steps.toLocaleString()}</strong></td>
+          <td class="code-cell">2^${p.exponent}</td>
+          <td class="code-cell">${p.chunks_512 || p.chunks || '-'}</td>
+          <td class="code-cell">${row.instantiationCount ? row.instantiationCount.toLocaleString() : '-'}</td>
+          <td class="code-cell">${row.compilerMemoryUsedKB ? (row.compilerMemoryUsedKB / 1024).toFixed(1) : '-'} MB</td>
+          <td class="code-cell">${row.checkTimeSec ? row.checkTimeSec.toFixed(3) : '-'} s</td>
+          <td><span class="${row.success === false ? 'fail-tag' : 'pass-tag'}">${row.success === false ? 'FAIL' : 'PASS (Clean)'}</span></td>
         `;
         tbody.appendChild(tr);
       });

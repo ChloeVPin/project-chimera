@@ -35,7 +35,7 @@ ${C.cyan}${C.bold}██████╗ ██████╗  █████�
 ██║     ██║  ██║╚██████╔╝╚█████╔╝███████╗╚██████╗   ██║       ╚██████╗██║  ██║██║██║ ╚═╝ ██║███████╗██║  ██║██║  ██║
 ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝        ╚═════╝╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝${C.reset}
 ${C.bold}Empirical Boundaries of Undecidability & Accidental Turing-Completeness in Modern Type Systems${C.reset}
-${C.dim}Formal Type Theory & Apple Silicon Hardware Arcana Laboratory | macOS Darwin ARM64${C.reset}
+${C.dim}Formal Type Theory & Hardware Arcana Laboratory | macOS ARM64 + Linux x86_64${C.reset}
 `);
 }
 
@@ -73,6 +73,19 @@ ${C.bold}ACT IV: THE GRAND SYNTHESIS & THE SILICON ROSETTA SWITCH (Phases 17–1
   ${C.green}✔ Phase 17:${C.reset} Rosetta 2 ACTLR_EL1 Hardware TSO Bit Probe (0 MP violations across 2M iterations under x86 translation)
   ${C.green}✔ Phase 18:${C.reset} Native Darwin LLDB Symbolication (Extracted full ARM64 registers & backtraces for upstream disclosures)
   ${C.green}✔ Phase 19:${C.reset} Unified Chimera CLI Suite (Autonomous orchestrator for compilation, cryptography, and hardware telemetry)
+
+${C.bold}ACT V: THE LINUX CHAPTER (x86_64 TSO, Crash Taxonomy, GCC Anomaly)${C.reset}
+  ${C.green}✔ L1–L4:${C.reset} Fuse hierarchy invariant on Linux; rustc SIGBUS→SIGSEGV; Clang SIGILL→SIGSEGV;
+          native x86 TSO control arm (MP: 399→0→0 | SB: 14→1,187→39,394 rate gradient)
+  ${C.green}✔ L5:${C.reset}     Quad-compiler matrix — g++ 11.4 wins S=10,000 (135 ms), survives 40k templates that kill Clang
+
+${C.bold}ACTS VI–VIII: THE WALL & THE WILD RESULTS (verification campaign)${C.reset}
+  ${C.green}✔ Walls:${C.reset}   All recursion walls are process-stack boundaries, proven by ulimit/RUST_MIN_STACK rescues
+            (g++ ~41,519 | rustc AST-walker 4,102 | clang ~1,274 frames @ 8MB; ~202B / ~2KB / ~6.6KB per frame)
+  ${C.green}✔ Sources:${C.reset} tsc fuses linked to tsgo constants (checker.go:22225 depth=100/count=5M, :24433 tail=1000)
+  ${C.green}✔ tsgo:${C.reset}   ~26% fewer instantiations than tsc 5.9 per identical probe (checker-level, not pool)
+  ${C.green}✔ Wild:${C.reset}   5M ceiling is per-STATEMENT (13.4M compiled clean); tsgo parser crash-immune (Go stacks);
+            g++ wall is stochastic (ASLR-dependent ~6-frame phase boundary)
 `);
 
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
@@ -99,7 +112,8 @@ ${C.bold}ACT IV: THE GRAND SYNTHESIS & THE SILICON ROSETTA SWITCH (Phases 17–1
   console.log(`\n${C.magenta}${C.bold}Chimera Unified CLI Commands:${C.reset}`);
   console.log(`  ${C.bold}npm run chimera${C.reset}                Print this master research scorecard`);
   console.log(`  ${C.bold}./bin/chimera.js benchmark${C.reset}     Run cross-compiler cellular automata benchmarks (TS, Rust, C++)`);
-  console.log(`  ${C.bold}./bin/chimera.js litmus${C.reset}        Execute Apple Silicon memory model litmus tests (ARM64 vs Rosetta)`);
+  console.log(`  ${C.bold}./bin/chimera.js litmus${C.reset}        Memory litmus tests (macOS: ARM64 vs Rosetta | Linux: native x86 TSO)`);
+  console.log(`  ${C.bold}./bin/chimera.js linux${C.reset}         Run the full Act V probe suite (Linux only: fuses, quad bench, Hydra, IPC)`);
   console.log(`  ${C.bold}./bin/chimera.js sha256${C.reset}        Verify pure type-level SHA-256 compile-time cryptographic engine`);
   console.log(`  ${C.bold}./bin/chimera.js sat${C.reset}           Run pure type-level DPLL 3-SAT constraint solver`);
   console.log(`  ${C.bold}./bin/chimera.js report${C.reset}        Generate publication report summary\n`);
