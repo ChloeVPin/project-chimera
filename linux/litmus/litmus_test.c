@@ -458,12 +458,12 @@ void run_sb_experiment(uint32_t iterations, BarrierMode mode, const char* mode_n
 
     double rate = (double)sc_violations / iterations * 100.0;
     printf("  [SB Litmus - %-10s] Iterations: %u | SC Violations (r0=0,r1=0): %llu (%.4f%%) | Time: %.2f ms\n",
-           mode_name, iterations, sc_violations, rate, elapsed_ms);
+           mode_name, iterations, (unsigned long long)sc_violations, rate, elapsed_ms);
     printf("    Breakdown: [1,1]=%llu (%.1f%%) | [1,0]=%llu (%.1f%%) | [0,1]=%llu (%.1f%%) | [0,0]=%llu (%.4f%%)\n",
-           r0_1_r1_1, (double)r0_1_r1_1/iterations*100,
-           r0_1_r1_0, (double)r0_1_r1_0/iterations*100,
-           r0_0_r1_1, (double)r0_0_r1_1/iterations*100,
-           sc_violations, rate);
+           (unsigned long long)r0_1_r1_1, (double)r0_1_r1_1/iterations*100,
+           (unsigned long long)r0_1_r1_0, (double)r0_1_r1_0/iterations*100,
+           (unsigned long long)r0_0_r1_1, (double)r0_0_r1_1/iterations*100,
+           (unsigned long long)sc_violations, rate);
     record_result("Store Buffering (SB)", mode_name, iterations, sc_violations, elapsed_ms);
 }
 
@@ -519,7 +519,7 @@ void run_mp_experiment(uint32_t iterations, BarrierMode mode, const char* mode_n
 
     double rate = (double)sc_violations / iterations * 100.0;
     printf("  [MP Litmus - %-10s] Iterations: %u | SC Violations (flag=1,data=0): %llu (%.4f%%) | Time: %.2f ms\n",
-           mode_name, iterations, sc_violations, rate, elapsed_ms);
+           mode_name, iterations, (unsigned long long)sc_violations, rate, elapsed_ms);
     record_result("Message Passing (MP)", mode_name, iterations, sc_violations, elapsed_ms);
 }
 
@@ -529,16 +529,18 @@ void save_json_results(const char* filepath) {
 
 #if defined(__x86_64__)
     const char* exp_name = "Phase L4: Linux x86_64 Native TSO Litmus";
-    const char* arch_name = "x86_64 native Intel Xeon Platinum 8375C (hardware TSO, no translation)";
+    const char* cpu_name = "Intel Xeon Platinum 8375C (Ice Lake)";
+    const char* arch_name = "x86_64 native (hardware TSO, no translation)";
 #else
     const char* exp_name = "Phase 15: Apple Silicon Weak Memory Litmus Tests";
+    const char* cpu_name = "Apple M2";
     const char* arch_name = "ARMv8.5-A native weakly ordered memory";
 #endif
 
     fprintf(fp, "{\n");
     fprintf(fp, "  \"metadata\": {\n");
     fprintf(fp, "    \"experiment\": \"%s\",\n", exp_name);
-    fprintf(fp, "    \"cpu\": \"Apple M2\",\n");
+    fprintf(fp, "    \"cpu\": \"%s\",\n", cpu_name);
     fprintf(fp, "    \"architecture\": \"%s\"\n", arch_name);
     fprintf(fp, "  },\n");
     fprintf(fp, "  \"results\": [\n");
@@ -547,7 +549,7 @@ void save_json_results(const char* filepath) {
         fprintf(fp, "      \"test\": \"%s\",\n", g_results[i].test_name);
         fprintf(fp, "      \"mode\": \"%s\",\n", g_results[i].mode);
         fprintf(fp, "      \"iterations\": %u,\n", g_results[i].iterations);
-        fprintf(fp, "      \"sc_violations\": %llu,\n", g_results[i].sc_violations);
+        fprintf(fp, "      \"sc_violations\": %llu,\n", (unsigned long long)g_results[i].sc_violations);
         fprintf(fp, "      \"violation_rate_pct\": %.6f,\n", g_results[i].violation_rate_pct);
         fprintf(fp, "      \"elapsed_ms\": %.2f\n", g_results[i].elapsed_ms);
         fprintf(fp, "    }%s\n", (i == g_result_idx - 1) ? "" : ",");
