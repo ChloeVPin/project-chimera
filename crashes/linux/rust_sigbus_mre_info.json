@@ -1,0 +1,8 @@
+{
+  "name": "rust_sigbus_mre",
+  "returncode": -11,
+  "signal": 11,
+  "duration_s": 0.25,
+  "is_crash": true,
+  "stderr": "error: rustc interrupted by SIGSEGV, printing backtrace\n\n/home/ubuntu/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-832cf6cfb1386559.so(+0x3c7cedc)[0x73a571a7cedc]\n/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x73a56da42520]\n/home/ubuntu/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-832cf6cfb1386559.so(+0x573bb80)[0x73a57353bb80]\n\n### cycle encountered after 3 frames with period 4\n/home/ubuntu/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-832cf6cfb1386559.so(+0x573bfbb)[0x73a57353bfbb]\n/home/ubuntu/.rustup/toolchains/stabl"
+}

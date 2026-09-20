@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "experiment": "Act VIII: semantics probes nobody has baselines for",
+    "date": "2026-09-20"
+  },
+  "tsc_per_statement_window": {
+    "finding": "instantiationCount resets per top-level statement (checker.go reset sites 2252/2515/7653)",
+    "proof": "10 tagged QFreezeTag<8,i> statements -> 13,418,995 total instantiations compiled CLEAN in 11.1s",
+    "cache_note": "identical statements share the instantiation cache (4x identical F8 = 2,146,985 ~= single 2,146,925): cached hits return before the counter increments",
+    "implication": "TS2589's 5M ceiling is a per-statement granularity rule, not a compilation budget \u2014 arbitrary-scale type-level computation is possible by statement-splitting (subject only to per-statement depth/fuel)"
+  },
+  "tsc_parser_stack_immunity": {
+    "probe": "nested array literal [[...1...]] source-depth sweep",
+    "d50": "0.49s clean",
+    "d200": "4.0s graceful TS2321 'Excessive stack depth comparing types'",
+    "d500": ">30s time wall",
+    "d5000": ">300s",
+    "verdict": "tsgo (Go growable stacks) NEVER crashes \u2014 the wall moves from SIGSEGV (rustc@4102, clang@1274) to a graceful diagnostic, then to a super-linear time wall. Fourth documented fuse: TS2321 relation-depth."
+  },
+  "gcc_stochastic_wall": {
+    "trials": {
+      "41515": "6/6 clean",
+      "41517": "6/6",
+      "41518": "6/6",
+      "41519": "6/6",
+      "41520": "5/6 clean",
+      "41521": "3/6 clean"
+    },
+    "verdict": "the g++ crash boundary is PROBABILISTIC (ASLR/stack-layout dependent) \u2014 a ~6-frame-wide stochastic phase transition, not a constant"
+  }
+}

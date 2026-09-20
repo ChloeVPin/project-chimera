@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "experiment": "Act VII: source-level linkage + cross-implementation divergence",
+    "date": "2026-09-20",
+    "evidence": "all numbers reproducible via commands in RESEARCH_JOURNAL.md Act VII"
+  },
+  "tsc_fuse_source_linkage": {
+    "instantiationDepth": {
+      "source": "typescript-go internal/checker/checker.go:22225 `c.instantiationDepth == 100`",
+      "measured_trip": "48 nesting levels (~2 depth-units per conditional level)"
+    },
+    "tailCount": {
+      "source": "checker.go:24433 `if tailCount == 1000`",
+      "measured_trip": "fuel 999 clean, 1000 TS2589 \u2014 exact match"
+    },
+    "instantiationCount": {
+      "source": "checker.go:22225 `c.instantiationCount >= 5_000_000`",
+      "measured_trip": "~5.035M (5M counter + resolution overhead)"
+    }
+  },
+  "tsgo_vs_tsc5_divergence": {
+    "thresholds": "IDENTICAL (48 / 1000 / ~5.03M) \u2014 constants faithfully ported",
+    "instantiation_accounting": {
+      "tsgo_7.0.2": "38486 inst @ NONTCO_47; 549371 @ TCO_999",
+      "tsc_5.9.3": "50221 inst @ NONTCO_47; 563047 @ TCO_999",
+      "delta": "tsgo counts ~24-31% fewer instantiations"
+    },
+    "memory_at_ceiling": {
+      "tsgo": "2.74-2.91 GB",
+      "tsc5": "3.19-3.43 GB"
+    },
+    "exit_codes": {
+      "tsgo": "rc=1 on TS2589",
+      "tsc5": "rc=2 on TS2589"
+    },
+    "checkers_control": {
+      "NONTCO_47": {
+        "c1": 36931,
+        "c4": 38486,
+        "c8": 38944,
+        "tsc5": 50221
+      },
+      "TCO_999": {
+        "c1": 547821,
+        "c4": 549377,
+        "c8": 549835,
+        "tsc5": 563047
+      },
+      "FREEZE_9": {
+        "c1": 5033989,
+        "c4": 5035414,
+        "c8": 5035872,
+        "tsc5": 5047134
+      },
+      "verdict": "delta is per-checker accounting, NOT pool duplication (c1 shows full ~26% gap; c8 adds only ~5%)"
+    },
+    "mechanism": "identical counting-site order in both sources (couldContainTypeVariables guard -> fuse check -> instantiationCount++): tsgo makes ~26% FEWER instantiation calls \u2014 less work requested per identical input, not a counting artifact"
+  },
+  "rust_ast_visitor_crash": {
+    "actual_frame": "rustc_ast::visit::Walkable: Ty::walk_ref <-> GenericArgs::walk_ref mutual recursion",
+    "pass": "rustc_lint early pass \u2014 BuiltinCombinedPreExpansionLintPass (PRE-expansion AST walk, not the parser)",
+    "bytes_per_frame": 2045,
+    "wall_frames_8MB": 4102
+  },
+  "per_frame_stack_cost_bytes": {
+    "g++": 202,
+    "clang++": 6584,
+    "rustc_ast_walker": 2045,
+    "note": "8MB default stack / measured wall; explains g++ surviving ~32x deeper than clang on identical input"
+  },
+  "novelty_audit": {
+    "fuse_constants_in_source": "PUBLIC KNOWLEDGE (TS PRs 32079/44997, 2019). Our addition: measured external trip points mapped to the tsgo constants.",
+    "clang_stack_concern": "QUALITATIVELY KNOWN (LLVM discourse 56310, D66361). Bytes-per-frame numbers: not published anywhere found.",
+    "tsgo_accounting_delta": "NOVEL \u2014 no published comparison of per-checker instantiation counts vs tsc; distinct from typescript-go#4201 pool duplication.",
+    "gcc_wall_nonmonotonic": "novel observation w/ ulimit rescue proof."
+  }
+}
