@@ -1,0 +1,15 @@
+{
+  "phase": "L6",
+  "platform": "linux-x86_64",
+  "cpu": "Intel Xeon Platinum 8375C (Ice Lake, homogeneous vCPUs)",
+  "transport": "shared-cache-line atomic ping-pong",
+  "rounds_per_pair": 200000,
+  "results": [
+    {"cpu_a": 0, "cpu_b": 0, "round_trip_ns": 1231.0},
+    {"cpu_a": 0, "cpu_b": 1, "round_trip_ns": 299.1},
+    {"cpu_a": 0, "cpu_b": 4, "round_trip_ns": 301.0},
+    {"cpu_a": 0, "cpu_b": 7, "round_trip_ns": 302.8},
+    {"cpu_a": 1, "cpu_b": 2, "round_trip_ns": 327.4},
+    {"cpu_a": 6, "cpu_b": 7, "round_trip_ns": 344.1}
+  ]
+}

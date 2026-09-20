@@ -138,6 +138,26 @@ function runBenchmark() {
 
 function runLitmus() {
   printBanner();
+  const platform = process.platform;
+  if (platform === 'linux') {
+    // Act V: native x86_64 TSO litmus — the control arm for Phase 17.
+    console.log(`${C.yellow}${C.bold}=== Running Linux x86_64 Native TSO Litmus Tests ===${C.reset}`);
+    console.log(`${C.dim}SB (Dekker) + MP across iterations; native TSO: expect SB violations, 0 MP.${C.reset}\n`);
+    const bin = path.join(ROOT_DIR, 'linux', 'litmus', 'litmus_test');
+    const src = path.join(ROOT_DIR, 'linux', 'litmus', 'litmus_test.c');
+    if (!fs.existsSync(bin)) {
+      console.log('Compiling Linux x86_64 litmus test...');
+      execSync(`cc -O2 -pthread "${src}" -o "${bin}"`, { cwd: ROOT_DIR });
+    }
+    const outJson = path.join(ROOT_DIR, 'data', 'phaseL4_linux_litmus_results.json');
+    execSync(`"${bin}" 500000 "${outJson}"`, { cwd: ROOT_DIR, stdio: 'inherit' });
+    console.log(`\n${C.green}${C.bold}Linux TSO Litmus Verification Complete.${C.reset}`);
+    return;
+  }
+  if (platform !== 'darwin') {
+    console.log(`${C.red}Litmus suite unsupported on ${platform} (darwin/linux only).${C.reset}`);
+    return;
+  }
   console.log(`${C.yellow}${C.bold}=== Running Apple Silicon Memory Model Litmus Tests ===${C.reset}`);
   console.log(`${C.dim}Testing Store Buffering (SB) and Message Passing (MP) across 2,000,000 iterations.${C.reset}\n`);
 
@@ -155,6 +175,33 @@ function runLitmus() {
   execSync(`"${rosettaScript}" "${rosettaJson}" 500000`, { cwd: ROOT_DIR, stdio: 'inherit' });
 
   console.log(`\n${C.green}${C.bold}Hardware Litmus Verification Complete.${C.reset}`);
+}
+
+function runLinuxProbe() {
+  printBanner();
+  if (process.platform !== 'linux') {
+    console.log(`${C.red}Linux probes are x86_64-linux only.${C.reset}`);
+    return;
+  }
+  console.log(`${C.yellow}${C.bold}=== Act V: Linux Probe Suite ===${C.reset}`);
+  const steps = [
+    ['Phase L1 - Fuse Hierarchy Probes (tsc)', 'python3 linux/run_fuse_probes.py'],
+    ['Phase L3 - Quad-Compiler Triad (g++/clang++/rustc/tsc)', 'python3 linux/run_quad_benchmarks.py'],
+    ['Phase L5 - Hydra Fuzzer (rustc/g++/clang++/tsc)', 'python3 linux/run_hydra_linux.py'],
+    ['Phase L6 - Core-to-Core IPC Ping-Pong', null],
+  ];
+  for (const [label, cmd] of steps) {
+    console.log(`\n${C.bold}>>> ${label}${C.reset}`);
+    if (cmd) { execSync(cmd, { cwd: ROOT_DIR, stdio: 'inherit' }); continue; }
+    const bin = path.join(ROOT_DIR, 'linux', 'ipc', 'core_pingpong');
+    const src = path.join(ROOT_DIR, 'linux', 'ipc', 'core_pingpong.c');
+    if (!fs.existsSync(bin)) {
+      execSync(`cc -O2 -pthread "${src}" -o "${bin}"`, { cwd: ROOT_DIR });
+    }
+    execSync(`"${bin}" 200000 "${path.join(ROOT_DIR, 'data', 'phaseL6_linux_ipc_results.json')}"`,
+             { cwd: ROOT_DIR, stdio: 'inherit' });
+  }
+  console.log(`\n${C.green}${C.bold}Act V Linux Probe Suite Complete.${C.reset}`);
 }
 
 function runSha256() {
@@ -206,6 +253,10 @@ function main() {
     case 'sat':
     case 'dpll':
       runSat();
+      break;
+    case 'linux':
+    case 'probe':
+      runLinuxProbe();
       break;
     case 'report':
     case 'scorecard':

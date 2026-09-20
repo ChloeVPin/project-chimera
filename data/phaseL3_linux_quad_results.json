@@ -1,0 +1,219 @@
+{
+  "metadata": {
+    "platform": "linux-x86_64",
+    "gcc": "11.4.0",
+    "clang": "14.0.0",
+    "rustc": "1.97.1",
+    "typescript": "7.0.2-native"
+  },
+  "runs": [
+    {
+      "wall_ms": 21.6,
+      "rss_mb": 19.5,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "g++",
+      "steps": 10
+    },
+    {
+      "wall_ms": 37.0,
+      "rss_mb": 83.75,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "clang++",
+      "steps": 10
+    },
+    {
+      "wall_ms": 22.3,
+      "rss_mb": 61.5,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "rustc",
+      "steps": 10
+    },
+    {
+      "wall_ms": 499.7,
+      "rss_mb": 95.25,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "tsc",
+      "steps": 10
+    },
+    {
+      "wall_ms": 22.7,
+      "rss_mb": 19.625,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "g++",
+      "steps": 50
+    },
+    {
+      "wall_ms": 48.6,
+      "rss_mb": 84.0,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "clang++",
+      "steps": 50
+    },
+    {
+      "wall_ms": 23.9,
+      "rss_mb": 62.125,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "rustc",
+      "steps": 50
+    },
+    {
+      "wall_ms": 505.0,
+      "rss_mb": 97.125,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "tsc",
+      "steps": 50
+    },
+    {
+      "wall_ms": 22.9,
+      "rss_mb": 19.75,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "g++",
+      "steps": 100
+    },
+    {
+      "wall_ms": 38.8,
+      "rss_mb": 84.375,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "clang++",
+      "steps": 100
+    },
+    {
+      "wall_ms": 27.7,
+      "rss_mb": 62.69140625,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "rustc",
+      "steps": 100
+    },
+    {
+      "wall_ms": 508.2,
+      "rss_mb": 99.375,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "tsc",
+      "steps": 100
+    },
+    {
+      "wall_ms": 27.9,
+      "rss_mb": 21.25,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "g++",
+      "steps": 500
+    },
+    {
+      "wall_ms": 43.3,
+      "rss_mb": 87.35546875,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "clang++",
+      "steps": 500
+    },
+    {
+      "wall_ms": 102.8,
+      "rss_mb": 90.6640625,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "rustc",
+      "steps": 500
+    },
+    {
+      "wall_ms": 720.3,
+      "rss_mb": 185.625,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "tsc",
+      "steps": 500
+    },
+    {
+      "wall_ms": 28.7,
+      "rss_mb": 22.125,
+      "rc": 1,
+      "depth_exceeded": true,
+      "compiler": "g++",
+      "steps": 1000
+    },
+    {
+      "wall_ms": 48.4,
+      "rss_mb": 90.9765625,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "clang++",
+      "steps": 1000
+    },
+    {
+      "wall_ms": 337.3,
+      "rss_mb": 137.33984375,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "rustc",
+      "steps": 1000
+    },
+    {
+      "wall_ms": 1524.2,
+      "rss_mb": 456.625,
+      "rc": 1,
+      "depth_exceeded": false,
+      "compiler": "tsc",
+      "steps": 1000
+    },
+    {
+      "wall_ms": 76.7,
+      "rss_mb": 38.75,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "g++",
+      "steps": 5000
+    },
+    {
+      "wall_ms": 135.3,
+      "rss_mb": 58.375,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "g++",
+      "steps": 10000
+    },
+    {
+      "wall_ms": 97.4,
+      "rss_mb": 117.81640625,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "clang++",
+      "steps": 5000
+    },
+    {
+      "wall_ms": 158.2,
+      "rss_mb": 153.45703125,
+      "rc": 0,
+      "depth_exceeded": false,
+      "compiler": "clang++",
+      "steps": 10000
+    },
+    {
+      "wall_ms": 120.5,
+      "rss_mb": 66.875,
+      "rc": 139,
+      "depth_exceeded": true,
+      "compiler": "rustc",
+      "steps": 5000
+    },
+    {
+      "wall_ms": 138.6,
+      "rss_mb": 99.375,
+      "rc": 139,
+      "depth_exceeded": true,
+      "compiler": "rustc",
+      "steps": 10000
+    }
+  ]
+}

@@ -11,6 +11,8 @@
 
 > **Formal Type Systems & Hardware Microarchitecture Laboratory**  
 > *Investigating the boundary where static type checking transitions into universal computation, exponential complexity, process crashes, and physical silicon memory reordering.*
+>
+> **Cross-platform:** macOS/Apple Silicon (Acts I–IV) **and** Linux x86_64 (Act V) — same seeds, different kernels.
 
 ---
 
@@ -52,6 +54,11 @@ npm test
 
 # Run pure type-level DPLL 3-SAT constraint solver (PHP(3,2) refutation)
 ./bin/chimera.js sat
+
+# --- Act V: Linux x86_64 chapter ---
+# On Linux, 'litmus' runs the native x86 TSO suite; 'probe' runs the full Act V suite
+./bin/chimera.js litmus      # Linux: x86 TSO SB/MP | macOS: ARM64 + Rosetta TSO
+./bin/chimera.js linux       # Full Act V probe suite (fuses, quad bench, Hydra, IPC)
 ```
 
 ---
@@ -123,6 +130,26 @@ ACT IV: THE GRAND SYNTHESIS & THE SILICON ROSETTA SWITCH (Phases 17–19)
 
 ---
 
+## 🐧 Act V: The Linux Chapter (x86_64)
+
+Act V replicates the macOS laboratory on Linux x86_64 and asks which findings are *law* and which are *platform accidents*. Full record: `RESEARCH_JOURNAL.md` Act V.
+
+| Experiment | macOS (Darwin/ARM64) | Linux (x86_64) | Divergence? |
+|:---|:---|:---|:---:|
+| TS non-TCO depth fuse | 48 | 48 | invariant |
+| TS TCO fuel fuse | 999 | 999 | invariant |
+| TS instantiation ceiling | 5,033,164 | ~5,035,000 | invariant |
+| rustc deep-projection MRE | **SIGBUS** | **SIGSEGV** | **taxonomy** |
+| clang++ deep-template seed | **SIGILL** | **SIGSEGV** | **taxonomy** |
+| Litmus MP relaxed (500k) | 399 | **0** | **TSO** |
+| Litmus SB relaxed (500k) | 14 | **39,394** | **rate gradient** |
+| C++ S=10,000 champion | Clang 21 (470ms) | **g++ 11.4 (135ms)** | **upset** |
+| rustc 40k template/parse | — | SIGSEGV @ 5k+ | new surface |
+| g++ 40k template | — | clean, 5.93s | robustness |
+| Core↔core IPC | 9.8× P↔E penalty | flat ~0.3μs | topology |
+
+New harnesses live in [`linux/`](linux/): fuse probes, the quad-compiler benchmark, Hydra-Linux, the x86 litmus suite, and core ping-pong IPC. New crash artifacts in [`crashes/linux/`](crashes/linux/).
+
 ## 📂 Repository Structure
 
 ```text
@@ -152,6 +179,13 @@ ACT IV: THE GRAND SYNTHESIS & THE SILICON ROSETTA SWITCH (Phases 17–19)
 │   ├── litmus_test.c                  # Dual ARM64/x86 concurrent litmus test harness
 │   ├── run_rosetta_litmus.sh          # Rosetta 2 compilation & execution runner
 │   └── mach_ipc_bench.c               # Native XNU Mach messaging QoS scheduler probe
+├── linux/                             # Act V: Linux x86_64 replication chapter
+│   ├── litmus/litmus_test.c           # Native x86 TSO litmus (pthreads + mfence/xchg)
+│   ├── ipc/core_pingpong.c            # Core-to-core latency probe (futex-class)
+│   ├── probes/fuse_probe.ts           # tsc fuse hierarchy probe definitions
+│   ├── run_fuse_probes.py             # Phase L1 runner
+│   ├── run_quad_benchmarks.py         # Phase L3 quad-compiler benchmark
+│   └── run_hydra_linux.py             # Phase L5 fuzzer (rustc/g++/clang++/tsc)
 ├── src/
 │   ├── crypto/                        # Pure type-level SHA-256 engine & 32-bit math
 │   ├── solvers/                       # Pure type-level DPLL 3-SAT constraint solver
