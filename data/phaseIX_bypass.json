@@ -1,0 +1,91 @@
+{
+ "act": "IX",
+ "tape": [
+  0,
+  1,
+  1,
+  0,
+  1,
+  1,
+  1,
+  0
+ ],
+ "ts": "typescript@7.0.2 (tsgo)",
+ "runs": {
+  "monolithic_evolve_tco_1500": {
+   "rc": 1,
+   "wall_s": 1.63,
+   "instantiations": "549203",
+   "memory": "397543",
+   "check": "1.211",
+   "total": "1.254",
+   "errors": [
+    "linux/probes/tmp_ix_mono_1500.ts(3,15): error TS2589: Type instantiation is excessively deep and possibly infinite."
+   ],
+   "n_errors": 1
+  },
+  "verified_chain_2000": {
+   "rc": 0,
+   "wall_s": 0.66,
+   "instantiations": "291634",
+   "memory": "72733",
+   "check": "0.347",
+   "total": "0.391",
+   "errors": [],
+   "n_errors": 0
+  },
+  "lazy_chain_10000": {
+   "rc": 0,
+   "wall_s": 1.08,
+   "instantiations": "1315557",
+   "memory": "78281",
+   "check": "0.761",
+   "total": "0.807",
+   "errors": [],
+   "n_errors": 0
+  },
+  "lazy_chain_50000": {
+   "rc": 0,
+   "wall_s": 2.98,
+   "instantiations": "6435557",
+   "memory": "124895",
+   "check": "2.568",
+   "total": "2.687",
+   "errors": [],
+   "n_errors": 0
+  },
+  "lazy_chain_200000": {
+   "rc": 0,
+   "wall_s": 10.58,
+   "instantiations": "25635557",
+   "memory": "289546",
+   "check": "9.746",
+   "total": "10.188",
+   "errors": [],
+   "n_errors": 0
+  },
+  "verified_chain_2000_tsc593": {
+   "rc": 0,
+   "instantiations": "302214",
+   "memory": "201822",
+   "note": "tsc 5.9.3 (JS impl) \u2014 bypass is cross-implementation"
+  }
+ },
+ "extreme_runs_measured_on_lab_box": {
+  "lazy_chain_500000": {
+   "rc": 0,
+   "wall_s": 27.3,
+   "instantiations": "64035557",
+   "memory_kb": "723686"
+  },
+  "lazy_chain_2000000": {
+   "rc": 0,
+   "wall_s": 110.1,
+   "instantiations": "256035557",
+   "memory_kb": "2700998"
+  },
+  "residual_bound": "linear memory ~1.35KB/step; no fuse trips at any scale tested",
+  "note": "reproduce: python3 linux/run_bypass.py 500000 2000000"
+ },
+ "tsc593_confirms": "the statement-window bypass is a language-semantics property: tsc 5.9.3 compiles the same verified 2,000-step chain clean (302,214 instantiations)"
+}

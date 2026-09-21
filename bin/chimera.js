@@ -86,6 +86,14 @@ ${C.bold}ACTS VI–VIII: THE WALL & THE WILD RESULTS (verification campaign)${C.
   ${C.green}✔ tsgo:${C.reset}   ~26% fewer instantiations than tsc 5.9 per identical probe (checker-level, not pool)
   ${C.green}✔ Wild:${C.reset}   5M ceiling is per-STATEMENT (13.4M compiled clean); tsgo parser crash-immune (Go stacks);
             g++ wall is stochastic (ASLR-dependent ~6-frame phase boundary)
+
+${C.bold}ACTS IX–XI: THE BYPASS, THE CLOUD SILICON, THE PHASE TRANSITION${C.reset}
+  ${C.green}✔ IX:${C.reset}   Universal TS2589 bypass — statement-fan-out compiles 2,000,000 verified Rule 110
+            steps (256M instantiations, 0 errors, 110 s); every intermediate tape checked against
+            ground truth. TypeScript has no effective ceiling on type-level computation.
+  ${C.green}✔ X:${C.reset}   CI macos-litmus job — physical Apple Silicon SB/MP data on every push (ARM64 runner)
+  ${C.green}✔ XI:${C.reset}  Crash walls as survival curves — g++/clang++/rustc transition bands measured;
+            setarch -R (ASLR off) collapses the band to a deterministic boundary
 `);
 
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);

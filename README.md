@@ -150,6 +150,18 @@ Act V replicates the macOS laboratory on Linux x86_64 and asks which findings ar
 
 New harnesses live in [`linux/`](linux/): fuse probes, the quad-compiler benchmark, Hydra-Linux, the x86 litmus suite, and core ping-pong IPC. New crash artifacts in [`crashes/linux/`](crashes/linux/).
 
+## 🧨 Acts VI–XI: The Frontier
+
+| Discovery | Result | Where |
+|:---|:---|:---|
+| Every recursion wall is a stack boundary | proven by `ulimit`/`RUST_MIN_STACK` rescues; per-frame cost ~202B g++ / ~2KB rustc / ~6.6KB clang++ | Journal VI |
+| tsc fuses mapped to tsgo source | `checker.go:22225` (depth=100, count=5M), `:24433` (fuel=1000) | Journal VII |
+| tsgo diverges from tsc5 | ~26% fewer instantiations + ~30% less memory per identical probe | Journal VII |
+| 5M fuse is per-statement | 13.4M instantiations compiled clean; **TS2589 is a granularity rule** | Journal VIII |
+| **Universal TS2589 bypass** | statement fan-out: **2,000,000 verified Rule 110 steps** (256M instantiations, 0 errors) | Journal IX |
+| Crash walls are probabilistic | g++ ~41.5k survival band; `setarch -R` collapses it to deterministic | Journal XI |
+| CI = cross-hardware lab | `macos-litmus` job yields real ARM64 SB/MP data per push | Journal X |
+
 ## 📂 Repository Structure
 
 ```text

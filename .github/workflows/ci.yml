@@ -25,3 +25,19 @@ jobs:
         run: gcc -O2 -pthread -Wall -Wextra linux/litmus/litmus_test.c -o litmus_test
       - name: Compile IPC ping-pong harness (compile-only smoke)
         run: gcc -O2 -pthread -Wall -Wextra linux/ipc/core_pingpong.c -o core_pingpong
+
+  # Act X: physical Apple Silicon litmus data on every push — macos-latest
+  # runners are ARM64, so the weak-memory experiments (Phase 15/L4) get real
+  # M-series hardware coverage without a local Mac.
+  macos-litmus:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile litmus harness (Apple Clang, ARM64)
+        run: clang -O2 -pthread -Wall -Wextra linux/litmus/litmus_test.c -o litmus_test
+      - name: Run SB/MP litmus sweep
+        run: mkdir -p data && ./litmus_test 200000 data/litmus_macos_arm64.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: litmus-macos-arm64
+          path: data/litmus_macos_arm64.json
