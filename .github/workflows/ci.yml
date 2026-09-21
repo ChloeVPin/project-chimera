@@ -26,18 +26,28 @@ jobs:
       - name: Compile IPC ping-pong harness (compile-only smoke)
         run: gcc -O2 -pthread -Wall -Wextra linux/ipc/core_pingpong.c -o core_pingpong
 
-  # Act X: physical Apple Silicon litmus data on every push — macos-latest
-  # runners are ARM64, so the weak-memory experiments (Phase 15/L4) get real
-  # M-series hardware coverage without a local Mac.
+  # Act X/XII-D: physical Apple Silicon litmus data on every push.
+  # macos-latest runners are ARM64 — each run publishes TWO arms of the
+  # three-arm experiment: native weak ARM64, and the same source compiled
+  # for x86_64 executing under Rosetta 2's hardware TSO mode. (Native x86
+  # control runs on the lab box / litmus-build smoke.)
   macos-litmus:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - name: Compile litmus harness (Apple Clang, ARM64)
-        run: clang -O2 -pthread -Wall -Wextra linux/litmus/litmus_test.c -o litmus_test
-      - name: Run SB/MP litmus sweep
-        run: mkdir -p data && ./litmus_test 200000 data/litmus_macos_arm64.json
+        run: clang -O2 -pthread -Wall -Wextra linux/litmus/litmus_test.c -o litmus_test_arm64
+      - name: Compile litmus harness (x86_64 cross-compile for Rosetta)
+        run: clang -O2 -pthread -Wall -Wextra -arch x86_64 linux/litmus/litmus_test.c -o litmus_test_x86_64
+      - name: Run SB/MP/LB/WRC litmus sweep (native ARM64)
+        run: mkdir -p data && ./litmus_test_arm64 200000 data/litmus_macos_arm64.json
+      - name: Run same sweep under Rosetta 2 (translated x86_64 → TSO)
+        run: arch -x86_64 ./litmus_test_x86_64 200000 data/litmus_macos_rosetta.json
       - uses: actions/upload-artifact@v4
         with:
           name: litmus-macos-arm64
           path: data/litmus_macos_arm64.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: litmus-macos-rosetta
+          path: data/litmus_macos_rosetta.json

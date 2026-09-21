@@ -161,6 +161,10 @@ New harnesses live in [`linux/`](linux/): fuse probes, the quad-compiler benchma
 | **Universal TS2589 bypass** | statement fan-out: **2,000,000 verified Rule 110 steps** (256M instantiations, 0 errors) | Journal IX |
 | Crash walls are probabilistic | g++ ~41.5k survival band; `setarch -R` collapses it to deterministic | Journal XI |
 | CI = cross-hardware lab | `macos-litmus` job yields real ARM64 SB/MP data per push | Journal X |
+| **The Ouroboros** | **100,000 oracle-verified steps of a universal 2-tag system inside tsc** — 0 errors, 6.8s | Journal XII |
+| Chimera Transpiler | `chimera_transpile.py`: any iterative `F<X>` → verified statement-fan-out chain (`./bin/chimera.js transpile`) | Journal XII |
+| Survivability Atlas | 9-compiler wall map by kind — caught / fatal / physical / time-wall; **swiftc is a second ASLR-causal stochastic wall** | Journal XII |
+| Four-family litmus CI | LB + 3-thread WRC added; ARM64 + Rosetta arms every push | Journal XII |
 
 ## 📂 Repository Structure
 

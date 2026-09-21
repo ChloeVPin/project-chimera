@@ -30,7 +30,7 @@
   ] \
   #text(size: 9.5pt, style: "italic")[
     Formal Systems & Compiler Architecture Laboratory, Project Chimera \
-    macOS Darwin ARM64 Microarchitecture Research Group
+    macOS ARM64 + Linux x86_64 Microarchitecture Research Group
   ]
   #v(0.6cm)
 ]
@@ -39,11 +39,11 @@
   #text(weight: "bold", size: 10pt)[Abstract] ---
   Modern production programming language type systems are rarely designed with the overt intent of general-purpose computation. Yet, through the cumulative confluence of bounded existential quantification, distributive conditional type narrowing, recursive type aliases, and nominal trait Horn-clause resolution, modern compilers have accidentally crossed the threshold into full Turing-completeness. Because the Halting Problem is strictly undecidable, static compilers cannot mathematically guarantee termination for arbitrary well-formed type expressions without either sacrificing expressiveness or enforcing pragmatic runtime circuit breakers.
 
-  This monograph presents *Project Chimera*, an exhaustive 19-phase empirical and theoretical investigation that systematically maps, measures, and stress-tests the boundary where static type checking transitions from polynomial-time verification into super-polynomial explosion, non-termination, process-terminating signals, and bare-metal microarchitectural interactions. Spanning *TypeScript 7.0.2*, *Rust 1.97.0 (Chalk)*, and *Apple Clang 21.0.0 (C++20)*, we construct universal computational substrates (Rule 110, Post 2-tag systems, Peano-Ackermann arithmetic, Brainfuck VMs, and a Kleene fixed-point diagonal quine), advance into weaponized type theory (pure compile-time SHA-256 in 5.65 GB heap and a DPLL 3-SAT solver refuting the Pigeonhole Principle), delta-debug compiler crashes into 10-line and 5-line Minimal Reproducible Examples (MREs), measure physical weak memory reordering on bare-metal Apple M2 silicon, quantify a 9.8x inter-cluster Mach IPC penalty across heterogeneous CPU cores, and empirically verify Apple's proprietary `ACTLR_EL1` hardware Total Store Order (TSO) bit under Rosetta 2 (achieving exactly 0 Message Passing violations across 2,000,000 rounds). We provide full Darwin kernel register dumps at the moment of stack collision and conclude with architectural recommendations for multi-dimensional thermodynamic compiler fuel metering.
+  This monograph presents *Project Chimera*, an empirical and theoretical investigation spanning 19 Darwin phases and 8 Linux frontier acts (Part II) that systematically maps, measures, and stress-tests the boundary where static type checking transitions from polynomial-time verification into super-polynomial explosion, non-termination, process-terminating signals, and bare-metal microarchitectural interactions. Spanning *TypeScript 7.0.2*, *Rust 1.97.0 (Chalk)*, and *Apple Clang 21.0.0 (C++20)*, we construct universal computational substrates (Rule 110, Post 2-tag systems, Peano-Ackermann arithmetic, Brainfuck VMs, and a Kleene fixed-point diagonal quine), advance into weaponized type theory (pure compile-time SHA-256 in 5.65 GB heap and a DPLL 3-SAT solver refuting the Pigeonhole Principle), delta-debug compiler crashes into 10-line and 5-line Minimal Reproducible Examples (MREs), measure physical weak memory reordering on bare-metal Apple M2 silicon, quantify a 9.8x inter-cluster Mach IPC penalty across heterogeneous CPU cores, and empirically verify Apple's proprietary `ACTLR_EL1` hardware Total Store Order (TSO) bit under Rosetta 2 (achieving exactly 0 Message Passing violations across 2,000,000 rounds). We provide full Darwin kernel register dumps at the moment of stack collision and conclude with architectural recommendations for multi-dimensional thermodynamic compiler fuel metering.
 
   #v(4pt)
   #text(weight: "bold", size: 9pt)[Index Terms] ---
-  _Type Systems, Accidental Turing-Completeness, Undecidability, Circuit Breakers, Compile-Time Cryptography, NP-Completeness, Compiler Fuzzing, Apple Silicon, Memory Models, Hardware TSO, Rosetta 2, Mach IPC._
+  _Type Systems, Accidental Turing-Completeness, Undecidability, Circuit Breakers, Compile-Time Cryptography, NP-Completeness, Compiler Fuzzing, Apple Silicon, Memory Models, Hardware TSO, Rosetta 2, Mach IPC, Statement Fan-Out, ASLR Causation, Survivability Atlas._
 ]
 
 #v(0.5cm)
@@ -397,6 +397,156 @@ In Phase 19, we unified all 19 phases into an operational command-line orchestra
 - `./bin/chimera.js litmus`: Runs bare-metal ARM64 and Rosetta 2 litmus tests.
 - `./bin/chimera.js sha256`: Type-checks the pure type-level SHA-256 cryptographic engine.
 - `./bin/chimera.js sat`: Evaluates the DPLL 3-SAT solver on Pigeonhole refutation.
+
+= Part II: The Linux Frontier — Compiler Physics at Scale (Acts V–XII)
+
+Part I established accidental universality on Darwin ARM64. Part II ports the
+entire laboratory to Linux x86_64, converts measurements into mechanism-level
+laws, and weaponizes the discoveries into the largest verified type-level
+computation demonstrated to date.
+
+== Invariance and Divergence of the Fuse Hierarchy (Act V)
+
+Replicating the TypeScript fuse probes on Linux/x86_64 (tsgo 7.0.2) produced
+*identical* thresholds — instantiation depth trip at 48 chained levels (100
+internal), tail-call fuel 999→1000, and the ~5.03M instantiation ceiling —
+proving the fuses are *logical counters*, not resource limits. In contrast,
+crash taxonomy proved OS-dependent: the same seeds that yielded `SIGBUS`
+(rustc) and `SIGILL` (clang) under Darwin's Mach guard pages produce uniform
+`SIGSEGV` under Linux stack-growth faults. The native x86_64 TSO control arm
+confirmed Phase 17's Rosetta result: 0 MP violations and a store-buffering
+gradient of 14 (ARM64) → 1,187 (Rosetta) → 39,394 (native x86) violations per
+500k rounds, scaling with store-buffer depth.
+
+== The Stack-Wall Law (Acts VI–VIII)
+
+Every observed compiler crash wall is a *process-stack boundary*, not a logic
+fuse — and graceful failure requires only that a software fuse trip first.
+
+#figure(
+  table(
+    columns: (1.4fr, 1fr, 1.6fr),
+    stroke: 0.5pt + luma(180),
+    align: (left, right, left),
+    table.header([*Compiler*], [*Stack/frame*], [*Wall (depth)*]),
+    [`g++` 11.4], [$approx 202$ B], [41,518–41,524 (probabilistic band)],
+    [`rustc` 1.97 AST walker], [$approx 2$ KB], [4,102 (deterministic)],
+    [`clang++` 14], [$approx 6.6$ KB], [~1,274 (deterministic)],
+    [`swiftc` 6.0.3], [managed], [5,000 clean → 20,000 SIGSEGV],
+    [`csc` (.NET 8)], [managed], [5,938 → 5,939 fatal abort],
+    [`javac` 21], [managed], [SOE → caught diagnostic (rc=3)],
+    [`go gc` 1.23], [growable], [none — quadratic time wall],
+    [`tsgo` 7.0.2], [growable], [none — TS2321 fuse at depth 200],
+  ),
+  caption: [Per-frame stack cost and wall classification. `ulimit -s unlimited`
+    rescues g++ to 100k depth; `RUST_MIN_STACK` rescues rustc — both walls are
+    physical, not logical.]
+)
+
+gdb attribution corrected the mechanism for rustc: the crash lives in
+`Ty::walk_ref ↔ GenericArgs::walk_ref` mutual recursion inside the
+*pre-expansion lint pass* — an AST visitor path with no stack check, which is
+why `recursion_limit` is unenforced there.
+
+== Source Linkage and the typescript-go Divergence (Acts VII–VIII)
+
+Reading the typescript-go source located the measured fuses as literal
+constants — `instantiationDepth == 100` and `instantiationCount >= 5_000_000`
+in `checker.go`, `tailCount == 1000` in the relater — and produced the first
+published divergence table against tsc 5.x: identical thresholds, but tsgo
+performs ≈26% *fewer* instantiation calls on identical input at
+`--checkers 1` with ≈30% less memory, exits `rc=1` vs `rc=2` on TS2589,
+and is structurally crash-immune — Go's growable stacks convert every deep-
+input crash class into either a graceful fourth fuse (TS2321 relater-depth) or
+a superlinear time cost. The 5M "ceiling" was further shown to be a
+*per-statement window*: a 10-statement probe compiled 13,418,995
+instantiations cleanly, proving TypeScript imposes no effective bound on total
+type-level computation — only on per-statement granularity.
+
+== The Universal Bypass and the Ouroboros (Acts IX, XII-A/B)
+
+The per-statement window was weaponized into a mechanical transform: for any
+iterative step $F\<X\>$, emit the chain `type T#sub[i] = F<T#sub[i-1]>`, one
+type alias per statement. Each statement gets a fresh 5M-instantiation window,
+and an interleaved `const c#sub[i]: T#sub[i] = <oracle>` assignability check
+both forces evaluation inside that window and *verifies the computed value
+against ground truth*. Results:
+
+#figure(
+  table(
+    columns: (2fr, 1fr, 1fr, 1.4fr),
+    stroke: 0.5pt + luma(180),
+    align: (left, right, right, left),
+    table.header([*Workload*], [*Steps*], [*Instantiations*], [*Outcome*]),
+    [Rule 110 monolith (`EvolveTCO`)], [1,500], [fuse], [TS2589 death],
+    [Rule 110 verified chain], [2,000], [291,634], [clean, oracle-checked],
+    [Rule 110 lazy chain], [2,000,000], [256,035,557], [clean, 110 s, 2.7 GB],
+    [2-tag Ouroboros (verified)], [100,000], [2,689,800], [clean, 6.8 s],
+    [tsc 5.9.3 cross-check], [2,000], [302,214], [clean — semantics, not impl.],
+  ),
+  caption: [Statement fan-out defeats all three tsc fuses; the residual bound is
+    linear host memory ($approx 1.35$ KB/step).]
+)
+
+For the Ouroboros we selected a bounded non-halting 4-symbol 2-tag system
+(empirically searched; orbit period 565, max word length 44) and ran *100,000
+steps of a universal computational model fully inside the type checker*, each
+step's word pinned by an assignability assertion against a Python oracle — 2.69M
+instantiations, zero errors, 6.84 s. `linux/chimera_transpile.py` packages the
+transform as a CLI: any `module:function` oracle can be transpiled into a
+verified fan-out chain (`./bin/chimera.js transpile`).
+
+== The Survivability Atlas (Acts XI, XII-C)
+
+Fine-grained survival sweeps (12–20 trials/depth, unit resolution, `setarch -R`
+control arm) classify every wall by *kind*:
+
+- *Physical, stochastic:* g++ — 41,520 → 65% survival, 41,522 → 25%, 41,524 →
+  0%. Under `setarch -R` the band collapses to a deterministic step
+  (100%/100%/0%) — *ASLR causation proven*: virtual address layout decides
+  whether a marginal translation unit compiles.
+- *Physical, deterministic:* clang++ (1,270/1,275), rustc (4,100/4,105),
+  swiftc 6.0.3 (5,000 OK → 20,000 SIGSEGV).
+- *Managed, fatal:* csc (.NET 8) — 5,938 clean / 5,939 `SIGABRT`;
+  `StackOverflowException` is uncatchable by design, so the wall is a hard
+  process abort, not a diagnostic.
+- *Managed, stochastic*: see `data/phaseXII_atlas.json` — unit-resolution
+  survival bands (12 trials/depth) with ASLR on and off for every compiler.
+- *Managed, caught:* javac — `StackOverflowError` in `JavacParser.parseType`
+  surfaces as `rc=3` diagnostic; tsc5 dies via V8 `RangeError`.
+- *No crash at all:* go gc and tsgo — growable goroutine/checker stacks trade
+  the crash wall for a quadratic time wall (gc: 1k→0.6 s, 10k→47 s,
+  50k → >300 s).
+
+== CI as a Cross-Hardware Laboratory (Acts X, XII-D)
+
+The `macos-litmus` GitHub Actions job turns every push into a physics run:
+`litmus_test.c` (now four families — SB, MP, *LB*, and 3-thread *WRC* store-
+propagation) compiles for ARM64 *and* x86_64 on the same runner, executing
+natively and under Rosetta 2's hardware TSO mode. First-run ARM64 data:
+SB relaxed 152/200k violations (0.076%), MP relaxed 13/200k (0.0065%), all
+fenced arms 0 — Phase 15 replicated on fresh silicon, automatically.
+
+== Honest Novelty Ledger
+
+#table(
+  columns: (2.2fr, 1fr, 2.4fr),
+  stroke: 0.5pt + luma(180),
+  table.header([*Claim*], [*Status*], [*Prior art*]),
+  [Verified mega-scale type-level compute via statement fan-out], [*Novel*],
+    [TS2589 bypass folklore exists; per-statement window + oracle-verified
+     100k/2M-step chains are first],
+  [ASLR causation proof for g++ crash wall], [*Novel*],
+    [Stochastic walls unreported in compiler literature we could locate],
+  [Survivability atlas (wall kind × compiler)], [*Novel*],
+    [Scattered anecdotes; no unit-resolution cross-language map],
+  [tsgo instantiation-count/memory divergence vs tsc5], [*Novel*],
+    [typescript-go#4201 notes pool duplication; efficiency delta unmeasured],
+  [CI-generated ARM64 litmus artifacts + Rosetta arm], [*Methodology*],
+    [Litmus families standard (Sewell et al.); automation is the contribution],
+  [Fuse constants in checker.go], [Confirmation],
+    [microsoft/TypeScript PRs #32079/#44997 (2019)],
+)
 
 = Architectural Recommendations for Compiler Designers
 

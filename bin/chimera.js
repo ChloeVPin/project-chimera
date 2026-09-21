@@ -94,6 +94,18 @@ ${C.bold}ACTS IX–XI: THE BYPASS, THE CLOUD SILICON, THE PHASE TRANSITION${C.re
   ${C.green}✔ X:${C.reset}   CI macos-litmus job — physical Apple Silicon SB/MP data on every push (ARM64 runner)
   ${C.green}✔ XI:${C.reset}  Crash walls as survival curves — g++/clang++/rustc transition bands measured;
             setarch -R (ASLR off) collapses the band to a deterministic boundary
+
+${C.bold}ACT XII: THE FULL FRONTIER${C.reset}
+  ${C.green}✔ XII-A:${C.reset} Ouroboros — 100,000 VERIFIED steps of a universal 2-tag system inside the type
+             checker (2.69M instantiations, 0 errors, 6.8s; oracle-checked every step)
+  ${C.green}✔ XII-B:${C.reset} Chimera Transpiler — chimera_transpile.py: any iterative F<X> → verified fan-out
+             chain (./bin/chimera.js transpile demo)
+  ${C.green}✔ XII-C:${C.reset} Survivability Atlas — 9-compiler wall map: javac 641 caught-SOE · csc 5,939 fatal
+             SIGABRT · tsc5 506 RangeError · swiftc 5,675-5,678 STOCHASTIC (2nd ASLR wall,
+             deterministic 5,681/5,682 with setarch -R) · gc no-crash quadratic time wall
+  ${C.green}✔ XII-D:${C.reset} Litmus gains LB + WRC(3-thread) families; macos-litmus CI runs ARM64 AND
+             Rosetta-x86_64 arms every push
+  ${C.green}✔ XII-E:${C.reset} Monograph v2 — Part II covers Acts V–XII + novelty ledger
 `);
 
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
@@ -124,7 +136,8 @@ ${C.bold}ACTS IX–XI: THE BYPASS, THE CLOUD SILICON, THE PHASE TRANSITION${C.re
   console.log(`  ${C.bold}./bin/chimera.js linux${C.reset}         Run the full Act V probe suite (Linux only: fuses, quad bench, Hydra, IPC)`);
   console.log(`  ${C.bold}./bin/chimera.js sha256${C.reset}        Verify pure type-level SHA-256 compile-time cryptographic engine`);
   console.log(`  ${C.bold}./bin/chimera.js sat${C.reset}           Run pure type-level DPLL 3-SAT constraint solver`);
-  console.log(`  ${C.bold}./bin/chimera.js report${C.reset}        Generate publication report summary\n`);
+  console.log(`  ${C.bold}./bin/chimera.js report${C.reset}        Generate publication report summary`);
+  console.log(`  ${C.bold}./bin/chimera.js transpile${C.reset}     Act XII-B demo: transpile StepZeroPadded to a verified 3000-step chain\n`);
 }
 
 function runBenchmark() {
@@ -226,6 +239,20 @@ function runLinuxProbe() {
   console.log(`\n${C.green}${C.bold}Act V Linux Probe Suite Complete.${C.reset}`);
 }
 
+function runTranspile() {
+  printBanner();
+  console.log(`${C.yellow}${C.bold}=== Act XII-B: Chimera Transpiler Demo ===${C.reset}`);
+  console.log(`${C.dim}Mechanical statement-fan-out: any iterative F<X> survives TS2589.${C.reset}\n`);
+  const out = path.join(ROOT_DIR, 'linux', 'probes', 'TRANSPILED_DEMO.ts');
+  execSync(`python3 linux/chimera_transpile.py --import '../../src/type_engine/rule110' ` +
+           `--fn StepZeroPadded --init '[0,1,1,0,1,1,1,0]' --steps 3000 ` +
+           `--verify-fn linux/oracles.py:rule110_step --verify-every 250 --out "${out}"`,
+           { cwd: ROOT_DIR, stdio: 'inherit' });
+  const start = Date.now();
+  execSync(`npx tsc --ignoreConfig --noEmit "${out}"`, { cwd: ROOT_DIR, stdio: 'inherit' });
+  console.log(`\n${C.green}${C.bold}Transpiled chain verified in ${Date.now() - start} ms (3000 steps, checkpoints proven).${C.reset}`);
+}
+
 function runSha256() {
   printBanner();
   console.log(`${C.yellow}${C.bold}=== Verifying Pure Type-Level SHA-256 Cryptographic Engine ===${C.reset}`);
@@ -275,6 +302,10 @@ function main() {
     case 'sat':
     case 'dpll':
       runSat();
+      break;
+    case 'transpile':
+    case 'transpiler':
+      runTranspile();
       break;
     case 'linux':
     case 'probe':
