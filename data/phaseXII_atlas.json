@@ -1,0 +1,138 @@
+{
+ "act": "XII-C",
+ "compilers": {
+  "javac": {
+   "wall": [
+    641,
+    642
+   ],
+   "band_aslr_on": {
+    "641": 1.0,
+    "642": 0.0,
+    "643": 0.0,
+    "644": 0.0
+   },
+   "band_aslr_off": {
+    "641": 1.0,
+    "642": 0.0,
+    "643": 0.0,
+    "644": 0.0
+   },
+   "wall_kind": "stack-limit (caught) \u2014 JVM StackOverflowError in JavacParser.parseType \u2192 rc=3 diagnostic"
+  },
+  "csc": {
+   "wall": [
+    5938,
+    5939
+   ],
+   "band_aslr_on": {
+    "5938": 1.0,
+    "5939": 0.0,
+    "5940": 0.0,
+    "5941": 0.0
+   },
+   "band_aslr_off": {
+    "5938": 1.0,
+    "5939": 0.0,
+    "5940": 0.0,
+    "5941": 0.0
+   },
+   "wall_kind": "abort \u2014 .NET StackOverflowException is fatal (uncatchable) \u2192 SIGABRT rc=-6"
+  },
+  "tsc5": {
+   "wall": [
+    506,
+    507
+   ],
+   "band_aslr_on": {
+    "506": 1.0,
+    "507": 0.0,
+    "508": 0.0,
+    "509": 0.0
+   },
+   "band_aslr_off": {
+    "506": 1.0,
+    "507": 0.0,
+    "508": 0.0,
+    "509": 0.0
+   },
+   "wall_kind": "stack-limit (caught) \u2014 V8 RangeError \"Maximum call stack size exceeded\""
+  },
+  "swiftc": {
+   "wall": [
+    5675,
+    5676
+   ],
+   "band_aslr_on": {
+    "5675": 0.75,
+    "5676": 0.583,
+    "5677": 0.167,
+    "5678": 0.167
+   },
+   "band_aslr_off": {
+    "5675": 1.0,
+    "5676": 1.0,
+    "5677": 1.0,
+    "5678": 1.0
+   },
+   "wall_kind": "crash \u2014 SIGSEGV (physical stack wall); stochastic under ASLR",
+   "wall_aslr_off": [
+    5681,
+    5682
+   ],
+   "note": "ASLR-on: probabilistic band 5675-5678+; setarch -R collapses to sharp step at 5681/5682 \u2014 same ASLR-causation signature as g++ (Act XI)"
+  },
+  "go gc": {
+   "time_wall_curve": {
+    "1000": {
+     "class": "ok",
+     "s": 0.63
+    },
+    "5000": {
+     "class": "ok",
+     "s": 11.43
+    },
+    "10000": {
+     "class": "ok",
+     "s": 46.39
+    },
+    "20000": {
+     "class": "ok",
+     "s": 205.92
+    }
+   },
+   "wall_kind": "time-wall \u2014 no crash \u226420k; ~O(d^1.9) instantiation time (growable stacks)"
+  },
+  "tsgo": {
+   "probe_4000": {
+    "class": "ok",
+    "s": 0.76
+   },
+   "wall_kind": "none at \u22644000 \u2014 growable stacks + TS2321 relater-depth fuse (Act VIII)"
+  },
+  "g++": {
+   "wall": [
+    41518,
+    41524
+   ],
+   "wall_kind": "crash \u2014 SIGSEGV stochastic band (ASLR causation proven, Act XI)",
+   "source": "data/phaseXI_survival_fine.json"
+  },
+  "clang++": {
+   "wall": [
+    1270,
+    1275
+   ],
+   "wall_kind": "crash \u2014 SIGSEGV deterministic step",
+   "source": "data/phaseXI_survival_fine.json"
+  },
+  "rustc": {
+   "wall": [
+    4100,
+    4105
+   ],
+   "wall_kind": "crash \u2014 SIGSEGV deterministic step",
+   "source": "data/phaseXI_survival_fine.json"
+  }
+ }
+}

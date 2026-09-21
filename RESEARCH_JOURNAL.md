@@ -1729,3 +1729,54 @@ With address randomization disabled, g++'s probabilistic frontier **collapses to
 
 Data: `data/phaseXI_survival.json` (coarse), `data/phaseXI_survival_fine.json` (unit-resolution bands). Reproduce: `python3 linux/run_survival_curves.py [--fine]` — bands are machine-specific, encoding this host's stack size against each compiler's per-frame cost.
 
+---
+
+# ACT XII: THE FULL FRONTIER — Ouroboros, Transpiler, Atlas, Three-Arm Litmus, Monograph
+
+## XII-A. The Ouroboros — 100,000 verified steps of a universal model at type level
+
+A bounded non-halting 4-symbol 2-tag system (`a→dbd, b→ad, c→bdcc, d→a` — found by randomized search over 40k candidates; orbit period 565, word length bounded ≤44) was compiled as a statement-fan-out chain: `type Wᵢ = Step2Tag<Wᵢ₋₁, R>` with a `const _cᵢ: Wᵢ = <oracle word>` assignability check *every step*.
+
+Result: **100,000 steps, every step verified against a Python oracle, rc=0 in 6.84 s** (2.69M instantiations — the bounded word keeps per-statement work tiny; checkers cache `Step2Tag` results across the period). `linux/probes/OUROBOROS_TAG_3000.ts` is the committed 3,000-step exemplar; regenerate the 100k chain with `python3 linux/run_ouroboros.py 1 100000`. This is the largest *stepwise-verified* type-level computation we know of — the type checker as a verifiable universal computer.
+
+## XII-B. The Chimera Transpiler
+
+`linux/chimera_transpile.py` generalizes the Act IX transform into a CLI: point it at any iterative `F<X>` plus an optional oracle (`module:func` or `/path.py:func`), and it emits a statement-fan-out chain with checkpoint assertions:
+
+```
+python3 linux/chimera_transpile.py --import '../../src/type_engine/rule110' \
+  --fn StepZeroPadded --init '[0,1,1,0,1,1,1,0]' --steps 3000 \
+  --verify-fn linux/oracles.py:rule110_step --verify-every 250 --out chain.ts
+```
+
+Also wired as `./bin/chimera.js transpile` (self-verifying demo, ~0.7 s). `linux/oracles.py` holds ground-truth oracles (`rule110_step`, `tag_step`).
+
+## XII-C. The Survivability Atlas — every compiler's wall, by kind
+
+`linux/run_atlas.py` (new) bisects each compiler's deep-nesting wall to unit resolution, then maps survival probability across a band — ASLR on and `setarch -R` off:
+
+| Compiler | Wall | Band (ASLR on) | Band (ASLR off) | Kind |
+|:---|:---:|:---:|:---:|:---|
+| javac 21 | 641/642 | 100%→0% | identical | **caught** — SOE → rc=3 diagnostic |
+| tsc 5.9.3 | 506/507 | 100%→0% | identical | **caught** — V8 RangeError |
+| csc (.NET 8) | 5,938/5,939 | 100%→0% | identical | **fatal abort** — SOE uncatchable → SIGABRT |
+| swiftc 6.0.3 | 5,675–5,678 | 75%→58%→17%→17% | **100% everywhere → wall at 5,681/5,682** | **physical segv, stochastic** — second ASLR-causal wall after g++ |
+| g++ 11.4 | 41,520–41,524 | 65%→25%→0% | deterministic step | physical segv, stochastic (Act XI) |
+| rustc 1.97.1 | 4,100/4,105 | step | step | physical segv, deterministic |
+| clang++ 14 | 1,270/1,275 | step | step | physical segv, deterministic |
+| go gc 1.23 | none ≤20k | — | — | **time-wall**: 1k→0.6s, 10k→46s, 20k→206s (~O(d¹·⁹)) |
+| tsgo 7.0.2 | none ≤4,000 | — | — | graceful fuse (TS2321 at depth 200) |
+
+**Headline finding:** managed runtimes split three ways — JVM *catches* SOE (diagnostic), CLR makes it *fatal* (SIGABRT), V8 throws *RangeError* (diagnostic). And **swiftc joins g++** as a second stochastic wall: its ASLR-off band is 100% across the entire ASLR-on coin-flip region, deterministic step at 5,681/5,682. Two of five crashing walls are virtual-address coin flips.
+
+Data: `data/phaseXII_atlas.json`. Reproduce: `python3 linux/run_atlas.py` (needs Go/JDK/.NET/Swift toolchains; skips missing ones).
+
+## XII-D. Four-family litmus on CI, three arms
+
+`litmus_test.c` gains **LB** (load buffering — load→store reordering) and **WRC** (3-thread write-to-read causality — store *propagation*, forbidden in principle on multi-copy-atomic TSO). The `macos-litmus` job now also cross-compiles `-arch x86_64` and runs it under `arch -x86_64` — the same runner produces native-ARM64 *and* Rosetta-TSO artifacts every push. Local x86 control: LB 0/30k, WRC 0 violations in 4,348 propagated rounds — exactly TSO theory.
+
+## XII-E. Monograph v2
+
+`paper/chimera_monograph.typ` gains "Part II: The Linux Frontier" covering Acts V–XII — fuse invariance, the stack-wall law + per-frame costs, tsgo source linkage, the bypass/Ouroboros, the atlas taxonomy, CI-as-lab — plus an honest novelty ledger. Rebuilt PDF: `paper/project_chimera_monograph.pdf` (typst 0.13.1).
+
+**Novelty labels:** XII-A novel (verified mega-scale type-level universal computation); XII-B methodology (tooling); XII-C novel (first unit-resolution cross-language wall atlas; second ASLR-causal wall); XII-D methodology.

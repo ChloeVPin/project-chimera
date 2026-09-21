@@ -1,0 +1,42 @@
+{
+ "act": "XII-A",
+ "system": {
+  "a": [
+   "d",
+   "b",
+   "d"
+  ],
+  "b": [
+   "a",
+   "d"
+  ],
+  "c": [
+   "b",
+   "d",
+   "c",
+   "c"
+  ],
+  "d": [
+   "a"
+  ]
+ },
+ "start": [
+  "a",
+  "b",
+  "c",
+  "d"
+ ],
+ "steps": 100000,
+ "verify_every": 1,
+ "result": {
+  "rc": 0,
+  "wall_s": 6.84,
+  "instantiations": "2689800",
+  "memory": "1030566",
+  "check": "5.221",
+  "total": "6.208",
+  "n_errors": 0,
+  "errors": []
+ },
+ "note": "period 565 bounded non-halting 2-tag system; maxlen 44 words"
+}

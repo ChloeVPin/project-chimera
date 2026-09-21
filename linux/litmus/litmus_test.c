@@ -14,6 +14,11 @@
  * - MODE_RELAXED: Unsynchronized raw `str` and `ldr`
  * - MODE_FENCED: Full memory barriers (`dmb ish`, `dmb ishld`)
  * - MODE_ACQ_REL: One-way hardware barriers (`stlr`, `ldar`)
+ *
+ * Act XII-D additions:
+ * 3. Load Buffering (LB) — load→store reordering; forbidden on TSO, allowed on ARMv8
+ * 4. Write-to-Read Causality (WRC) — 3-thread store propagation; safe on TSO
+ *    (multi-copy-atomic), observable on ARMv8 (non-MCA propagation windows)
  */
 
 #include <stdio.h>
@@ -60,6 +65,7 @@ typedef struct {
     volatile uint32_t round;
     volatile uint32_t t0_done;
     volatile uint32_t t1_done;
+    volatile uint32_t t2_done;
     volatile bool terminate;
     BarrierMode mode;
     
@@ -68,6 +74,9 @@ typedef struct {
     uint32_t r1;
     uint32_t r_flag;
     uint32_t r_data;
+    uint32_t r_wrc_a;
+    uint32_t r_wrc_b;
+    uint32_t r_wrc_c;
 } HarnessState;
 
 static HarnessState g_state;
@@ -379,6 +388,171 @@ void* mp_thread_1(void* arg) { // Consumer
 }
 
 // ============================================================================
+// 3. Load Buffering (LB) Threads — load→store reordering
+//    P0: r0 = x; y = 1   |   P1: r1 = y; x = 1   |   violation: r0==1 && r1==1
+// ============================================================================
+
+void* lb_thread_0(void* arg) {
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+
+        uint32_t r0_val;
+#if defined(__aarch64__)
+        if (g_state.mode == MODE_RELAXED) {
+            asm volatile ("ldr %w0, [%1]\n\tstr %w2, [%3]\n\t"
+                : "=&r"(r0_val) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile ("ldr %w0, [%1]\n\tdmb ish\n\tstr %w2, [%3]\n\t"
+                : "=&r"(r0_val) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        } else {
+            asm volatile ("ldar %w0, [%1]\n\tstlr %w2, [%3]\n\t"
+                : "=&r"(r0_val) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_RELAXED || g_state.mode == MODE_ACQ_REL) {
+            // TSO preserves load->store order; acq/rel adds nothing here
+            asm volatile ("movl (%1), %0\n\tmovl %2, (%3)\n\t"
+                : "=r"(r0_val) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        } else {
+            asm volatile ("movl (%1), %0\n\tmfence\n\tmovl %2, (%3)\n\t"
+                : "=r"(r0_val) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        }
+#endif
+        g_state.r0 = r0_val;
+        __atomic_store_n(&g_state.t0_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+void* lb_thread_1(void* arg) {
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+
+        uint32_t r1_val;
+#if defined(__aarch64__)
+        if (g_state.mode == MODE_RELAXED) {
+            asm volatile ("ldr %w0, [%1]\n\tstr %w2, [%3]\n\t"
+                : "=&r"(r1_val) : "r"(&g_mem.y), "r"(1), "r"(&g_mem.x) : "memory");
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile ("ldr %w0, [%1]\n\tdmb ish\n\tstr %w2, [%3]\n\t"
+                : "=&r"(r1_val) : "r"(&g_mem.y), "r"(1), "r"(&g_mem.x) : "memory");
+        } else {
+            asm volatile ("ldar %w0, [%1]\n\tstlr %w2, [%3]\n\t"
+                : "=&r"(r1_val) : "r"(&g_mem.y), "r"(1), "r"(&g_mem.x) : "memory");
+        }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_RELAXED || g_state.mode == MODE_ACQ_REL) {
+            asm volatile ("movl (%1), %0\n\tmovl %2, (%3)\n\t"
+                : "=r"(r1_val) : "r"(&g_mem.y), "r"(1), "r"(&g_mem.x) : "memory");
+        } else {
+            asm volatile ("movl (%1), %0\n\tmfence\n\tmovl %2, (%3)\n\t"
+                : "=r"(r1_val) : "r"(&g_mem.y), "r"(1), "r"(&g_mem.x) : "memory");
+        }
+#endif
+        g_state.r1 = r1_val;
+        __atomic_store_n(&g_state.t1_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+// ============================================================================
+// 4. Write-to-Read Causality (WRC) — 3-thread store propagation test
+//    P0: x = 1  |  P1: ra = x; y = 1  |  P2: rb = y; rc = x
+//    violation: ra==1 && rb==1 && rc==0  (P1 saw x=1, propagated via y,
+//    yet P2 reads stale x — only possible on non-multi-copy-atomic fabrics)
+// ============================================================================
+
+void* wrc_thread_0(void* arg) { // sole writer of x
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+
+#if defined(__aarch64__) || defined(__x86_64__)
+        __atomic_store_n(&g_mem.x, 1, __ATOMIC_RELAXED);
+#endif
+        __atomic_store_n(&g_state.t0_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+void* wrc_thread_1(void* arg) { // reads x, then writes y
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+
+        uint32_t ra;
+#if defined(__aarch64__)
+        if (g_state.mode == MODE_RELAXED) {
+            asm volatile ("ldr %w0, [%1]\n\tstr %w2, [%3]\n\t"
+                : "=&r"(ra) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile ("ldr %w0, [%1]\n\tdmb ish\n\tstr %w2, [%3]\n\t"
+                : "=&r"(ra) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        } else {
+            asm volatile ("ldar %w0, [%1]\n\tstlr %w2, [%3]\n\t"
+                : "=&r"(ra) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_FENCED) {
+            asm volatile ("movl (%1), %0\n\tmfence\n\tmovl %2, (%3)\n\t"
+                : "=r"(ra) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        } else {
+            asm volatile ("movl (%1), %0\n\tmovl %2, (%3)\n\t"
+                : "=r"(ra) : "r"(&g_mem.x), "r"(1), "r"(&g_mem.y) : "memory");
+        }
+#endif
+        g_state.r_wrc_a = ra;
+        __atomic_store_n(&g_state.t1_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+void* wrc_thread_2(void* arg) { // reads y, then reads x
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+
+        uint32_t rb, rc;
+#if defined(__aarch64__)
+        if (g_state.mode == MODE_RELAXED) {
+            asm volatile ("ldr %w0, [%2]\n\tldr %w1, [%3]\n\t"
+                : "=&r"(rb), "=&r"(rc) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile ("ldr %w0, [%2]\n\tdmb ishld\n\tldr %w1, [%3]\n\t"
+                : "=&r"(rb), "=&r"(rc) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        } else {
+            asm volatile ("ldar %w0, [%2]\n\tldar %w1, [%3]\n\t"
+                : "=&r"(rb), "=&r"(rc) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_FENCED) {
+            asm volatile ("movl (%2), %0\n\tmfence\n\tmovl (%3), %1\n\t"
+                : "=r"(rb), "=r"(rc) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        } else {
+            asm volatile ("movl (%2), %0\n\tmovl (%3), %1\n\t"
+                : "=r"(rb), "=r"(rc) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        }
+#endif
+        g_state.r_wrc_b = rb;
+        g_state.r_wrc_c = rc;
+        __atomic_store_n(&g_state.t2_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+// ============================================================================
 // Benchmark Execution
 // ============================================================================
 
@@ -391,7 +565,7 @@ typedef struct {
     double elapsed_ms;
 } LitmusResult;
 
-static LitmusResult g_results[6];
+static LitmusResult g_results[16];
 static int g_result_idx = 0;
 
 void record_result(const char* test, const char* mode, uint32_t iters, uint64_t viol, double ms) {
@@ -408,6 +582,7 @@ void run_sb_experiment(uint32_t iterations, BarrierMode mode, const char* mode_n
     g_state.round = 0;
     g_state.t0_done = 0;
     g_state.t1_done = 0;
+    g_state.t2_done = 0;
     g_state.terminate = false;
     g_state.mode = mode;
 
@@ -474,6 +649,7 @@ void run_mp_experiment(uint32_t iterations, BarrierMode mode, const char* mode_n
     g_state.round = 0;
     g_state.t0_done = 0;
     g_state.t1_done = 0;
+    g_state.t2_done = 0;
     g_state.terminate = false;
     g_state.mode = mode;
 
@@ -526,16 +702,102 @@ void run_mp_experiment(uint32_t iterations, BarrierMode mode, const char* mode_n
     record_result("Message Passing (MP)", mode_name, iterations, sc_violations, elapsed_ms);
 }
 
-// Reports the real host CPU name on macOS (e.g. "Apple M4") instead of a
-// hardcoded model, so CI artifacts on newer runners stay accurate.
-#if !defined(__x86_64__)
-static const char* host_cpu_name(void) {
+void run_lb_experiment(uint32_t iterations, BarrierMode mode, const char* mode_name) {
+    g_state.round = 0;
+    g_state.t0_done = 0;
+    g_state.t1_done = 0;
+    g_state.terminate = false;
+    g_state.mode = mode;
+
+    pthread_t t0, t1;
+    pthread_create(&t0, NULL, lb_thread_0, NULL);
+    pthread_create(&t1, NULL, lb_thread_1, NULL);
+
+    uint64_t violations = 0;
+    uint64_t start_time = now_ns();
+
+    for (uint32_t i = 1; i <= iterations; i++) {
+        g_mem.x = 0;
+        g_mem.y = 0;
+
+        __atomic_store_n(&g_state.round, i, __ATOMIC_RELEASE);
+        while (__atomic_load_n(&g_state.t0_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+        while (__atomic_load_n(&g_state.t1_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+
+        if (g_state.r0 == 1 && g_state.r1 == 1) violations++;
+    }
+
+    uint64_t elapsed = now_ns() - start_time;
+    double elapsed_ms = (double)elapsed / 1e6;
+
+    g_state.terminate = true;
+    __atomic_store_n(&g_state.round, iterations + 1, __ATOMIC_RELEASE);
+    pthread_join(t0, NULL);
+    pthread_join(t1, NULL);
+
+    double rate = (double)violations / iterations * 100.0;
+    printf("  [LB Litmus - %-10s] Iterations: %u | Violations (r0=1,r1=1): %llu (%.4f%%) | Time: %.2f ms\n",
+           mode_name, iterations, (unsigned long long)violations, rate, elapsed_ms);
+    record_result("Load Buffering (LB)", mode_name, iterations, violations, elapsed_ms);
+}
+
+void run_wrc_experiment(uint32_t iterations, BarrierMode mode, const char* mode_name) {
+    g_state.round = 0;
+    g_state.t0_done = 0;
+    g_state.t1_done = 0;
+    g_state.t2_done = 0;
+    g_state.terminate = false;
+    g_state.mode = mode;
+
+    pthread_t t0, t1, t2;
+    pthread_create(&t0, NULL, wrc_thread_0, NULL);
+    pthread_create(&t1, NULL, wrc_thread_1, NULL);
+    pthread_create(&t2, NULL, wrc_thread_2, NULL);
+
+    uint64_t violations = 0;
+    uint64_t propagated = 0;
+    uint64_t start_time = now_ns();
+
+    for (uint32_t i = 1; i <= iterations; i++) {
+        g_mem.x = 0;
+        g_mem.y = 0;
+
+        __atomic_store_n(&g_state.round, i, __ATOMIC_RELEASE);
+        while (__atomic_load_n(&g_state.t0_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+        while (__atomic_load_n(&g_state.t1_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+        while (__atomic_load_n(&g_state.t2_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+
+        uint32_t ra = g_state.r_wrc_a, rb = g_state.r_wrc_b, rc = g_state.r_wrc_c;
+        if (ra == 1 && rb == 1) {
+            propagated++;
+            if (rc == 0) violations++;
+        }
+    }
+
+    uint64_t elapsed = now_ns() - start_time;
+    double elapsed_ms = (double)elapsed / 1e6;
+
+    g_state.terminate = true;
+    __atomic_store_n(&g_state.round, iterations + 1, __ATOMIC_RELEASE);
+    pthread_join(t0, NULL);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+
+    double rate = (double)violations / iterations * 100.0;
+    printf("  [WRC Litmus - %-10s] Iterations: %u | Causality violations (ra=1,rb=1,rc=0): %llu (%.6f%%) | Propagated rounds: %llu | Time: %.2f ms\n",
+           mode_name, iterations, (unsigned long long)violations, rate,
+           (unsigned long long)propagated, elapsed_ms);
+    record_result("Write-Read Causality (WRC)", mode_name, iterations, violations, elapsed_ms);
+}
+
+// Reports the real host CPU name on macOS (e.g. "Apple M4") — under Rosetta
+// it reports the underlying Apple chip (e.g. "Apple M1 (Virtual)").
 #if defined(__APPLE__)
+static const char* host_cpu_name(void) {
     static char name[128] = {0};
     size_t len = sizeof(name) - 1;
     if (sysctlbyname("machdep.cpu.brand_string", name, &len, NULL, 0) == 0 && name[0])
         return name;
-#endif
     return NULL;
 }
 #endif
@@ -544,7 +806,11 @@ void save_json_results(const char* filepath) {
     FILE* fp = fopen(filepath, "w");
     if (!fp) return;
 
-#if defined(__x86_64__)
+#if defined(__APPLE__) && defined(__x86_64__)
+    const char* exp_name = "Act XII-D: Rosetta 2 x86_64 Litmus on Apple Silicon";
+    const char* cpu_name = host_cpu_name() ? host_cpu_name() : "Apple Silicon (Rosetta)";
+    const char* arch_name = "x86_64 translated by Rosetta 2 (hardware TSO mode)";
+#elif defined(__x86_64__)
     const char* exp_name = "Phase L4: Linux x86_64 Native TSO Litmus";
     const char* cpu_name = "Intel Xeon Platinum 8375C (Ice Lake)";
     const char* arch_name = "x86_64 native (hardware TSO, no translation)";
@@ -592,7 +858,12 @@ int main(int argc, char** argv) {
     }
 
     printf("================================================================\n");
-#if defined(__x86_64__)
+#if defined(__APPLE__) && defined(__x86_64__)
+    printf("Project Chimera: Act XII-D - Rosetta 2 Translated x86_64 Litmus\n");
+    printf("x86 binary on Apple Silicon via Rosetta 2 hardware TSO mode\n");
+    printf("Arch: x86_64-on-ARM64 (%s) | Iterations: %u per test\n",
+           host_cpu_name() ? host_cpu_name() : "Apple Silicon", iterations);
+#elif defined(__x86_64__)
     printf("Project Chimera: Phase L4 - Linux x86_64 Native TSO Litmus\n");
     printf("Native x86 TSO: control arm for Phase 17 Rosetta result (expect 0 MP, nonzero SB)\n");
     printf("Arch: x86_64 native (Ice Lake Server) | Iterations: %u per test\n", iterations);
@@ -614,8 +885,19 @@ int main(int argc, char** argv) {
     run_mp_experiment(iterations, MODE_FENCED, "FENCED");
     run_mp_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
 
-    save_json_results(out_json);
+    printf("\n>>> Experiment C: Load Buffering (LB) — load->store reordering\n");
+    run_lb_experiment(iterations, MODE_RELAXED, "RELAXED");
+    run_lb_experiment(iterations, MODE_FENCED, "FENCED");
+    run_lb_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
 
-    printf("\n[OK] Litmus test suite complete.\n");
+    printf("\n>>> Experiment D: Write-to-Read Causality (WRC) — store propagation\n");
+    run_wrc_experiment(iterations, MODE_RELAXED, "RELAXED");
+    run_wrc_experiment(iterations, MODE_FENCED, "FENCED");
+    run_wrc_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+
+    save_json_results(out_json);
+    printf("\n================================================================\n");
+    printf("All litmus experiments complete.\n");
+    printf("================================================================\n");
     return 0;
 }
