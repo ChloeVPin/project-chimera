@@ -117,6 +117,16 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
   ${C.green}✔ XIII-C:${C.reset} IRIW litmus family (4-thread MCA discriminator) live on x86 + both CI arms
 `);
 
+  console.log(`${C.bold}ACT XIV: THE LIMITER-FREE COMPILER${C.reset}
+  ${C.green}✔ XIV-A:${C.reset} tsgo rebuilt with ALL fuses removed — first untruncated measurements:
+              FREEZE_10 = 36,618,360 inst / 20.8 GB / 70 s (depth-11 needs ~146M inst ≈ 80 GB → OOM);
+              TCO dies on TS2799 tuple cap at exactly 50,171,386 inst, not recursion
+  ${C.green}✔ XIV-B:${C.reset} THE FUSES HIDE A BUG — stock tsgo SILENTLY ACCEPTS mismatched types deeper
+              than 100 levels (rc=0, zero diagnostics; Maybe swallowed). tsc5 reports TS2321 loudly,
+              unfused tsgo answers correctly — removing the fuse made the checker MORE correct.
+              Deep nesting itself is free: flat 33,897 inst at any depth, 60k compiles in 155 s
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);
