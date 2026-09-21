@@ -133,6 +133,9 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               covariant container (Array/Promise/tuple/record/Box, bottom + mid + missing-prop).
               Immune: contravariant fn args, unions, readonly[] — different relation paths.
               Boundary: errors ≤100, silent ≥120. Zero false positives on controls.
+  ${C.green}✔ XV-B:${C.reset} Boundary bisected to EXACTLY depth 101 (relater stack==100 → Maybe).
+              Families now 11: +conditional, inference, methods, getters, index-sigs,
+              class variance. Mapped types & conditional-constraint chains unaffected.
 `);
 
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
