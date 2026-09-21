@@ -25,6 +25,9 @@
 #include <time.h>
 #include <unistd.h>
 #include <string.h>
+#if defined(__APPLE__)
+#include <sys/sysctl.h>
+#endif
 
 #define CACHE_LINE_SIZE 128
 #define DEFAULT_ITERATIONS 1000000
@@ -523,6 +526,20 @@ void run_mp_experiment(uint32_t iterations, BarrierMode mode, const char* mode_n
     record_result("Message Passing (MP)", mode_name, iterations, sc_violations, elapsed_ms);
 }
 
+// Reports the real host CPU name on macOS (e.g. "Apple M4") instead of a
+// hardcoded model, so CI artifacts on newer runners stay accurate.
+#if !defined(__x86_64__)
+static const char* host_cpu_name(void) {
+#if defined(__APPLE__)
+    static char name[128] = {0};
+    size_t len = sizeof(name) - 1;
+    if (sysctlbyname("machdep.cpu.brand_string", name, &len, NULL, 0) == 0 && name[0])
+        return name;
+#endif
+    return NULL;
+}
+#endif
+
 void save_json_results(const char* filepath) {
     FILE* fp = fopen(filepath, "w");
     if (!fp) return;
@@ -533,7 +550,7 @@ void save_json_results(const char* filepath) {
     const char* arch_name = "x86_64 native (hardware TSO, no translation)";
 #else
     const char* exp_name = "Phase 15: Apple Silicon Weak Memory Litmus Tests";
-    const char* cpu_name = "Apple M2";
+    const char* cpu_name = host_cpu_name() ? host_cpu_name() : "Apple Silicon";
     const char* arch_name = "ARMv8.5-A native weakly ordered memory";
 #endif
 
@@ -582,7 +599,8 @@ int main(int argc, char** argv) {
 #else
     printf("Project Chimera: Phase 15 - Physical Apple Silicon Litmus Tests\n");
     printf("ARMv8-A Weak Memory Ordering vs. Sequential Consistency (TSO)\n");
-    printf("Arch: ARM64 Native (Apple M2) | Iterations: %u per test\n", iterations);
+    printf("Arch: ARM64 Native (%s) | Iterations: %u per test\n",
+           host_cpu_name() ? host_cpu_name() : "Apple Silicon", iterations);
 #endif
     printf("================================================================\n\n");
 

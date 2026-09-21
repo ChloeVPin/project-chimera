@@ -1637,3 +1637,95 @@ Nested `[[[...]]]` source-depth sweep: depth 200 → graceful **TS2321** ("Exces
 ## W3. GCC's crash wall is STOCHASTIC
 
 Six trials each at the boundary: depth 41,519 → 6/6 clean (it crashed earlier in the session!); 41,520 → 5/6 clean; 41,521 → 3/6. **The wall is a ~6-frame-wide probabilistic phase boundary** — ASLR/stack-layout decides whether the same input compiles or ICEs. "Does this compile?" is not deterministic at the frontier; it's a coin flip biased by address-space layout.
+
+---
+
+# ACT IX: THE UNIVERSAL TS2589 BYPASS — TypeScript Has No Compute Ceiling
+
+## IX-A. The transform
+
+Act VIII-W1 showed `instantiationCount` resets per statement. The corollary, proven here: **any type-level computation — however deep or long — compiles if its work is distributed one step per statement.**
+
+Chain transform for iterative computation `F^n(x0)`:
+
+```ts
+type T0 = [0,1,1,0,1,1,1,0];
+type T1 = StepZeroPadded<T0>;
+type T2 = StepZeroPadded<T1>;
+// ... N statements ...
+const _end: TN = <python-computed expected tape>;  // forces + verifies step N
+```
+
+Each statement performs exactly one step: `T(i-1)` is a cache hit (never increments `instantiationCount`), the new step's cost (~128 instantiations for width-8 Rule 110) lands entirely inside that statement's private 5M window. The depth fuse (100) never engages because instantiating `Ti` resolves `T(i-1)` through the alias's already-computed declared type — the checker never recurses through the source-level chain; the fuel fuse (1000) never engages because no single statement iterates.
+
+## IX-B. Measured scaling (typescript 7.0.2 / tsgo, `--extendedDiagnostics`)
+
+| Steps N | Result | Instantiations | Memory | Wall |
+|:---:|:---:|---:|---:|---:|
+| 1,500 (monolithic `EvolveTCO`) | **TS2589** | 549,203 | 398 MB | 1.6 s |
+| 2,000 (verified chain, every step checked vs ground truth) | clean | 291,634 | 73 MB | 0.7 s |
+| 10,000 | clean | 1,315,557 | 78 MB | 1.1 s |
+| 50,000 | clean | 6,435,557 | 125 MB | 3.0 s |
+| 200,000 | clean | 25,635,557 | 290 MB | 10.6 s |
+| 500,000 | clean | 64,035,557 | 724 MB | 27.3 s |
+| **2,000,000** | **clean** | **256,035,557** | 2.7 GB | 110 s |
+
+The monolithic engine dies at step 1,000 on the fuel fuse. The same computation, statement-fanned, runs **2,000× past that wall** and **51× past the 5M "ceiling"** — with the final tape verified against Python ground truth (assignability check `rc=0`), so the evolution genuinely ran inside the type checker.
+
+Residual bound: **linear memory ≈1.35 KB/step** — not a fuse. The bypass has no sharp wall; it ends when the host runs out of RAM.
+
+**Cross-implementation check:** tsc 5.9.3 compiles the same verified 2,000-step chain clean (302,214 instantiations vs tsgo's 291,634 — ~4% heavier accounting, consistent with Act VII's per-probe delta). The bypass is a *language-semantics* property, not a tsgo implementation quirk.
+
+## IX-C. Verification mode matters — and works
+
+`verified_chain_2000` emits `const _cI: TI = <expected>` for every step — each check both forces one step's evaluation inside its own statement window AND proves the tape equals the Python oracle. `rc=0` = bit-exact type-level Rule 110 across 2,000 steps. This is the first demonstrated methodology for *verified* large-scale type-level simulation.
+
+Reproduce: `python3 linux/run_bypass.py` (or `... 500000 2000000` for the extreme rows). Data: `data/phaseIX_bypass.json`. Artifact probe: `linux/probes/BYPASS_R110_2000_verified.ts`.
+
+**Novelty label: novel.** Published work documents the fuses' existence and the per-statement reset is inferable from source — but no published baseline demonstrates mechanically-defeating TS2589 at verified 2M-step scale, nor the linear-memory residual bound.
+
+---
+
+# ACT X: CI AS A CROSS-HARDWARE LABORATORY
+
+`.github/workflows/ci.yml` gains a `macos-litmus` job: GitHub's `macos-latest` runners are physical Apple Silicon, so the Phase 15/L4 weak-memory harness now produces **real M-series SB/MP violation data on every push**, uploaded as a JSON artifact — no Mac on the desk required. `litmus_test.c` now reports the true CPU name via `machdep.cpu.brand_string` instead of a hardcoded "M2", so artifacts stay accurate as runners upgrade.
+
+This makes project-chimera a self-replicating cross-hardware experiment: x86 TSO numbers from the Linux lab, ARM64 weak-ordering numbers from CI — same source file, two physical memory models, data artifacts on every commit.
+
+**Novelty label: methodology.** Using CI fleet hardware as a memory-model measurement instrument is an uncommon but legitimate technique.
+
+---
+
+# ACT XI: COMPILATION AS A PHASE TRANSITION — The Survival Curve
+
+`linux/run_survival_curves.py` treats each compiler's crash wall as a reliability function: at each depth near the known wall, compile the identical file N=12 times and record survival probability. Two arms:
+
+- **ASLR on** (default kernel): a smooth transition band — the probabilistic frontier W3 discovered as a single point, now mapped as a curve.
+- **ASLR off** (`setarch -R`, `ADDR_NO_RANDOMIZE`): if the band collapses to a deterministic all-pass/all-crash boundary, the stochasticity is proven to be address-layout causation — same bytes, same binary, same stack size, different virtual addresses.
+
+## XI-A. Measured survival curves (this box, 8MB stack)
+
+Coarse sweep (12 trials/point), then unit-resolution bands (20 trials/point):
+
+| Compiler | Last 100% | First 0% | Band character |
+|:---|:---:|:---:|:---|
+| g++ 11.4 (template inst.) | 41,520 | 41,524 | **probabilistic: 41,520→65%, 41,522→25%, 41,524→0%** (ASLR-on) |
+| clang++ 14 (template inst.) | 1,270 | 1,275 | deterministic step at 5-depth resolution |
+| rustc 1.97.1 (AST walker) | 4,100 | 4,105 | deterministic step at 5-depth resolution |
+
+## XI-B. The ASLR-off control — causation confirmed
+
+Same files, same depths, 20 trials each, `setarch -R`:
+
+| Depth | ASLR on (g++) | ASLR off (g++) |
+|:---:|:---:|:---:|
+| 41,520 | 13/20 survive (65%) | **20/20 (100%)** |
+| 41,522 | 5/20 survive (25%) | **20/20 (100%)** |
+| 41,524 | 0/20 | **0/20** |
+
+With address randomization disabled, g++'s probabilistic frontier **collapses to a deterministic step function** — and deterministic layout lands on the survive side for both coin-flip depths. The stochasticity is address-layout causation, proven, not noise or scheduler jitter. clang++ and rustc show identical sharp steps in both modes at 5-depth resolution: their transition bands are ≤ a few frames wide, so ASLR rarely straddles them.
+
+**Novelty label: novel.** No published survival curves exist for compiler recursion walls; the ASLR-causation control (probabilistic band → deterministic step under `setarch -R`) is a first demonstration that marginal compilability is literally decided by virtual address layout.
+
+Data: `data/phaseXI_survival.json` (coarse), `data/phaseXI_survival_fine.json` (unit-resolution bands). Reproduce: `python3 linux/run_survival_curves.py [--fine]` — bands are machine-specific, encoding this host's stack size against each compiler's per-frame cost.
+
