@@ -1,0 +1,89 @@
+{
+ "act": "XIII-B",
+ "results": {
+  "model": "wall ~ S_eff / frame_bytes",
+  "g++_driver_rule": "S_eff = max(rlim_cur, min(rlim_max, 64MB))",
+  "calibration": {
+   "g++ @4M/4M": 2588,
+   "clang++ @4M/4M": 654,
+   "rustc @4M": 1898,
+   "swiftc @4M/4M": 2825
+  },
+  "predictions": {
+   "g++_8M_8M": {
+    "predicted": 5176,
+    "measured": 5182,
+    "err_pct": 0.12
+   },
+   "g++_16M_16M": {
+    "predicted": 10352,
+    "measured": 10373,
+    "err_pct": 0.2
+   },
+   "g++_32M_32M": {
+    "predicted": 20704,
+    "measured": 20756,
+    "err_pct": 0.25
+   },
+   "g++_128M_128M": {
+    "predicted": 82816,
+    "measured": 83045,
+    "err_pct": 0.28
+   },
+   "g++_8M_inf": {
+    "predicted": 41408,
+    "measured": 41517,
+    "err_pct": 0.26
+   },
+   "clang_8M": {
+    "predicted": 1308,
+    "measured": 1273,
+    "err_pct": 2.68
+   },
+   "clang_16M": {
+    "predicted": 2616,
+    "measured": null,
+    "err_pct": null
+   },
+   "rustc_8M": {
+    "predicted": 3796,
+    "measured": 4101,
+    "err_pct": 8.03
+   },
+   "rustc_16M": {
+    "predicted": 7592,
+    "measured": 8507,
+    "err_pct": 12.05
+   },
+   "swiftc_8M": {
+    "predicted": 5650,
+    "measured": 5677,
+    "err_pct": 0.48
+   },
+   "swiftc_16M": {
+    "predicted": 11300,
+    "measured": 11372,
+    "err_pct": 0.64
+   },
+   "javac_Xss4m": {
+    "predicted": 2564,
+    "measured": 2794,
+    "err_pct": 8.97
+   },
+   "tsc5_stacksize4096": {
+    "predicted": 2106,
+    "measured": 2201,
+    "err_pct": 4.49
+   }
+  },
+  "mechanism": {
+   "g++": "driver raises rlim_cur to min(rlim_max,64MB) via prlimit64 \u2014 effective stack NOT rlim_cur; walls <0.3% err under S_eff=max(rlim_cur,min(rlim_max,64MB))/f, f=1621B",
+   "clang++": "no driver self-raise; linear at 4M/8M but law breaks at 16M (survives >3924) \u2014 frame cost is depth-dependent, not constant",
+   "rustc": "RUST_MIN_STACK honored; errs 8-12% \u2014 frame cost drifts with depth",
+   "swiftc": "linear, <0.7% err both sizes",
+   "javac": "wall moves with -Xss, ~9% err",
+   "tsc5": "wall moves with --stack-size, ~4.5% err",
+   "control_c_probe": "bare C recursion: exactly 16B/frame, perfectly linear 0.5M->64M \u2014 kernel enforces rlim_cur; g++ anomaly is compiler-specific, not kernel"
+  }
+ }
+}

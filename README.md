@@ -165,6 +165,9 @@ New harnesses live in [`linux/`](linux/): fuse probes, the quad-compiler benchma
 | Chimera Transpiler | `chimera_transpile.py`: any iterative `F<X>` → verified statement-fan-out chain (`./bin/chimera.js transpile`) | Journal XII |
 | Survivability Atlas | 9-compiler wall map by kind — caught / fatal / physical / time-wall; **swiftc is a second ASLR-causal stochastic wall** | Journal XII |
 | Four-family litmus CI | LB + 3-thread WRC added; ARM64 + Rosetta arms every push | Journal XII |
+| **The Mutant Compiler** | tsgo rebuilt with shifted fuse constants — **every wall moved exactly to the transplanted constant** (fuel 1,000→5,000, depth 48→248, count 5,035,107→20,035,107). Causation proven | Journal XIII |
+| **The Wall Equation** | g++ driver self-raises RLIMIT_STACK to min(rlim_max, 64MB); `wall = S_eff/1621B` predicts g++ walls to <0.3% at every stack size | Journal XIII |
+| IRIW litmus | 4-thread multi-copy-atomic discriminator in `litmus_test.c`, all CI arms | Journal XIII |
 
 ## 📂 Repository Structure
 

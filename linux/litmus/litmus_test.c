@@ -66,6 +66,7 @@ typedef struct {
     volatile uint32_t t0_done;
     volatile uint32_t t1_done;
     volatile uint32_t t2_done;
+    volatile uint32_t t3_done;
     volatile bool terminate;
     BarrierMode mode;
     
@@ -77,6 +78,10 @@ typedef struct {
     uint32_t r_wrc_a;
     uint32_t r_wrc_b;
     uint32_t r_wrc_c;
+    uint32_t r_iriw_a;
+    uint32_t r_iriw_b;
+    uint32_t r_iriw_c;
+    uint32_t r_iriw_d;
 } HarnessState;
 
 static HarnessState g_state;
@@ -553,6 +558,109 @@ void* wrc_thread_2(void* arg) { // reads y, then reads x
 }
 
 // ============================================================================
+// 5. Independent Reads of Independent Writes (IRIW) — 4 threads
+//    P0: x=1  |  P1: y=1  |  P2: ra=x; rb=y  |  P3: rc=y; rd=x
+//    violation: ra==1 && rb==0 && rc==1 && rd==0
+//    Requires NON-multi-copy-atomic visibility: P2 sees x's store before y's
+//    while P3 sees y's before x's — the observers disagree on store order.
+//    Forbidden on TSO (MCA); the classical discriminator for ARM's fabric.
+// ============================================================================
+
+void* iriw_thread_0(void* arg) { // writes x
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+        __atomic_store_n(&g_mem.x, 1, __ATOMIC_RELAXED);
+        __atomic_store_n(&g_state.t0_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+void* iriw_thread_1(void* arg) { // writes y
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+        __atomic_store_n(&g_mem.y, 1, __ATOMIC_RELAXED);
+        __atomic_store_n(&g_state.t1_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+void* iriw_thread_2(void* arg) { // reads x then y
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+
+        uint32_t ra, rb;
+#if defined(__aarch64__)
+        if (g_state.mode == MODE_RELAXED) {
+            asm volatile ("ldr %w0, [%2]\n\tldr %w1, [%3]\n\t"
+                : "=&r"(ra), "=&r"(rb) : "r"(&g_mem.x), "r"(&g_mem.y) : "memory");
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile ("ldr %w0, [%2]\n\tdmb ish\n\tldr %w1, [%3]\n\t"
+                : "=&r"(ra), "=&r"(rb) : "r"(&g_mem.x), "r"(&g_mem.y) : "memory");
+        } else {
+            asm volatile ("ldar %w0, [%2]\n\tldar %w1, [%3]\n\t"
+                : "=&r"(ra), "=&r"(rb) : "r"(&g_mem.x), "r"(&g_mem.y) : "memory");
+        }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_FENCED) {
+            asm volatile ("movl (%2), %0\n\tmfence\n\tmovl (%3), %1\n\t"
+                : "=r"(ra), "=r"(rb) : "r"(&g_mem.x), "r"(&g_mem.y) : "memory");
+        } else {
+            asm volatile ("movl (%2), %0\n\tmovl (%3), %1\n\t"
+                : "=r"(ra), "=r"(rb) : "r"(&g_mem.x), "r"(&g_mem.y) : "memory");
+        }
+#endif
+        g_state.r_iriw_a = ra;
+        g_state.r_iriw_b = rb;
+        __atomic_store_n(&g_state.t2_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+void* iriw_thread_3(void* arg) { // reads y then x
+    uint32_t last_round = 0;
+    while (!g_state.terminate) {
+        while (g_state.round == last_round && !g_state.terminate) CPU_YIELD();
+        if (g_state.terminate) break;
+        last_round = g_state.round;
+
+        uint32_t rc, rd;
+#if defined(__aarch64__)
+        if (g_state.mode == MODE_RELAXED) {
+            asm volatile ("ldr %w0, [%2]\n\tldr %w1, [%3]\n\t"
+                : "=&r"(rc), "=&r"(rd) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        } else if (g_state.mode == MODE_FENCED) {
+            asm volatile ("ldr %w0, [%2]\n\tdmb ish\n\tldr %w1, [%3]\n\t"
+                : "=&r"(rc), "=&r"(rd) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        } else {
+            asm volatile ("ldar %w0, [%2]\n\tldar %w1, [%3]\n\t"
+                : "=&r"(rc), "=&r"(rd) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        }
+#elif defined(__x86_64__)
+        if (g_state.mode == MODE_FENCED) {
+            asm volatile ("movl (%2), %0\n\tmfence\n\tmovl (%3), %1\n\t"
+                : "=r"(rc), "=r"(rd) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        } else {
+            asm volatile ("movl (%2), %0\n\tmovl (%3), %1\n\t"
+                : "=r"(rc), "=r"(rd) : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        }
+#endif
+        g_state.r_iriw_c = rc;
+        g_state.r_iriw_d = rd;
+        __atomic_store_n(&g_state.t3_done, last_round, __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+// ============================================================================
 // Benchmark Execution
 // ============================================================================
 
@@ -565,7 +673,7 @@ typedef struct {
     double elapsed_ms;
 } LitmusResult;
 
-static LitmusResult g_results[16];
+static LitmusResult g_results[20];
 static int g_result_idx = 0;
 
 void record_result(const char* test, const char* mode, uint32_t iters, uint64_t viol, double ms) {
@@ -746,6 +854,7 @@ void run_wrc_experiment(uint32_t iterations, BarrierMode mode, const char* mode_
     g_state.t0_done = 0;
     g_state.t1_done = 0;
     g_state.t2_done = 0;
+    g_state.t3_done = 0;
     g_state.terminate = false;
     g_state.mode = mode;
 
@@ -788,6 +897,58 @@ void run_wrc_experiment(uint32_t iterations, BarrierMode mode, const char* mode_
            mode_name, iterations, (unsigned long long)violations, rate,
            (unsigned long long)propagated, elapsed_ms);
     record_result("Write-Read Causality (WRC)", mode_name, iterations, violations, elapsed_ms);
+}
+
+void run_iriw_experiment(uint32_t iterations, BarrierMode mode, const char* mode_name) {
+    g_state.round = 0;
+    g_state.t0_done = 0;
+    g_state.t1_done = 0;
+    g_state.t2_done = 0;
+    g_state.t3_done = 0;
+    g_state.terminate = false;
+    g_state.mode = mode;
+
+    pthread_t t0, t1, t2, t3;
+    pthread_create(&t0, NULL, iriw_thread_0, NULL);
+    pthread_create(&t1, NULL, iriw_thread_1, NULL);
+    pthread_create(&t2, NULL, iriw_thread_2, NULL);
+    pthread_create(&t3, NULL, iriw_thread_3, NULL);
+
+    uint64_t violations = 0;
+    uint64_t contested = 0;
+    uint64_t start_time = now_ns();
+
+    for (uint32_t i = 1; i <= iterations; i++) {
+        g_mem.x = 0;
+        g_mem.y = 0;
+
+        __atomic_store_n(&g_state.round, i, __ATOMIC_RELEASE);
+        while (__atomic_load_n(&g_state.t0_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+        while (__atomic_load_n(&g_state.t1_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+        while (__atomic_load_n(&g_state.t2_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+        while (__atomic_load_n(&g_state.t3_done, __ATOMIC_ACQUIRE) != i) CPU_YIELD();
+
+        uint32_t ra = g_state.r_iriw_a, rb = g_state.r_iriw_b;
+        uint32_t rc = g_state.r_iriw_c, rd = g_state.r_iriw_d;
+        if ((ra == 1 || rc == 1)) contested++;
+        if (ra == 1 && rb == 0 && rc == 1 && rd == 0) violations++;
+    }
+
+    uint64_t elapsed = now_ns() - start_time;
+    double elapsed_ms = (double)elapsed / 1e6;
+
+    g_state.terminate = true;
+    __atomic_store_n(&g_state.round, iterations + 1, __ATOMIC_RELEASE);
+    pthread_join(t0, NULL);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    pthread_join(t3, NULL);
+
+    double rate = (double)violations / iterations * 100.0;
+    printf("  [IRIW Litmus - %-10s] Iterations: %u | MCA violations (ra=1,rb=0,rc=1,rd=0): %llu (%.6f%%) | Contested rounds: %llu | Time: %.2f ms\n",
+           mode_name, iterations, (unsigned long long)violations, rate,
+           (unsigned long long)contested, elapsed_ms);
+    record_result("Independent Reads (IRIW)", mode_name, iterations, violations, elapsed_ms);
 }
 
 // Reports the real host CPU name on macOS (e.g. "Apple M4") — under Rosetta
@@ -894,6 +1055,11 @@ int main(int argc, char** argv) {
     run_wrc_experiment(iterations, MODE_RELAXED, "RELAXED");
     run_wrc_experiment(iterations, MODE_FENCED, "FENCED");
     run_wrc_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+
+    printf("\n>>> Experiment E: Independent Reads of Independent Writes (IRIW) — MCA test\n");
+    run_iriw_experiment(iterations, MODE_RELAXED, "RELAXED");
+    run_iriw_experiment(iterations, MODE_FENCED, "FENCED");
+    run_iriw_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
 
     save_json_results(out_json);
     printf("\n================================================================\n");

@@ -1780,3 +1780,51 @@ Data: `data/phaseXII_atlas.json`. Reproduce: `python3 linux/run_atlas.py` (needs
 `paper/chimera_monograph.typ` gains "Part II: The Linux Frontier" covering Acts V–XII — fuse invariance, the stack-wall law + per-frame costs, tsgo source linkage, the bypass/Ouroboros, the atlas taxonomy, CI-as-lab — plus an honest novelty ledger. Rebuilt PDF: `paper/project_chimera_monograph.pdf` (typst 0.13.1).
 
 **Novelty labels:** XII-A novel (verified mega-scale type-level universal computation); XII-B methodology (tooling); XII-C novel (first unit-resolution cross-language wall atlas; second ASLR-causal wall); XII-D methodology.
+
+# ACT XIII — Compiler Physics: Causation and Prediction
+
+After Acts V–XII mapped *where* walls are, Act XIII proves *why* they are there — controlled mutation of the fuse constants themselves, and a wall law that predicts unmeasured configurations before running them.
+
+## XIII-A. The Mutant Compiler — walls ARE the constants, proven causally
+
+`tsgo` was built twice from the identical commit (typescript-go @ 89d5d5b2): **stock** and a **mutant** with the three fuse constants surgically shifted — `instantiationDepth` 100→500, `instantiationCount` 5,000,000→20,000,000, `tailCount` 1,000→5,000 (checker.go:22225/24433). Prediction: every wall moves to the same multiple of the constant.
+
+| Fuse | Stock wall | Mutant wall | Predicted | Verified |
+|:---|:---:|:---:|:---:|:---:|
+| tailCount (fuel) | trips at N=1,000 | trips at **N=5,000** | 5× | exactly 5× |
+| instantiationDepth | trips at N=48 | trips at **N=248** (bisected 247/248) | ~5× | ~5.17× (500/100 × the ~2.08 depth-units each Evolve level costs) |
+| instantiationCount | FREEZE_10 dies at **5,035,107** inst | FREEZE_10 dies at **20,035,107** inst | 4× | exactly 4× |
+
+The mutant compiler computes ~4× the work in ~4.2× the time (8.7s → 36.5s) before dying at exactly the transplanted constant. This upgrades the Act VII source-linkage from *correlation* to *causation*: the wall is the constant, mechanically. Reproduce: `python3 linux/run_mutant_tsgo.py` (needs `~/tools/tsgo-stock` and `~/tools/tsgo-mutant`; build recipe in the file's docstring/data JSON).
+
+## XIII-B. The Wall Equation — predict the wall, then measure it
+
+The naive law `N_wall ≈ stack / frame_cost` **failed its first prediction** on g++ (under RLIMIT_STACK=4M/4M it died at 2,588, not ~20,700). The failure exposed a real mechanism: `strace` shows the **gcc driver calls `prlimit64(RLIMIT_STACK, {min(rlim_max, 64MB), rlim_max})` before spawning cc1plus** — it self-raises the soft limit to 64MB whenever the hard limit permits. clang++, rustc, and swiftc drivers read but never write their limits.
+
+Refined model — effective stack `S_eff`:
+- g++: `S_eff = max(rlim_cur, min(rlim_max, 64MB))` (driver self-raise)
+- everything else: `S_eff = rlim_cur`
+- managed runtimes: `-Xss` (javac) / `--stack-size` (V8/tsc5) / `RUST_MIN_STACK` (rustc)
+
+Calibration at ONE point (4MB), then bisect-verified predictions at sizes never measured:
+
+| Compiler | 8M | 16M | 32M | 128M | hard=∞ | err |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| g++ (with driver rule) | 5,182 | 10,373 | 20,756 | 83,045 | 41,517 | **≤0.28%** |
+| clang++ | 1,273 | nonlinear* | — | — | — | 2.7% |
+| rustc | 4,101 | 8,507 | — | — | — | 8–12% |
+| swiftc | 5,677 | 11,372 | — | — | — | ≤0.64% |
+| javac (-Xss4m) | — | — | — | — | — | 9.0% |
+| tsc5 (--stack-size 4M) | — | — | — | — | — | 4.5% |
+
+\* clang's per-frame cost is depth-dependent — it survives >3,924 at 16M where linearity predicts 2,616. The stack-wall law is real but the frame "constant" isn't universal per compiler.
+
+**The discovery embedded here:** a bare C recursion probe scales *perfectly* linearly at ~16 B/frame from 0.5M to 64M — the kernel honors `rlim_cur` normally. The g++ anomaly is entirely the driver's self-raise. Two consequences: (1) "the g++ wall" differs 8× between `ulimit -s 8m` inherited vs `soft=hard=8m` explicit — cross-machine comparisons silently shift the boundary; (2) our earlier "~202B/frame" estimate was an artifact — the true cc1plus frame is ~1,617B under a 64MB raised stack.
+
+## XIII-C. IRIW — the multi-copy-atomic litmus family
+
+`litmus_test.c` gains Experiment E: **IRIW** (4 threads — P0 stores x=1, P1 stores y=1, P2 reads x then y, P3 reads y then x; violation `ra=1 ∧ rb=0 ∧ rc=1 ∧ rd=0` means two observers disagree on the stores' visibility order — impossible on multi-copy-atomic TSO, the classical discriminator for ARM's fabric behavior). x86 control: 0/20,000 violations (14,583 contested rounds). Rides both `macos-litmus` CI arms automatically.
+
+Data: `data/phaseXIII_mutant.json`, `data/phaseXIII_predictions.json`.
+
+**Novelty labels:** XIII-A novel methodology (controlled fuse mutation proving causation — the constants move the walls exactly where transplanted); XIII-B novel measurement (the driver self-raise mechanism, the two-regime law, sub-0.3% predictive accuracy; the raise itself is known gcc driver code — the empirical characterization is ours); XIII-C methodology (standard herd7-style family ported into the CI arms).
