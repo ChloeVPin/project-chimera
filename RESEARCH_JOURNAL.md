@@ -1887,3 +1887,40 @@ deepest "why it's new": the Maybe-swallow behavior is undocumented and produces
 wrong compile results, not just a diagnostic difference). The fuse constants
 and tuple cap are public typescript-go/TypeScript semantics — the *wall
 taxonomy behind the brakes* is ours.
+
+# ACT XV — The Silent-Accept Hunter
+
+XIV found one silent-accept case; XV maps how wide the hole is. A differential
+fuzzer generates deep/mismatched-type programs and runs each on three compilers
+— tsgo-stock, tsgo-unfused, tsc 5.9.3 — cataloging every divergence.
+
+Reproduce: `python3 linux/run_silent_accept.py` → `data/phaseXV_silent_accept.json`.
+
+**22 of 45 cases silently accept on stock tsgo** (rc=0, zero diagnostics) while
+tsgo-unfused reports the true TS2322 mismatch and tsc5 reports TS2321 — the hole
+is a **bug class**, not a one-off:
+
+- Every covariant structural container is affected: `Array<T>`, `Promise<T>`,
+  tuples, `{v:…}` records, generic `Box<T>`
+- Both mismatch positions: bottom-leaf and mid-tree (mismatch at depth ~100 with
+  an identical subtree continuing below)
+- Deep missing-property mismatches (`prop-*`)
+
+The boundary is sharp and the immune families are informative:
+
+- opens between relater depth 100 and ~120 — depth 80–100 error normally,
+  120+ silently accept
+- **contravariant function-argument positions, unions, and `readonly T[]` are
+  immune** — they still error correctly at depth 200 (different relation paths
+  that don't accumulate the sourceStack/targetStack nest count the same way)
+- identical-type controls at depth 200 pass cleanly on all three compilers —
+  zero false positives anywhere in the matrix
+
+So the silent accept is specific to the generic-structural relation's
+`TernaryMaybe` swallow at the 100-deep nest fuse. tsc5 reports the same limit
+loudly (TS2321) — the Go port drops even that.
+
+**Novelty label:** first characterization of a stock-tsgo correctness bug class
+(silent wrong accepts), with boundary + immune families mapped; oracle is
+three-compiler triangulation. tsgo's silent-accept itself is a new finding — no
+published baseline exists.

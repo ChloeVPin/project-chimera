@@ -1,0 +1,449 @@
+{
+ "act": "XV",
+ "binaries": {
+  "stock": "/home/ubuntu/tools/tsgo-stock",
+  "unfused": "/home/ubuntu/tools/tsgo-unfused",
+  "tsc5": "/home/ubuntu/d1/ts5/node_modules/typescript/bin/tsc"
+ },
+ "cases": {
+  "bottom-array-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.75
+  },
+  "bottom-array-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 2.06
+  },
+  "bottom-array-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.76
+  },
+  "bottom-promise-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.78
+  },
+  "bottom-promise-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.72
+  },
+  "bottom-promise-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.73
+  },
+  "bottom-tuple-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.26,
+   "u_s": 0.25,
+   "t5_s": 1.76
+  },
+  "bottom-tuple-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.24,
+   "u_s": 0.26,
+   "t5_s": 1.71
+  },
+  "bottom-tuple-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.26,
+   "u_s": 0.29,
+   "t5_s": 1.77
+  },
+  "bottom-record-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.24,
+   "u_s": 0.25,
+   "t5_s": 1.76
+  },
+  "bottom-record-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.74
+  },
+  "bottom-record-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.72
+  },
+  "bottom-box-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.78
+  },
+  "bottom-box-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.76
+  },
+  "bottom-box-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.76
+  },
+  "bottom-fn-arg-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.73
+  },
+  "bottom-fn-arg-120": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.26,
+   "u_s": 0.25,
+   "t5_s": 1.81
+  },
+  "bottom-fn-arg-200": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.27,
+   "u_s": 0.27,
+   "t5_s": 1.92
+  },
+  "bottom-readonly-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.72
+  },
+  "bottom-readonly-120": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.73
+  },
+  "bottom-readonly-200": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.74
+  },
+  "bottom-union-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.69
+  },
+  "bottom-union-120": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.73
+  },
+  "bottom-union-200": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.24,
+   "u_s": 0.25,
+   "t5_s": 1.68
+  },
+  "mid-array-120": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.24,
+   "t5_s": 1.79
+  },
+  "prop-array-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.75
+  },
+  "mid-array-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.73
+  },
+  "prop-array-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.78
+  },
+  "mid-record-120": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.24,
+   "t5_s": 1.83
+  },
+  "prop-record-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.73
+  },
+  "mid-record-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.7
+  },
+  "prop-record-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.72
+  },
+  "mid-box-120": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.82
+  },
+  "prop-box-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.72
+  },
+  "mid-box-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.68
+  },
+  "prop-box-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.24,
+   "u_s": 0.26,
+   "t5_s": 1.73
+  },
+  "mid-tuple-120": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.79
+  },
+  "prop-tuple-120": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.28,
+   "t5_s": 1.73
+  },
+  "mid-tuple-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.26,
+   "t5_s": 1.75
+  },
+  "prop-tuple-200": {
+   "stock": "silent-accept",
+   "unfused": "error",
+   "tsc5": "fuse-reported",
+   "verdict": "SILENT-ACCEPT",
+   "s_s": 0.25,
+   "u_s": 0.29,
+   "t5_s": 1.73
+  },
+  "tuple-len-80": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.29,
+   "u_s": 0.25,
+   "t5_s": 1.78
+  },
+  "mutual-interfaces": {
+   "stock": "error",
+   "unfused": "error",
+   "tsc5": "error",
+   "verdict": "agree-error",
+   "s_s": 0.24,
+   "u_s": 0.26,
+   "t5_s": 1.87
+  },
+  "ok-array-200": {
+   "stock": "silent-accept",
+   "unfused": "silent-accept",
+   "tsc5": "silent-accept",
+   "verdict": "all-pass-correct",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.74
+  },
+  "ok-record-200": {
+   "stock": "silent-accept",
+   "unfused": "silent-accept",
+   "tsc5": "fuse-reported",
+   "verdict": "all-pass-correct",
+   "s_s": 0.25,
+   "u_s": 0.25,
+   "t5_s": 1.72
+  },
+  "ok-box-200": {
+   "stock": "silent-accept",
+   "unfused": "silent-accept",
+   "tsc5": "silent-accept",
+   "verdict": "all-pass-correct",
+   "s_s": 0.28,
+   "u_s": 0.28,
+   "t5_s": 2.29
+  }
+ },
+ "divergences": [
+  "bottom-array-120",
+  "bottom-array-200",
+  "bottom-promise-120",
+  "bottom-promise-200",
+  "bottom-tuple-120",
+  "bottom-tuple-200",
+  "bottom-record-120",
+  "bottom-record-200",
+  "bottom-box-120",
+  "bottom-box-200",
+  "prop-array-120",
+  "mid-array-200",
+  "prop-array-200",
+  "prop-record-120",
+  "mid-record-200",
+  "prop-record-200",
+  "prop-box-120",
+  "mid-box-200",
+  "prop-box-200",
+  "prop-tuple-120",
+  "mid-tuple-200",
+  "prop-tuple-200"
+ ],
+ "summary": {
+  "silent_accept_confirmed": 22,
+  "immune_families": [
+   "fn-arg (contravariant)",
+   "union",
+   "readonly[] \u2014 all still error correctly past depth 100"
+  ],
+  "boundary": "hole opens when relater stack depth exceeds 100 (bottom-80 errors; bottom-120+ silent; mid-200 mismatches at depth ~100 silent)",
+  "controls": "identical-type controls at depth 200 pass cleanly on all three compilers \u2014 no false positives"
+ }
+}
