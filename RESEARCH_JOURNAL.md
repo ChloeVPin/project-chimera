@@ -2265,13 +2265,21 @@ over AST depth**, not in the relation cache or instantiation machinery
 both checkers share this architecture — the fuse hides a structural
 bound, not a port defect.
 
-## XIX-5. GPU fabric litmus (linux/litmus/metal_litmus.metal + metal_litmus_host.swift)
+## XIX-5. GPU fabric litmus — first real data
+### (linux/litmus/metal_litmus.metal + metal_litmus_host.swift)
 
 New harness arm: SB/MP on Metal compute device-scope relaxed atomics,
 violation counters in a shared buffer, Swift host reads back JSON. Wired
-as `macos-metal-litmus` CI job — first litmus data on Apple's GPU fabric
-if the runner exposes real hardware (degrades honestly to UNAVAILABLE
-status JSON on a virtualized GPU).
+as `macos-metal-litmus` CI job.
+
+**v1 result (data/phaseXIX_metal_gpu.json):** 0/20k violations on the
+runner's *Apple Paravirtual device* — honest but uninformative: two
+threads in one threadgroup may never execute truly concurrently.
+
+**v2 (committed):** each SB/MP pair owns a slot; a dispatch launches
+`2*8192` threads so **8,192 pairs race simultaneously** (~1.6M effective
+samples per test per CI run) plus a `desync` counter to detect
+verdict-before-write artifacts. First-order answer lands on CI.
 
 ## XIX-2. Rosetta leak verdict
 *(pending — IRIW-FR experiment F data lands with this act's CI)*
