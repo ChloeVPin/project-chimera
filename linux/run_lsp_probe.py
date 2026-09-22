@@ -40,7 +40,7 @@ def lsp_diag(binary, text):
             if ':' in line:
                 k, v = line.split(':', 1); h[k.strip().lower()] = v.strip()
         return json.loads(p.stdout.read(int(h.get('content-length', 0))))
-    fp = os.path.join(PROBES, 'LSP_probe.ts')
+    fp = os.path.join(tempfile.mkdtemp(prefix='lsp_probe_'), 'probe.ts')
     open(fp, 'w').write(text)
     uri = 'file://' + os.path.abspath(fp)
     send({'jsonrpc': '2.0', 'id': 1, 'method': 'initialize',
