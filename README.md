@@ -171,6 +171,7 @@ New harnesses live in [`linux/`](linux/): fuse probes, the quad-compiler benchma
 | **The Limiter-Free Compiler** | tsgo with every fuse removed — first untruncated measurements (FREEZE_10: 36.6M inst / 20.8 GB) and the true-wall taxonomy: heap OOM, the ~10k TS2799 tuple cap, time. The relater fuse is a **silent-accept correctness hole** — stock tsgo passes mismatched deep types with zero diagnostics | Journal XIV |
 | **The Silent-Accept Hunter** | 3-compiler differential fuzzer proves the hole is a bug class: **28 confirmed silent-accepts across 11 construct families**, exact boundary = type depth 101, immune families mapped (unions, readonly, mapped types, contravariant paths) | Journal XV |
 | **The Hole Reaches the Editor** | Real `tsgo --lsp` run: the silent-accept ships to every user's editor — **0 diagnostics** on deep wrong code. The fix is ~free (0.57s vs 0.55s honest check at depth 1000); the hole just moves with the dial. TS2799 tuple cap located (`checker.go:23493`, `>= 10_000`) — and it reports *honestly* | Journal XVI |
+| **The Autonomous Frontier** | Eight-thread campaign: **tsgo is the only silent acceptor among 8 production compilers** (javac instead hangs exponentially); complete fuse census — exactly 1 silent family of 16 constants; unfused record 36.6M inst (heap is the last wall); g++ uniquely self-raises stack; the 26% divergence localized to spread-tail recursion; the honest wall is **O(n²) time** | Journal XVII |
 
 ## 📂 Repository Structure
 

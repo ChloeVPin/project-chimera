@@ -2016,3 +2016,108 @@ estimation ceiling (checker.go:26109) and a 100,000-constituent union cap
 it is nearly free; and not all tsgo limits share the flaw — the tuple cap
 reports honestly. The relater hole stands out as a genuine defect, not a design
 pattern.
+
+## Act XVII. The Autonomous Frontier — eight threads, run to exhaustion
+
+An unattended campaign pushing every open question to its wall. Reproducers:
+`linux/run_lsp_probe.py`, `linux/run_crosslang.py`,
+`linux/run_price_of_correctness.py`; artifacts `data/phaseXVII_*.json`.
+
+### XVII-1/2. The fuse census (data/phaseXVII_fuse_census.json)
+
+Grepped every numeric-literal guard in typescript-go's checker/relater/
+nodebuilder: **16 limit constants catalogued**. Classified by behavior:
+
+- **SILENT (1 family):** `relater.go` nest fuse (`sourceStack/targetStack == 100`
+  → `TernaryMaybe` swallowed) — the confirmed silent-accept bug class.
+- **Maybe-bail sites, trigger unproven (2):** `relater.go:3576/3757` — same
+  conditional-type root nested 10 deep → Maybe. Our probes resolve each level
+  honestly; no silent trigger demonstrated. `checker.go:27686`
+  (`conditionalConstraintDepth >= 100` → nil constraint) is *shadowed* — TS2589
+  fires first on every chain we built.
+- **LOUD (7):** instantiation depth/count (TS2589), tailCount 1000 (TS2589),
+  tuple spread ≥10_000 (TS2799, verified boundary), 100k subtype-check estimate
+  + 100k cross-product union (TS2590), circular-constraint stack.
+- **Benign:** discriminated-combination cap (>25 → deterministic False),
+  relationCount fuel, tracing-only guards, display elision.
+
+**Verdict:** of TypeScript's artificial limits, exactly one silently accepts
+wrong code. The rest either scream or are unreachable.
+
+### XVII-3. Tuple-cap adjacency
+
+- LSP **honestly reports** TS2799 on a 10,000-element tuple spread — the cap
+  surfaces to the editor correctly (contrast: the nest fuse swallows even here).
+- Cross-product union cap (checker.go:26773, ≥100k constituents) fires TS2590
+  loudly at 10^5 — no adjacency swallows found.
+
+### XVII-4. Cross-language silent-accept scan (data/phaseXVII_crosslang.json)
+
+Deep nested-generic mismatch probes (`Wrap^N<A>` assigned to `Wrap^N<B>`) across
+8 production compilers:
+
+| compiler | n=50 | n=200 | verdict |
+|:---|:---:|:---:|:---|
+| rustc | E0308 | E0308 | LOUD |
+| go | error | error | LOUD |
+| javac | >90s hang | >90s hang | **exponential wall** (~10×/+5 lvls: 0.5s@25 → 6s@30) |
+| csc | — | CS0029 | LOUD |
+| swiftc | error | error | LOUD |
+| g++ | error | error | LOUD |
+| clang++ | error | error | LOUD |
+| **tsgo-stock** | error@50 | **clean@200** | **SILENT ACCEPT ≥101 — unique** |
+
+**tsgo is the only compiler in the field that silently accepts deep wrong
+types.** The new finding: javac doesn't silently accept — it silently *hangs*:
+deep nested-generic assignability has exponential complexity with no fuse at
+all (a different failure mode — unbounded work instead of wrong answers).
+
+### XVII-5. The Unfused Ouroboros (data/phaseXVII_ouroboros.json)
+
+Largest **single-instantiation** computation ever completed by a TypeScript
+checker: **36,618,360 instantiations** (QuaternaryFreeze<10>, 20.8GB RSS).
+TernaryFreeze<16> (~43M predicted) was OOM-killed at 31.2GB RSS / 2m45s —
+with all fuses removed, the only remaining wall is heap (~31GB on this box).
+
+### XVII-6. The wall equation generalizes (data/phaseXVII_wall_eq.json)
+
+strace on every driver: **g++ is uniquely stack-self-raising**
+(`prlimit64` SETS rlim_cur=64MB). rustc queries 4× but never writes; clang++ 1×;
+swiftc 2×; go only raises RLIMIT_NOFILE. For every other compiler the naive
+`wall = rlim_cur/frame` law applies directly — g++'s hidden raise was the only
+correction needed.
+
+### XVII-7. The 26% divergence localized (data/phaseXVII_divergence.json)
+
+Baseline-subtracted instantiation counts (tsc5 baseline 2,928 / tsgo 33,897):
+**TCO recursion, binary-branch NONT, conditional chains, mapped types, union
+distribution — all identical (ratio 1.0000)** up to the 5M fuse. The ~26%
+divergence exists ONLY in **non-TCO tuple-spread recursion** (`[x, ...R]` tail
+propagation): tsc5 materializes the spread per level; tsgo shares/caches it
+(~30% fewer on EvolveStrictNonTCO, up to 3.4× on minimal repros). Not a general
+efficiency gap — a specific spread-instantiation optimization in the Go port.
+
+### XVII-8. Litmus escalation
+
+CI bumped 200k → 1,000,000 iterations including IRIW — 5× violation sensitivity
+on every push against real M1 silicon.
+
+### XVII-9. The honest complexity cliff (data/phaseXVII_complexity.json)
+
+Unfused deep-check scaling (assignability of `Array^N` types):
+
+| depth | identical | mismatched |
+|:---:|:---:|:---:|
+| 1,000 | 0.21s | 0.46s |
+| 10,000 | 3.79s | 42.3s |
+| 20,000 | 15.0s | 171.5s |
+| 40,000 | 64.1s | **>600s** |
+| 60,000 | 166.4s | — |
+
+**~O(n²) both ways; mismatch is ~11× the coefficient.** The 100-deep fuse
+wasn't guarding a crash — it was capping a quadratic worst case, at the price
+of silence. The honest wall is time, not stack.
+
+**Novelty labels:** cross-language silent-accept map (new — tsgo unique);
+javac exponential-wall measurement (new); fuse census completeness table (new);
+divergence localization to spread-tails (new); unfused completion record (new).

@@ -39,10 +39,10 @@ jobs:
         run: clang -O2 -pthread -Wall -Wextra linux/litmus/litmus_test.c -o litmus_test_arm64
       - name: Compile litmus harness (x86_64 cross-compile for Rosetta)
         run: clang -O2 -pthread -Wall -Wextra -arch x86_64 linux/litmus/litmus_test.c -o litmus_test_x86_64
-      - name: Run SB/MP/LB/WRC litmus sweep (native ARM64)
-        run: mkdir -p data && ./litmus_test_arm64 200000 data/litmus_macos_arm64.json
-      - name: Run same sweep under Rosetta 2 (translated x86_64 → TSO)
-        run: arch -x86_64 ./litmus_test_x86_64 200000 data/litmus_macos_rosetta.json
+      - name: "Run SB/MP/LB/WRC/IRIW litmus sweep (native ARM64, Act XVII-8 escalation to 1M iters)"
+        run: mkdir -p data && ./litmus_test_arm64 1000000 data/litmus_macos_arm64.json
+      - name: "Run same sweep under Rosetta 2 (translated x86_64 to TSO)"
+        run: arch -x86_64 ./litmus_test_x86_64 1000000 data/litmus_macos_rosetta.json
       - uses: actions/upload-artifact@v4
         with:
           name: litmus-macos-arm64
