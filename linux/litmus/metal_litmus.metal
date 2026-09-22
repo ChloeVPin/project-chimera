@@ -60,7 +60,7 @@ kernel void mp_test(device Slot* slots [[buffer(0)]],
 kernel void verdict(device Slot* slots [[buffer(0)]],
                     device Result* res [[buffer(1)]],
                     uint gid [[thread_position_in_grid]],
-                    uint is_mp [[constant(0)]]) {
+                    constant uint& is_mp [[buffer(2)]]) {
     device Slot& s = slots[gid];
     uint a = atomic_load_explicit(&s.r0, memory_order_relaxed);
     uint b = atomic_load_explicit(&s.r1, memory_order_relaxed);
