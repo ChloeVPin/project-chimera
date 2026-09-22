@@ -1,0 +1,102 @@
+{
+ "act": "XVII-1/2",
+ "fuse_census": [
+  {
+   "site": "relater.go:3137",
+   "constant": "sourceStack/targetStack == 100",
+   "verdict": "SILENT \u2014 returns TernaryMaybe, swallowed; confirmed bug class (28 cases)",
+   "evidence": "run_silent_accept*.py"
+  },
+  {
+   "site": "relater.go:3576",
+   "constant": "same conditional root nested 10 (target)",
+   "verdict": "Maybe bail \u2014 no silent trigger demonstrated in probes",
+   "evidence": "run_maybe_sites.py"
+  },
+  {
+   "site": "relater.go:3757",
+   "constant": "same conditional root nested 10 (source)",
+   "verdict": "Maybe bail \u2014 no silent trigger demonstrated in probes",
+   "evidence": "run_maybe_sites.py"
+  },
+  {
+   "site": "checker.go:22225",
+   "constant": "instantiationDepth==100 || instantiationCount>=5_000_000",
+   "verdict": "LOUD \u2014 TS2589 error",
+   "evidence": "tsc/tsgo parity, verified"
+  },
+  {
+   "site": "checker.go:24433",
+   "constant": "tailCount==1000",
+   "verdict": "LOUD \u2014 TS2589 'excessively deep' error",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "checker.go:23493",
+   "constant": "tuple spread elements >= 10_000",
+   "verdict": "LOUD \u2014 TS2799, boundary 9999 clean / 10000 error",
+   "evidence": "run_price_of_correctness.py"
+  },
+  {
+   "site": "checker.go:26109",
+   "constant": "100_000 subtype checks + est >1_000_000",
+   "verdict": "LOUD \u2014 union 'too complex to represent'",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "checker.go:26773",
+   "constant": "crossProductUnion size >= 100_000",
+   "verdict": "LOUD \u2014 union 'too complex to represent'",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "checker.go:27589",
+   "constant": "base-constraint stack <10 always / <50 unless repeated identity",
+   "verdict": "LOUD \u2014 circular constraint diagnostic",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "checker.go:27686",
+   "constant": "conditionalConstraintDepth >= 100",
+   "verdict": "returns nil constraint \u2014 SHADOWED: TS2589 fires first on all probes tried",
+   "evidence": "run_maybe_sites.py"
+  },
+  {
+   "site": "relater.go:369/3116",
+   "constant": "relationCount fuel = (16M - size)/8",
+   "verdict": "overflow \u2192 TernaryFalse + overflow flag \u2192 'excessive complexity comparing types' (LOUD)",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "relater.go:4044",
+   "constant": "discriminated-property combinations > 25",
+   "verdict": "deterministic TernaryFalse \u2014 relation fails, error reported",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "relater.go:5040",
+   "constant": "sourceSize*targetSize > 1_000_000",
+   "verdict": "tracing event only \u2014 benign",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "nodebuilderimpl.go:3176",
+   "constant": "symbolDepth > 10",
+   "verdict": "display elision in hover text \u2014 benign",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "checker.go:7507+",
+   "constant": "entity name < 100 chars",
+   "verdict": "error-message cosmetics \u2014 benign",
+   "evidence": "source inspection"
+  },
+  {
+   "site": "checker.go:12498",
+   "constant": "shift amount >= 32",
+   "verdict": "suggestion diagnostic \u2014 benign",
+   "evidence": "source inspection"
+  }
+ ],
+ "headline": "7 hard limits are LOUD; exactly 1 family (relater nest fuse) is silently wrong; 2 conditional-type Maybe bails + 1 constraint-depth bail unproven as silent"
+}

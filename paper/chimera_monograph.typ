@@ -548,6 +548,106 @@ fenced arms 0 — Phase 15 replicated on fresh silicon, automatically.
     [microsoft/TypeScript PRs #32079/#44997 (2019)],
 )
 
+
+= Part III: The Defects Chapter — Fuses as Mutable Dials, and the Silent Hole (Acts XIII–XVII)
+
+Part III stops measuring walls and starts *moving* them: constant mutation
+proves causation, a hidden driver behavior corrects the wall equation, and a
+differential hunt exposes a user-visible soundness defect unique to the Go
+port of TypeScript.
+
+== Causation by Mutation: The Mutant Compiler (Act XIII)
+
+We rebuilt `tsgo` from a pinned commit with the three fuse constants
+surgically shifted (instantiation depth 100→500, count 5M→20M, tail fuel
+1,000→5,000). Every wall moved to *exactly* the transplanted constant — fuel
+tripped at N=5,000, depth at N=248, and the instantiation wall at exactly
+20,035,107 vs the stock 5,035,107. Controlled mutation converts correlation
+into proof: the walls *are* the constants, not emergent behavior.
+
+Separately, the naive `wall = rlim_cur/frame` law failed on g++ — and the
+failure isolated a hidden mechanism: `strace` shows the gcc driver executes
+`prlimit64(RLIMIT_STACK, {rlim_cur=min(rlim_max, 64MB)})` before invoking
+cc1plus. With `S_eff` substituted for `rlim_cur`, predicted g++ walls land
+within *0.3%* across a 32× stack range. Act XVII-6 extends the strace census:
+*g++ is the only driver among six that self-raises its stack* — rustc,
+clang++, and swiftc query but never write; go only touches RLIMIT_NOFILE.
+
+== The Silent-Accept Bug Class (Acts XIV–XVI)
+
+Removing all fuses (`tsgo-unfused`) exposed the most consequential finding of
+the project: when relation nesting exceeds 100 levels, typescript-go's relater
+returns `TernaryMaybe` (`relater.go`, `len(r.sourceStack)==100`), which callers
+treat as success — *stock tsgo silently accepts mismatched types with zero
+diagnostics* where tsc5 reports TS2321 loudly and the unfused build reports
+TS2322 correctly. A three-compiler differential fuzzer mapped the class:
+*28 confirmed silent-accepts across 11 construct families* (covariant
+containers — arrays, promises, tuples, records, generic boxes — plus
+conditional types, inference returns, methods, getters, index signatures, and
+class variance), with a razor boundary at type depth 101. Contravariant
+probes, unions, readonly arrays, and mapped types are immune.
+
+Two escalations follow. First, the hole is *user-visible*: driving
+`tsgo --lsp --stdio` over real JSON-RPC returns *zero diagnostics* for a
+depth-150 mismatch on the shipping language server (control depth-10 reports
+correctly). Second, the fix is nearly free: a one-line build raising the fuse
+to 1000 reports honestly through depth 1000 at 0.57s vs 0.55s unfused — the
+brake buys silence, not speed.
+
+The census against this defect (Act XVII): of 16 numeric-literal limit guards
+in the checker, exactly this one family is silently wrong; the tuple cap
+(`checker.go`, `spreadTypes+n.types >= 10_000`, TS2799) and union caps fire
+loud diagnostics at verified boundaries.
+
+== Cross-Language Verdict and the True Asymptotic Wall (Act XVII)
+
+Eight production compilers were fed identical deep nested-generic mismatches:
+
+#table(
+  columns: (1.6fr, 2.2fr, 2.4fr),
+  stroke: 0.5pt + luma(180),
+  table.header([*Compiler*], [*Deep mismatch behavior*], [*Failure mode*]),
+  [rustc], [E0308 at n=50,200], [Loud error],
+  [go gc], [type error at n=50,200], [Loud error],
+  [javac], [error ≤25; 6s at 30; >90s at ≥35], [*Exponential hang* — no fuse at all],
+  [csc], [CS0029 at n=200], [Loud error],
+  [swiftc], [error at n=50,200], [Loud error],
+  [g++], [error at n=50,200], [Loud error],
+  [clang++], [error at n=50,200], [Loud error],
+  [*tsgo-stock*], [*clean at ≥101*], [*Silent accept — unique in the field*],
+)
+
+Unbraked, the checker is bounded only by physics: the largest completed
+single-instantiation computation reached *36,618,360 instantiations*
+(20.8 GB RSS); a ~43M-instantiation shape was OOM-killed at 31.2 GB.
+Deep assignability scales ~O(n²) — identical types compile in 166s at depth
+60,000 while mismatched probes exceed 600s at 40,000: the fuse was capping a
+quadratic worst case, not a crash. The earlier ~26% tsc5/tsgo instantiation
+divergence was localized with baseline-subtracted counting to exactly one
+family — non-TCO tuple-spread recursion (`[x, ...R]` tails); TCO, branching,
+conditional, mapped, and union workloads are count-identical.
+
+== Updated Honest Novelty Ledger (Acts XIII–XVII)
+
+#table(
+  columns: (2.2fr, 1fr, 2.4fr),
+  stroke: 0.5pt + luma(180),
+  table.header([*Claim*], [*Status*], [*Prior art*]),
+  [Mutant-compiler causation proof (walls move exactly to patched constants)], [*Novel*],
+    [No published constant-mutation study of a production type checker found],
+  [g++ hidden 64MB stack self-raise + S_eff wall law (under 0.3% error)], [*Novel*],
+    [driver behavior undocumented; strace census across 6 drivers new],
+  [tsgo silent-accept class: 28 cases, boundary 101, LSP-verified], [*Novel*],
+    [zero published baselines; defect itself unpublished],
+  [8-compiler silent-accept map (tsgo unique) + javac exponential wall], [*Novel*],
+    [no cross-language comparison of deep-type failure modes found],
+  [Unfused single-instantiation record 36.6M + heap-wall measurement], [*Novel*],
+    [first untruncated measurements of a fuse-free TypeScript checker],
+  [Instantiation divergence localized to spread-tail recursion], [*Novel*],
+    [typescript-go#4201 covers pool duplication only],
+)
+
+
 = Architectural Recommendations for Compiler Designers
 
 Based on our findings across all 19 phases, we propose three formal architectural principles for modern compiler engineering:

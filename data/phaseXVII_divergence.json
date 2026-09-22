@@ -1,0 +1,21 @@
+{
+ "act": "XVII-7",
+ "question": "where does the ~26% instantiation divergence (tsc5 vs tsgo) live?",
+ "method": "baseline-subtracted instantiation counts per probe family at --checkers 1",
+ "results": {
+  "baseline": {
+   "tsc5": 2928,
+   "tsgo": 33897
+  },
+  "identical_delta_families": [
+   "TCO tail-call recursion (ratio 1.0000 at 900 steps)",
+   "binary-branch NONT (ratio 1.0000 to 5M fuse)",
+   "conditional chains",
+   "mapped types",
+   "union distribution",
+   "generic nesting"
+  ],
+  "divergent_family": "non-TCO tuple-spread recursion ([x, ...R] tail propagation): tsc5 materializes the spread per level; tsgo shares/caches \u2014 ~26-30% fewer instantiations on EvolveStrictNonTCO, up to 3.4x on minimal repro"
+ },
+ "verdict": "divergence is real but shape-specific: localized to non-TCO spread-tail recursion, not a general efficiency gap"
+}

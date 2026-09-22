@@ -151,6 +151,22 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               (100k subtype-check estimate, 100k union constituents).
 `);
 
+  console.log(`${C.bold}ACT XVII: THE AUTONOMOUS FRONTIER${C.reset}
+  ${C.green}✔ XVII-4:${C.reset} Cross-language scan — tsgo is the ONLY silent acceptor of 8
+              compilers (rust/go/csc/swiftc/g++/clang all LOUD); javac's twist:
+              exponential HANG past n~30 (0.5s→6s→>90s), no fuse at all.
+  ${C.green}✔ XVII-1/2:${C.reset} Fuse census complete: 16 constants catalogued — exactly ONE
+              silent family (relater nest fuse); 7 loud, rest benign/shadowed.
+  ${C.green}✔ XVII-5:${C.reset} Unfused Ouroboros: 36.6M inst completed (record); T16 ~43M
+              OOM-killed at 31.2GB — heap is the only wall left when fuses die.
+  ${C.green}✔ XVII-6:${C.reset} g++ uniquely self-raises RLIMIT_STACK (strace proof) — all
+              other drivers take the stack they're given; wall eq generalizes.
+  ${C.green}✔ XVII-7:${C.reset} The 26% divergence LOCALIZED: identical counts on TCO/NONT/
+              conditionals — tsgo skips ONLY non-TCO spread-tail instantiation.
+  ${C.green}✔ XVII-9:${C.reset} The honest wall is O(n^2) TIME: identical deep types 166s@60k,
+              mismatched >600s@40k — the fuse capped quadratic cost, not crashes.
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);

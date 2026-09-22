@@ -1,0 +1,67 @@
+{
+ "act": "XVII-4",
+ "headline": "tsgo is the ONLY compiler among 8 that silently accepts deep mismatched types; javac instead hangs exponentially past n~30",
+ "results": {
+  "rust": {
+   "mismatch": {
+    "50": "E0308 error",
+    "200": "E0308 error"
+   },
+   "control": "clean"
+  },
+  "go": {
+   "mismatch": {
+    "50": "error",
+    "200": "error"
+   },
+   "control": "clean"
+  },
+  "java": {
+   "mismatch": {
+    "5": "error 284ms",
+    "20": "error 279ms",
+    "25": "error 501ms",
+    "30": "error 6065ms",
+    "35": "TIMEOUT>60s",
+    "50": "TIMEOUT>90s",
+    "100": "TIMEOUT>90s",
+    "200": "TIMEOUT>90s"
+   },
+   "control": "clean",
+   "note": "exponential-typecheck wall ~10x per +5 levels"
+  },
+  "csc": {
+   "mismatch": {
+    "200": "CS0029 error 0.7s"
+   },
+   "control": "n/a"
+  },
+  "swift": {
+   "mismatch": {
+    "50": "error",
+    "200": "error"
+   },
+   "control": "clean"
+  },
+  "g++": {
+   "mismatch": {
+    "50": "error",
+    "200": "error"
+   },
+   "control": "clean"
+  },
+  "clang++": {
+   "mismatch": {
+    "50": "error",
+    "200": "error"
+   },
+   "control": "clean"
+  },
+  "tsgo-stock": {
+   "mismatch": {
+    "50": "error",
+    ">=101": "SILENT ACCEPT"
+   }
+  }
+ }
+}

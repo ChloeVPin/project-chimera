@@ -1,0 +1,7 @@
+{
+ "act": "XVII-5",
+ "experiment": "largest single-instantiation type-level computation on tsgo-unfused (31GB box)",
+ "completed_record": "QuaternaryFreeze<10> = 36,618,360 instantiations, 20.8GB RSS, ~70s (Act XIV)",
+ "wall_probe": "TernaryFreeze<16> (~43M predicted inst): OOM-killed at 31.2GB RSS after 2m45s \u2014 rc=137 SIGKILL",
+ "verdict": "unfused removes every artificial ceiling; the only remaining wall is heap (~40M inst / ~31GB for tuple-path shapes). Largest completed single-instantiation computation: 36.6M inst."
+}

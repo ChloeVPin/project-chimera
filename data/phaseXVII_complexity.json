@@ -1,0 +1,21 @@
+{
+ "act": "XVII-9",
+ "question": "where is the true complexity wall once fuses are removed (tsgo-unfused)?",
+ "nest_ok_seconds": {
+  "1000": 0.21,
+  "5000": 0.77,
+  "10000": 3.79,
+  "20000": 15.04,
+  "40000": 64.07,
+  "60000": 166.43
+ },
+ "nest_mismatch_seconds": {
+  "1000": 0.46,
+  "5000": 10.7,
+  "10000": 42.34,
+  "20000": 171.49,
+  "40000": ">600 (timeout)"
+ },
+ "fit": "~O(n^2) both families; mismatch coefficient ~11x the identical-type coefficient",
+ "verdict": "the honest wall is quadratic time, not stack depth: at 40k-deep mismatched types the unbraked checker needs >10min \u2014 the 100-deep fuse replaces an ~O(n\u00b2) worst case with silence."
+}

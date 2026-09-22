@@ -1,0 +1,12 @@
+{
+ "act": "XVII-6",
+ "question": "does wall=S_eff/frame generalize; do other drivers self-raise RLIMIT_STACK?",
+ "strace": {
+  "g++": "queries RLIMIT_STACK then prlimit64 SETS rlim_cur=64MB (hidden raise) \u2014 only compiler that does this",
+  "rustc": "4x queries, no write",
+  "clang++": "1 query, no write",
+  "swiftc": "2 queries, no write",
+  "go": "raises RLIMIT_NOFILE 512k only (different resource)"
+ },
+ "verdict": "g++ is uniquely stack-self-raising among 6 drivers; wall equation applies directly (S=rlim_cur) for rustc/clang/swiftc"
+}
