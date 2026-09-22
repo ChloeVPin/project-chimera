@@ -168,6 +168,7 @@ New harnesses live in [`linux/`](linux/): fuse probes, the quad-compiler benchma
 | **The Mutant Compiler** | tsgo rebuilt with shifted fuse constants — **every wall moved exactly to the transplanted constant** (fuel 1,000→5,000, depth 48→248, count 5,035,107→20,035,107). Causation proven | Journal XIII |
 | **The Wall Equation** | g++ driver self-raises RLIMIT_STACK to min(rlim_max, 64MB); `wall = S_eff/1621B` predicts g++ walls to <0.3% at every stack size | Journal XIII |
 | IRIW litmus | 4-thread multi-copy-atomic discriminator in `litmus_test.c`, all CI arms | Journal XIII |
+| **The Limiter-Free Compiler** | tsgo with every fuse removed — first untruncated measurements (FREEZE_10: 36.6M inst / 20.8 GB) and the true-wall taxonomy: heap OOM, the ~10k TS2799 tuple cap, time. The relater fuse is a **silent-accept correctness hole** — stock tsgo passes mismatched deep types with zero diagnostics | Journal XIV |
 
 ## 📂 Repository Structure
 

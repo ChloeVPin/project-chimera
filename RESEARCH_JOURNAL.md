@@ -1828,3 +1828,62 @@ Calibration at ONE point (4MB), then bisect-verified predictions at sizes never 
 Data: `data/phaseXIII_mutant.json`, `data/phaseXIII_predictions.json`.
 
 **Novelty labels:** XIII-A novel methodology (controlled fuse mutation proving causation — the constants move the walls exactly where transplanted); XIII-B novel measurement (the driver self-raise mechanism, the two-regime law, sub-0.3% predictive accuracy; the raise itself is known gcc driver code — the empirical characterization is ours); XIII-C methodology (standard herd7-style family ported into the CI arms).
+
+# ACT XIV — The Limiter-Free Compiler
+
+We rebuilt typescript-go with **every fuse removed** — `if false && (…)` at all
+four fuse sites (`checker.go`: instantiationDepth 100 / instantiationCount 5M /
+tailCount 1000 / conditionalConstraintDepth 100, and `relater.go`: sourceStack/
+targetStack == 100, the TS2321 nest fuse) — binary: `~/tools/tsgo-unfused`, built
+from the same commit `89d5d5b2` as the stock/mutant binaries. Question: *what
+stops the type checker when nothing artificial does?*
+
+Reproduce: `python3 linux/run_unfused.py`. Probes: `linux/probes/UNFUSED_*.ts`.
+Data: `data/phaseXIV_unfused.json`.
+
+## XIV-A. First untruncated measurements
+
+| Probe family | Stock wall (fuse) | Unfused result | True wall |
+|:---|:---|:---|:---|
+| FREEZE (4-branch conditional) | count fuse at 5,035,107 inst | depth-10 **completes**: 36,618,360 inst, **20.8 GB peak RSS**, ~70 s | heap — depth-11 needs ~146M inst × ~573 B/inst ≫ 31 GB → Go OOM panic (RLIMIT_AS 24 GB); uncapped: kernel SIGKILL |
+| NONT (deep non-TCO chain) | depth fuse at 48 | depth **2000** completes: 2,061,293 inst, 3.7 s | none found — 40× past the fuse, still effortless |
+| TCO (fuel-fused tail chain) | fuel fuse at 1,000 | N=5,000 ok (12.6M inst / 29 s); N=20,000 and N=50,000 **both** die at exactly **50,171,386 inst on TS2799** (uncapped, ~29 GB) — under a 24 GB cap the OOM panic arrives first | **tuple representation cap (~10k elements)** — needs >28 GB of heap just to reach it |
+| NEST (mismatched `Array<Array<…>>` vs each other) | relater fuse at stack depth 100 (`relater.go:3133`) | unfused reports the TS2322 mismatch correctly at every depth to 2,000+ | **three-way divergence on the same file** — tsc5: loud TS2321 "excessive stack depth"; stock tsgo: **silent accept** (rc=0, zero diagnostics — Maybe swallowed); unfused tsgo: correct TS2322 answer |
+| NEST (identical deep types) | same | unfused compiles 60,000-deep matching types clean (flat 33,897 inst — nesting is syntax, not work); time is the only cost (~155 s) | time only |
+
+## XIV-B. What the fuses were actually hiding
+
+- **The relater's nest fuse is a silent correctness hole, not a brake.** At
+  stack depth 100 the relater returns `TernaryMaybe`; for assignability that
+  Maybe is swallowed — `const x: Array^150<number> = src` where `src:
+  Array^150<string>` compiles with **rc=0 and zero diagnostics** on stock tsgo
+  (boundary lands between depth 100 and 150). The unfused binary reports the
+  correct TS2322 mismatch at every depth. Removing the fuse made the checker
+  *more correct*. In tsc5 the same path emits TS2321 "Excessive stack depth";
+  the Go port drops the diagnostic entirely.
+- **Depth is free.** A non-TCO instantiation chain 40× past the stock fuse
+  finishes in seconds; 60,000-deep matching nested types cost a flat 33,897
+  instantiations — nesting is syntax, not work. Go's growable goroutine stacks
+  mean the recursion these fuses guarded could never have crashed anyway.
+- **The count fuse is an OOM guard in disguise.** FREEZE costs ~573 B of retained
+  heap per instantiation: the 5M fuse trips at ~2.7 GB used, but the unfused
+  program *finishes* depth-10 in 21 GB / 71 s — and only the kernel stops
+  depth-11. The fuse approximates a physical wall without measuring it.
+- **The fuel fuse hides a representation wall, not a compute wall.** With fuel
+  removed, the TCO chain dies on TS2799 "Type produces a tuple type that is too
+  large to represent" at exactly 50,171,386 instantiations — identical for
+  N=20,000 and N=50,000 because the tape hits the ~10k-element tuple cap at the
+  same work point either way. TypeScript's tuple-size limit — not recursion —
+  is the real ceiling on tape-carrying type-level computation.
+- **Removing the nest fuse does not break correct programs.** Identical deep
+  types still compile fine at 60,000 — `TernaryMaybe` only appears when the
+  relation is genuinely undecided at the boundary; with no fuse the relater
+  just answers.
+
+**Novelty labels:** XIV-A/B novel measurements (first untruncated cost table
+behind the fuses; the ~573 B/inst heap constant; TS2799-as-true-wall needing
+>28 GB; **the silent-accept correctness hole in stock tsgo's relater fuse** —
+deepest "why it's new": the Maybe-swallow behavior is undocumented and produces
+wrong compile results, not just a diagnostic difference). The fuse constants
+and tuple cap are public typescript-go/TypeScript semantics — the *wall
+taxonomy behind the brakes* is ours.

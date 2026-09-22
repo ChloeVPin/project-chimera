@@ -1,0 +1,192 @@
+{
+ "act": "XIV",
+ "results": {
+  "binary": "/home/ubuntu/tools/tsgo-unfused",
+  "base_commit": "89d5d5b2",
+  "fuses_removed": [
+   "instantiationDepth==100",
+   "instantiationCount>=5M",
+   "tailCount==1000",
+   "conditionalConstraintDepth>=100",
+   "relater nest stack==100 (TS2321/2322)"
+  ],
+  "experiments": {
+   "freeze10_peak_rss_kb": 20759180,
+   "freeze_true_cost": [
+    {
+     "class": "ok",
+     "inst": 36618360,
+     "s": 69.79,
+     "stderr_tail": "",
+     "depth": 10,
+     "binary": "tsgo-unfused"
+    },
+    {
+     "class": "go-panic",
+     "inst": null,
+     "s": 89.75,
+     "stderr_tail": "pkg/mod/golang.org/toolchain@v0.0.1-go1.26.0.linux-amd64/src/runtime/asm_amd64.s:1771 +0x1 fp=0x3ff6c07d8fe8 sp=0x3ff6c07d8fe0 pc=0x4913e1\ncreated by runtime.gcBgMarkStartWorkers in goroutine 22\n\t/home/ubuntu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.0.linux-amd64/src/runtime/mgc.go:1695 +0x105\n",
+     "depth": 11,
+     "binary": "tsgo-unfused",
+     "note": "Go runtime OOM panic under RLIMIT_AS=24GiB (earlier uncapped run: kernel SIGKILL at ~103s); depth-11 needs ~146M inst \u00d7 ~573B/inst \u2248 80GB > 31GB RAM"
+    }
+   ],
+   "nont_depth": [
+    {
+     "class": "ok",
+     "inst": 167543,
+     "s": 0.35,
+     "stderr_tail": "",
+     "depth": 500,
+     "binary": "tsgo-unfused"
+    },
+    {
+     "class": "ok",
+     "inst": 548793,
+     "s": 0.95,
+     "stderr_tail": "",
+     "depth": 1000,
+     "binary": "tsgo-unfused"
+    },
+    {
+     "class": "ok",
+     "inst": 2061293,
+     "s": 3.89,
+     "stderr_tail": "",
+     "depth": 2000,
+     "binary": "tsgo-unfused"
+    }
+   ],
+   "tco_fuel": [
+    {
+     "class": "ok",
+     "inst": 12603889,
+     "s": 29.54,
+     "stderr_tail": "",
+     "depth": 5000,
+     "binary": "tsgo-unfused"
+    },
+    {
+     "class": "go-panic",
+     "inst": null,
+     "s": 131.12,
+     "stderr_tail": "pkg/mod/golang.org/toolchain@v0.0.1-go1.26.0.linux-amd64/src/runtime/asm_amd64.s:1771 +0x1 fp=0x1ba910df57e8 sp=0x1ba910df57e0 pc=0x4913e1\ncreated by runtime.gcBgMarkStartWorkers in goroutine 50\n\t/home/ubuntu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.0.linux-amd64/src/runtime/mgc.go:1695 +0x105\n",
+     "depth": 20000,
+     "binary": "tsgo-unfused"
+    }
+   ],
+   "nest_mismatch_unfused": [
+    {
+     "class": "error",
+     "inst": 34047,
+     "s": 0.27,
+     "stderr_tail": "",
+     "depth": 150,
+     "binary": "tsgo-unfused"
+    },
+    {
+     "class": "error",
+     "inst": 34397,
+     "s": 0.34,
+     "stderr_tail": "",
+     "depth": 500,
+     "binary": "tsgo-unfused"
+    },
+    {
+     "class": "error",
+     "inst": 34897,
+     "s": 0.62,
+     "stderr_tail": "",
+     "depth": 1000,
+     "binary": "tsgo-unfused"
+    },
+    {
+     "class": "error",
+     "inst": 35897,
+     "s": 2.02,
+     "stderr_tail": "",
+     "depth": 2000,
+     "binary": "tsgo-unfused"
+    }
+   ],
+   "nest_mismatch_stock": [
+    {
+     "class": "error",
+     "inst": 33996,
+     "s": 0.31,
+     "stderr_tail": "",
+     "depth": 99,
+     "binary": "tsgo-stock"
+    },
+    {
+     "class": "error",
+     "inst": 33997,
+     "s": 0.28,
+     "stderr_tail": "",
+     "depth": 100,
+     "binary": "tsgo-stock"
+    },
+    {
+     "class": "silent-accept",
+     "inst": 33998,
+     "s": 0.27,
+     "stderr_tail": "",
+     "depth": 150,
+     "binary": "tsgo-stock"
+    },
+    {
+     "class": "silent-accept",
+     "inst": 33998,
+     "s": 0.27,
+     "stderr_tail": "",
+     "depth": 500,
+     "binary": "tsgo-stock"
+    }
+   ],
+   "nest_identical_unfused": [
+    {
+     "class": "ok",
+     "inst": 33897,
+     "s": 1.13,
+     "stderr_tail": "",
+     "depth": 5000,
+     "binary": "tsgo-unfused"
+    },
+    {
+     "class": "ok",
+     "inst": 33897,
+     "s": 154.58,
+     "stderr_tail": "",
+     "depth": 60000,
+     "binary": "tsgo-unfused"
+    }
+   ],
+   "tco_20000_uncapped": {
+    "class": "error",
+    "diagnostic": "TS2799: Type produces a tuple type that is too large to represent",
+    "inst": 50171386,
+    "s": 217.39,
+    "depth": 20000,
+    "memory_kb": 29260270,
+    "note": "uncapped run \u2014 reaches the ~10k tuple representation cap; with RLIMIT_AS=24GiB the heap wall (Go OOM panic) arrives first at ~131s"
+   },
+   "tco_50000_uncapped": {
+    "class": "error",
+    "diagnostic": "TS2799",
+    "inst": 50171386,
+    "s": 219.2,
+    "depth": 50000,
+    "note": "identical inst to depth-20000 \u2014 the tape tuple caps at ~10k elements; both probes do the same work to get there"
+   },
+   "nest_mismatch_tsc5": [
+    {
+     "depth": 150,
+     "class": "error",
+     "diagnostic": "TS2321 Excessive stack depth comparing types",
+     "binary": "tsc 5.9.3",
+     "note": "tsc5 reports the fuse loudly; stock tsgo swallows it silently; unfused answers correctly"
+    }
+   ]
+  }
+ }
+}
