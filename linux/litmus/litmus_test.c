@@ -661,6 +661,109 @@ void* iriw_thread_3(void* arg) { // reads y then x
 }
 
 // ============================================================================
+// 6. Free-running IRIW (IRIW-FR) — no round barriers (Act XVIII-4)
+//    Writers spam monotonically increasing counters into x and y; two readers
+//    sample (x then y) and (y then x) continuously. For every sample index i,
+//    a violation is:  x2[i] > x3[i] && y3[i] > y2[i]
+//    (reader 2 saw a NEWER x but OLDER y than reader 3 — the observers
+//    disagree about which independent store happened first = non-MCA leak).
+//    Rosetta leak hunt: if Apple's TSO-enable is perfect, this reads 0 on
+//    the x86- translated arm; any nonzero count is a hardware-visible leak.
+// ============================================================================
+
+void record_result(const char* test, const char* mode, uint32_t iters, uint64_t viol, double ms);
+
+static volatile uint64_t g_fr_stop;
+static uint32_t* g_fr_x2;  // reader2's x samples
+static uint32_t* g_fr_y2;  // reader2's y samples
+static uint32_t* g_fr_y3;  // reader3's y samples
+static uint32_t* g_fr_x3;  // reader3's x samples
+static uint32_t  g_fr_n;
+
+void* iriw_fr_writer_x(void* arg) {
+    uint32_t v = 0;
+    while (!g_fr_stop) __atomic_store_n(&g_mem.x, ++v, __ATOMIC_RELAXED);
+    return NULL;
+}
+void* iriw_fr_writer_y(void* arg) {
+    uint32_t v = 0;
+    while (!g_fr_stop) __atomic_store_n(&g_mem.y, ++v, __ATOMIC_RELAXED);
+    return NULL;
+}
+void* iriw_fr_reader_xy(void* arg) {
+    for (uint32_t i = 0; i < g_fr_n; i++) {
+#if defined(__aarch64__)
+        if (g_state.mode == MODE_ACQ_REL) {
+            asm volatile ("ldar %w0, [%2]\n\tldar %w1, [%3]\n\t"
+                : "=&r"(g_fr_x2[i]), "=&r"(g_fr_y2[i])
+                : "r"(&g_mem.x), "r"(&g_mem.y) : "memory");
+        } else {
+            asm volatile ("ldr %w0, [%2]\n\tldr %w1, [%3]\n\t"
+                : "=&r"(g_fr_x2[i]), "=&r"(g_fr_y2[i])
+                : "r"(&g_mem.x), "r"(&g_mem.y) : "memory");
+        }
+#else
+        g_fr_x2[i] = __atomic_load_n(&g_mem.x, __ATOMIC_RELAXED);
+        g_fr_y2[i] = __atomic_load_n(&g_mem.y, __ATOMIC_RELAXED);
+#endif
+    }
+    return NULL;
+}
+void* iriw_fr_reader_yx(void* arg) {
+    for (uint32_t i = 0; i < g_fr_n; i++) {
+#if defined(__aarch64__)
+        if (g_state.mode == MODE_ACQ_REL) {
+            asm volatile ("ldar %w0, [%2]\n\tldar %w1, [%3]\n\t"
+                : "=&r"(g_fr_y3[i]), "=&r"(g_fr_x3[i])
+                : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        } else {
+            asm volatile ("ldr %w0, [%2]\n\tldr %w1, [%3]\n\t"
+                : "=&r"(g_fr_y3[i]), "=&r"(g_fr_x3[i])
+                : "r"(&g_mem.y), "r"(&g_mem.x) : "memory");
+        }
+#else
+        g_fr_y3[i] = __atomic_load_n(&g_mem.y, __ATOMIC_RELAXED);
+        g_fr_x3[i] = __atomic_load_n(&g_mem.x, __ATOMIC_RELAXED);
+#endif
+    }
+    return NULL;
+}
+
+void run_iriw_freerun(uint32_t iterations, BarrierMode mode, const char* mode_name) {
+    g_fr_n = iterations;
+    g_fr_stop = 0;
+    g_state.mode = mode;
+    g_fr_x2 = malloc(sizeof(uint32_t) * iterations);
+    g_fr_y2 = malloc(sizeof(uint32_t) * iterations);
+    g_fr_y3 = malloc(sizeof(uint32_t) * iterations);
+    g_fr_x3 = malloc(sizeof(uint32_t) * iterations);
+    g_mem.x = 0; g_mem.y = 0;
+
+    pthread_t t0, t1, t2, t3;
+    uint64_t start = now_ns();
+    pthread_create(&t0, NULL, iriw_fr_writer_x, NULL);
+    pthread_create(&t1, NULL, iriw_fr_writer_y, NULL);
+    pthread_create(&t2, NULL, iriw_fr_reader_xy, NULL);
+    pthread_create(&t3, NULL, iriw_fr_reader_yx, NULL);
+    pthread_join(t2, NULL);
+    pthread_join(t3, NULL);
+    __atomic_store_n(&g_fr_stop, 1, __ATOMIC_SEQ_CST);
+    pthread_join(t0, NULL);
+    pthread_join(t1, NULL);
+    uint64_t elapsed = now_ns() - start;
+
+    uint64_t violations = 0;
+    for (uint32_t i = 0; i < g_fr_n; i++) {
+        if (g_fr_x2[i] > g_fr_x3[i] && g_fr_y3[i] > g_fr_y2[i]) violations++;
+    }
+    printf("  [IRIW-FR Litmus - %-8s] Samples: %u | Order-disagreement violations: %llu (%.6f%%) | Time: %.2f ms\n",
+           mode_name, iterations, (unsigned long long)violations,
+           (double)violations / iterations * 100.0, elapsed / 1e6);
+    record_result("IRIW Free-Run (non-MCA leak hunt)", mode_name, iterations, violations, (double)elapsed / 1e6);
+    free(g_fr_x2); free(g_fr_y2); free(g_fr_y3); free(g_fr_x3);
+}
+
+// ============================================================================
 // Benchmark Execution
 // ============================================================================
 
@@ -1060,6 +1163,10 @@ int main(int argc, char** argv) {
     run_iriw_experiment(iterations, MODE_RELAXED, "RELAXED");
     run_iriw_experiment(iterations, MODE_FENCED, "FENCED");
     run_iriw_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+
+    printf("\n>>> Experiment F: Free-running IRIW — non-MCA leak hunt (no round barriers)\n");
+    run_iriw_freerun(iterations, MODE_RELAXED, "RELAXED");
+    run_iriw_freerun(iterations, MODE_ACQ_REL, "ACQ_REL");
 
     save_json_results(out_json);
     printf("\n================================================================\n");

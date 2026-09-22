@@ -1,0 +1,6 @@
+{
+ "act": "XVIII-1",
+ "demo": "linux/probes/WEAPONIZED_REALISTIC.ts",
+ "verdict": "silent accept achievable with realistic-looking code: 110-level typedef chain + leaf mismatch; stock rc=0, tsc5 TS2321, unfused TS2322",
+ "significance": "the hole is reachable through ordinary-looking generated type definitions \u2014 no visibly pathological nesting required"
+}

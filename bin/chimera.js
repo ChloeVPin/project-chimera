@@ -167,6 +167,26 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               mismatched >600s@40k — the fuse capped quadratic cost, not crashes.
 `);
 
+  console.log(`${C.bold}ACT XVIII: WEAPONIZING THE HOLE${C.reset}
+  ${C.green}✔ XVIII-2:${C.reset} ROOT CAUSE: porting defect — tsc5 bails {overflow,False}
+              (not related + TS2321); tsgo bails unmarked Maybe, and
+              checkTypeRelatedToEx reads Maybe as SUCCESS: wrong verdict
+              AND swallowed diagnostic, two bugs at one site.
+  ${C.green}✔ XVIII-1:${C.reset} WEAPONIZED: silent accept via a 110-link typedef chain +
+              leaf mismatch — 231 lines of codegen-normal aliases, stock
+              compiles CLEAN; no pathological syntax required.
+  ${C.green}✔ XVIII-3:${C.reset} Field expanded to 11 compilers — tsgo still the ONLY
+              silent acceptor; kotlin joins javac's hang family (>60s on a
+              depth-100 control); scala SOEs in its own PARSER at 300.
+  ${C.green}✔ XVIII-5:${C.reset} Parity proven: conditional-10 Maybe bails exist
+              IDENTICALLY in tsc5 — shared ambiguity, not the regression.
+  ${C.green}✔ XVIII-4:${C.reset} Rosetta leak hunt: free-running IRIW (no round
+              barriers, monotone-counter disagreement) added as experiment F;
+              x86 control 0/200k — any nonzero under Rosetta = TSO leak.
+  ${C.green}✔ XVIII-6:${C.reset} UPSTREAM PACKAGE: docs/upstream_report.md — mechanism,
+              corpus, LSP evidence, fix cost, honest novelty claim.
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);
