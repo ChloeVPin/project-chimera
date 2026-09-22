@@ -30,6 +30,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <string.h>
+#include <ctype.h>
 #if defined(__APPLE__)
 #include <sys/sysctl.h>
 #endif
@@ -1139,34 +1140,67 @@ int main(int argc, char** argv) {
 #endif
     printf("================================================================\n\n");
 
-    printf(">>> Experiment A: Store Buffering (SB / Dekker)\n");
-    run_sb_experiment(iterations, MODE_RELAXED, "RELAXED");
-    run_sb_experiment(iterations, MODE_FENCED, "FENCED");
-    run_sb_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    // Optional experiment filter: argv[3] = subset of letters A..F (e.g.
+    // "F" or "ABCDE"), or "all" (default).
+    const char* only = argc > 3 ? argv[3] : "all";
+    int sel[6] = {0,0,0,0,0,0};
+    if (strcmp(only, "all") == 0) {
+        for (int i = 0; i < 6; i++) sel[i] = 1;
+    } else {
+        for (const char* p = only; *p; p++) {
+            int idx = toupper((unsigned char)*p) - 'A';
+            if (idx < 0 || idx > 5) {
+                fprintf(stderr, "usage: %s [iterations] [out.json] [A-F|all]\n", argv[0]);
+                return 2;
+            }
+            sel[idx] = 1;
+        }
+        if (*only == '\0') {
+            fprintf(stderr, "usage: %s [iterations] [out.json] [A-F|all]\n", argv[0]);
+            return 2;
+        }
+    }
 
-    printf("\n>>> Experiment B: Message Passing (MP)\n");
-    run_mp_experiment(iterations, MODE_RELAXED, "RELAXED");
-    run_mp_experiment(iterations, MODE_FENCED, "FENCED");
-    run_mp_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    if (sel[0]) {
+        printf(">>> Experiment A: Store Buffering (SB / Dekker)\n");
+        run_sb_experiment(iterations, MODE_RELAXED, "RELAXED");
+        run_sb_experiment(iterations, MODE_FENCED, "FENCED");
+        run_sb_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    }
 
-    printf("\n>>> Experiment C: Load Buffering (LB) — load->store reordering\n");
-    run_lb_experiment(iterations, MODE_RELAXED, "RELAXED");
-    run_lb_experiment(iterations, MODE_FENCED, "FENCED");
-    run_lb_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    if (sel[1]) {
+        printf("\n>>> Experiment B: Message Passing (MP)\n");
+        run_mp_experiment(iterations, MODE_RELAXED, "RELAXED");
+        run_mp_experiment(iterations, MODE_FENCED, "FENCED");
+        run_mp_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    }
 
-    printf("\n>>> Experiment D: Write-to-Read Causality (WRC) — store propagation\n");
-    run_wrc_experiment(iterations, MODE_RELAXED, "RELAXED");
-    run_wrc_experiment(iterations, MODE_FENCED, "FENCED");
-    run_wrc_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    if (sel[2]) {
+        printf("\n>>> Experiment C: Load Buffering (LB) — load->store reordering\n");
+        run_lb_experiment(iterations, MODE_RELAXED, "RELAXED");
+        run_lb_experiment(iterations, MODE_FENCED, "FENCED");
+        run_lb_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    }
 
-    printf("\n>>> Experiment E: Independent Reads of Independent Writes (IRIW) — MCA test\n");
-    run_iriw_experiment(iterations, MODE_RELAXED, "RELAXED");
-    run_iriw_experiment(iterations, MODE_FENCED, "FENCED");
-    run_iriw_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    if (sel[3]) {
+        printf("\n>>> Experiment D: Write-to-Read Causality (WRC) — store propagation\n");
+        run_wrc_experiment(iterations, MODE_RELAXED, "RELAXED");
+        run_wrc_experiment(iterations, MODE_FENCED, "FENCED");
+        run_wrc_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    }
 
-    printf("\n>>> Experiment F: Free-running IRIW — non-MCA leak hunt (no round barriers)\n");
-    run_iriw_freerun(iterations, MODE_RELAXED, "RELAXED");
-    run_iriw_freerun(iterations, MODE_ACQ_REL, "ACQ_REL");
+    if (sel[4]) {
+        printf("\n>>> Experiment E: Independent Reads of Independent Writes (IRIW) — MCA test\n");
+        run_iriw_experiment(iterations, MODE_RELAXED, "RELAXED");
+        run_iriw_experiment(iterations, MODE_FENCED, "FENCED");
+        run_iriw_experiment(iterations, MODE_ACQ_REL, "ACQ_REL");
+    }
+
+    if (sel[5]) {
+        printf("\n>>> Experiment F: Free-running IRIW — non-MCA leak hunt (no round barriers)\n");
+        run_iriw_freerun(iterations, MODE_RELAXED, "RELAXED");
+        run_iriw_freerun(iterations, MODE_ACQ_REL, "ACQ_REL");
+    }
 
     save_json_results(out_json);
     printf("\n================================================================\n");

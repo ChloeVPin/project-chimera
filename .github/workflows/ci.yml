@@ -40,9 +40,15 @@ jobs:
       - name: Compile litmus harness (x86_64 cross-compile for Rosetta)
         run: clang -O2 -pthread -Wall -Wextra -arch x86_64 linux/litmus/litmus_test.c -o litmus_test_x86_64
       - name: "Run SB/MP/LB/WRC/IRIW litmus sweep (native ARM64, Act XVII-8 escalation to 1M iters)"
-        run: mkdir -p data && ./litmus_test_arm64 1000000 data/litmus_macos_arm64.json
+        run: mkdir -p data && ./litmus_test_arm64 1000000 data/litmus_macos_arm64.json ABCDE || ./litmus_test_arm64 1000000 data/litmus_macos_arm64.json
       - name: "Run same sweep under Rosetta 2 (translated x86_64 to TSO)"
-        run: arch -x86_64 ./litmus_test_x86_64 1000000 data/litmus_macos_rosetta.json
+        run: arch -x86_64 ./litmus_test_x86_64 1000000 data/litmus_macos_rosetta.json ABCDE || arch -x86_64 ./litmus_test_x86_64 1000000 data/litmus_macos_rosetta.json
+      # XIX-2: experiment F is barrier-free — run it deep (20M samples) even
+      # where the synced suite is slow. Its verdict is the Rosetta leak hunt.
+      - name: "IRIW-FR deep hunt (native ARM64, 20M samples)"
+        run: ./litmus_test_arm64 20000000 data/litmus_macos_arm64_iriwfr.json F && cat data/litmus_macos_arm64_iriwfr.json
+      - name: "IRIW-FR deep hunt (Rosetta x86_64 TSO, 20M samples)"
+        run: arch -x86_64 ./litmus_test_x86_64 20000000 data/litmus_macos_rosetta_iriwfr.json F && cat data/litmus_macos_rosetta_iriwfr.json
       - uses: actions/upload-artifact@v4
         with:
           name: litmus-macos-arm64
@@ -51,6 +57,14 @@ jobs:
         with:
           name: litmus-macos-rosetta
           path: data/litmus_macos_rosetta.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: litmus-macos-arm64-iriwfr
+          path: data/litmus_macos_arm64_iriwfr.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: litmus-macos-rosetta-iriwfr
+          path: data/litmus_macos_rosetta_iriwfr.json
 
   # Act XIX-5: GPU fabric litmus — does Apple's Metal compute device honor
   # the same ordering surface as the CPU fabric? SB/MP on device-scope
