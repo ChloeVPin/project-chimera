@@ -461,13 +461,16 @@
         <span class="badge badge-rose">Rust 1.97.0 (Chalk)</span>
         <span class="badge badge-purple">Apple Clang C++20</span>
         <span class="badge badge-emerald">Cook's Rule 110 Universal Substrate</span>
-        <span class="badge badge-amber">Phase 8, 9, 10 Finale</span>
+        <span class="badge badge-amber">20 Research Acts — macOS + Linux</span>
+        <span class="badge badge-rose">Upstream Filed: microsoft/TypeScript#64390</span>
         <a href="riemann.html" class="badge badge-cyan" style="text-decoration: none; cursor: pointer; border: 1px solid var(--accent-cyan);">🌌 Launch Project Riemann Visualizer →</a>
       </div>
       <h1>Project Chimera: Empirical Boundaries of Undecidability</h1>
       <p class="subtitle">
         An empirical and formal investigation mapping the frontier where modern static type checking transitions 
         from decidable polynomial time into exponential explosion, Accidental Turing-Completeness, and compiler circuit breakers.
+        Expanded across 20 research acts into a dual-platform laboratory (Apple Silicon + Linux x86_64) covering
+        compiler fuse archaeology, differential soundness research across 11 toolchains, and bare-metal memory-model litmus.
       </p>
     </div>
   </header>
@@ -783,6 +786,75 @@ type Result8 = BrainfuckResult&lt;Add&gt;;
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- SECTION 4: THE LINUX ARC — ACTS V-XX -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span>🐧</span> The Linux Arc: Acts V–XX — Cross-Platform Compiler Frontier
+        </h2>
+        <span class="badge badge-rose">Upstream Filed</span>
+      </div>
+      <p class="section-desc">
+        The laboratory expanded to Linux x86_64 for Acts V–XX: reproducing and diverging from the macOS baseline,
+        then shifting from type-level computation to <strong>differential soundness research</strong> — hunting compiler
+        defects where wrong programs check clean. The campaign's terminus: a <strong>silent-accept hole in the TypeScript 7
+        native compiler</strong>, pinpointed to its birth commit and filed upstream as a reproducible bug report.
+      </p>
+
+      <div class="demo-grid">
+        <div class="code-editor-box">
+          <div class="code-editor-header">
+            <span>act_v_xii — Linux replication &amp; frontier expansion</span>
+            <span class="badge badge-emerald" style="font-size: 0.7rem;">Replicated + Diverged</span>
+          </div>
+          <div class="code-editor-body">// Empirical replication on Linux x86_64 (Ubuntu 22.04, 31GB)
+// Triad expanded to a quartet: TS / rustc / Clang / GCC
+//
+// Divergences vs macOS:
+//   rustc parser crash  : SIGBUS (mac)  ->  SIGSEGV (linux)
+//   GCC template wall   : template depth 900 default -> uncapped to 50k+
+//   Litmus (x86 TSO)    : SB relaxation observed on Rosetta &amp; native x86
+//   IPC                 : Mach ports -> core pingpong / unix sockets
+//
+// Wall equation: S_eff = frames * cost_per_frame
+//   -> mutant tsgo rebuilds confirmed walls move as predicted</div>
+          <div class="interactive-output">
+            <div>✓ linux/ harness: 25+ runners, all results in <span style="color: #6ee7b7;">data/*.json</span></div>
+            <div>✓ CI litmus: 4 memory-order families on GitHub macOS + Linux arms</div>
+          </div>
+        </div>
+
+        <div class="code-editor-box">
+          <div class="code-editor-header">
+            <span>act_xiv_xx — the silent-accept hunt</span>
+            <span class="badge badge-rose" style="font-size: 0.7rem;">Defect Filed Upstream</span>
+          </div>
+          <div class="code-editor-body">// The Limiter-Free Compiler: stripped every fuse from a
+// typescript-go build to measure true compute costs
+//   -> true-wall taxonomy: heap OOM / TS2799 cap / fuse hole
+//
+// Differential fuzzer (tsc 5.9 vs tsgo vs previews):
+//   -> 28/45 cases: mismatched deep types accepted silently
+//   -> hole reaches the editor: LSP diagnostic returns items: []
+//   -> 11-compiler census: still the only liar
+//
+// Audit: regression pinpointed to typescript-go#4913
+//   relater.go depth bail {overflow, False} -> TernaryMaybe
+//   "indeterminate" read as related (related = wrong verdict)</div>
+          <div class="interactive-output">
+            <div>✓ Upstream report: <a href="upstream_report.md" style="color: #38bdf8;">docs/upstream_report.md</a></div>
+            <div>✓ Filed: <a href="https://github.com/microsoft/TypeScript/issues/64390" target="_blank" style="color: #38bdf8;">microsoft/TypeScript#64390</a></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-desc" style="margin-top: 1rem;">
+        Full narrative in <a href="https://github.com/ChloeVPin/project-chimera/blob/main/RESEARCH_JOURNAL.md" target="_blank" style="color: #38bdf8;">RESEARCH_JOURNAL.md</a> —
+        every claim carries a reproducer script plus a JSON artifact in <a href="https://github.com/ChloeVPin/project-chimera/tree/main/data" target="_blank" style="color: #38bdf8;">data/</a>.
+        Run the scorecard yourself: <code>node bin/chimera.js</code>.
+      </p>
     </section>
   </main>
 
