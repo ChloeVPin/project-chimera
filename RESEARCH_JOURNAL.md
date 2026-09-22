@@ -2415,3 +2415,11 @@ each verified empirically this session:
 Novelty label update: the silent-accept is now a *pinpointed regression* (exact
 commit, exact diff, clean revert path) rather than a defect of unknown vintage —
 strictly stronger than the original Act XIV claim.
+
+### Filed — 2026-09-22
+The report was filed as [microsoft/TypeScript#64390](https://github.com/microsoft/TypeScript/issues/64390)
+by the repository owner with AI-assistance disclosure as the opening line. The filed
+body matches `docs/issue_draft.md` (corrected once in place: an initial submission
+truncated the 309-char literal type lines and left the code fence open — repaired via
+`gh issue edit` with programmatically generated literals; verified 202 `W<`-deep
+lines, balanced fence, disclosure intact).

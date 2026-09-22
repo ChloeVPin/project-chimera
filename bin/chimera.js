@@ -216,6 +216,16 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               cannot swallow a finite error (probe-verified on all 3).
 `);
 
+  console.log(`${C.bold}POST-MERGE: UPSTREAM FILED${C.reset}
+  ${C.green}✔ AUDIT:${C.reset} typescript-go repo closed; port lives in microsoft/TypeScript
+              as TS7 (tsc/). Silent accept re-verified on main + every
+              typescript@next nightly (native binary since 7.x).
+  ${C.green}✔ CULPRIT:${C.reset} pinpointed to typescript-go#4913 (2026-08-18) — the bail
+              changed {overflow,False} -> TernaryMaybe, fixing false-positive
+              TS2321s and silently accepting real mismatches as a side effect.
+  ${C.green}✔ FILED:${C.reset} microsoft/TypeScript#64390 — full repro, mechanism, fix path.
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);

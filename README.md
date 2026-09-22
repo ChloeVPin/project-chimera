@@ -28,7 +28,8 @@
 - 🐛 **Upstream Bug Reports:**
   - [`reports/rustc_sigbus_issue.md`](reports/rustc_sigbus_issue.md) --- `rustc 1.97.0` SIGBUS (Signal 10) on deep nominal trait projection (Live Issue: [rust-lang/rust#162863](https://github.com/rust-lang/rust/issues/162863))
   - [`reports/clang_sigill_issue.md`](reports/clang_sigill_issue.md) --- `Clang` parser SIGSEGV/SIGILL on deep template arguments (Live Issue: [llvm/llvm-project#224114](https://github.com/llvm/llvm-project/issues/224114))
-- 📜 **Full Living Monograph:** [`RESEARCH_JOURNAL.md`](RESEARCH_JOURNAL.md) *(Exhaustive theoretical and empirical record of all 19 phases + Project Riemann Act I)*
+  - [`docs/upstream_report.md`](docs/upstream_report.md) --- `TypeScript 7` (native) silent accept of mismatched types past the relater depth fuse (Live Issue: [microsoft/TypeScript#64390](https://github.com/microsoft/TypeScript/issues/64390))
+- 📜 **Full Living Monograph:** [`RESEARCH_JOURNAL.md`](RESEARCH_JOURNAL.md) *(Exhaustive theoretical and empirical record of all 20 acts + Project Riemann Act I)*
 
 ---
 
@@ -37,7 +38,7 @@
 Project Chimera includes a unified Node.js command-line suite:
 
 ```bash
-# Display the master 19-phase research scorecard & hardware matrix
+# Display the master 20-act research scorecard & hardware matrix
 npm run chimera
 
 # Run all TypeScript type-level verification suites (zero emitted JS, zero type errors)
@@ -83,7 +84,7 @@ We benchmarked Matthew Cook's universal Rule 110 cellular automaton across three
 
 ---
 
-## 🔬 Master Research Scorecard (All 19 Phases)
+## 🔬 Master Research Scorecard (All 20 Acts)
 
 ```text
 ACT I: EMPIRICAL FOUNDATIONS, TRIAD BENCHMARKS & FORMAL PROOFS (Phases 1–10)
@@ -174,7 +175,8 @@ New harnesses live in [`linux/`](linux/): fuse probes, the quad-compiler benchma
 | **The Autonomous Frontier** | Eight-thread campaign: **tsgo is the only silent acceptor among 8 production compilers** (javac instead hangs exponentially); complete fuse census — exactly 1 silent family of 16 constants; unfused record 36.6M inst (heap is the last wall); g++ uniquely self-raises stack; the 26% divergence localized to spread-tail recursion; the honest wall is **O(n²) time** | Journal XVII |
 | **Weaponizing the Hole** | The defect becomes mechanism-level and real: **root-caused to a porting defect** — tsc5 bails `{overflow, False}` while tsgo bails an unmarked `Maybe` that `checkTypeRelatedToEx` reads as *success* (wrong verdict + swallowed diagnostic). **Weaponized**: silent accept via ordinary 110-link typedef chains (`linux/probes/WEAPONIZED_REALISTIC.ts` compiles clean). Field expanded to **11 compilers — still the only liar** (kotlin joins javac's hang family; scala SOEs in its parser). Conditional-10 sites proven shared parity, not the regression. Free-running IRIW leak-hunt added for Rosetta. Packaged for upstream: `docs/upstream_report.md` | Journal XVIII |
 | **The Divergence Taxonomy** | 1,044-case differential census: **zero verdict-level divergences** between tsc5 and tsgo in composition space — the only diffs are elaboration shape (TS2740 vs TS2322 on empty-mapped-type assignments). pprof locates the O(n²): **in symbol resolution + flow typing over AST depth** (`NameResolver.Resolve`/`getConditionalFlowTypeOfType`/`isResolvedByTypeAlias`), not the relation — a shared architectural bound, not a port defect. New `macos-metal-litmus` CI job: first litmus probe of Apple's GPU fabric | Journal XIX |
-| **The Compiler Whisperer** | Every silently-dropped diagnostic in BOTH checkers censused and probe-verified: **post-fuse errorType suppression** (one loud TS2589, then the type is universally assignable — real errors silently pass on BOTH compilers) and the **config-gate asymmetry** (tsgo + file args drops *every* diagnostic behind TS5112; tsc5 + file args silently ignores the project's `strict` config → false-clean rc=0). The 5 benign bail families proven incapable of hiding a finite error | Journal XX |
+| **The Compiler Whisperer** | Every silently-dropped diagnostic in BOTH checkers censused and probe-verified: **post-fuse errorType suppression** (one loud TS2589, then the type is universally assignable — real errors silently pass on BOTH compilers) and the **config-gate asymmetry** (tsgo + file args drops *every* diagnostic behind TS5112; tsc5 + file args skips the project's `strict` config → false-clean rc=0 — documented tsc behavior, intentional divergence). The 5 benign bail families proven incapable of hiding a finite error | Journal XX |
+| **The Pinpointed Regression** | Pre-submission audit: `typescript-go` is closed — the port lives in `microsoft/TypeScript` as TypeScript 7 (`tsc/`). The silent accept **re-verified live on `typescript@next` nightly** (native since 7.x) and pinpointed to the exact culprit: **typescript-go#4913** (2026-08-18) changed the depth bail `{overflow,False}` → `TernaryMaybe` to fix false-positive TS2321s — the silent accept is its side effect. Clean preview builds ≤2026-07-07 bracket the regression. **Filed: [microsoft/TypeScript#64390](https://github.com/microsoft/TypeScript/issues/64390)** | Post-merge audit |
 
 ## 📂 Repository Structure
 
