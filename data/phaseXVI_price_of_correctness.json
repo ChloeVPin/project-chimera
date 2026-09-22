@@ -1,0 +1,108 @@
+{
+ "act": "XVI-B/C",
+ "depth_mismatch": {
+  "101": {
+   "stock": {
+    "class": "clean",
+    "seconds": 0.25
+   },
+   "fixed": {
+    "class": "error",
+    "seconds": 0.26
+   },
+   "unfused": {
+    "class": "error",
+    "seconds": 0.24
+   }
+  },
+  "500": {
+   "stock": {
+    "class": "clean",
+    "seconds": 0.24
+   },
+   "fixed": {
+    "class": "error",
+    "seconds": 0.3
+   },
+   "unfused": {
+    "class": "error",
+    "seconds": 0.3
+   }
+  },
+  "999": {
+   "stock": {
+    "class": "clean",
+    "seconds": 0.25
+   },
+   "fixed": {
+    "class": "error",
+    "seconds": 0.56
+   },
+   "unfused": {
+    "class": "error",
+    "seconds": 0.56
+   }
+  },
+  "1000": {
+   "stock": {
+    "class": "clean",
+    "seconds": 0.25
+   },
+   "fixed": {
+    "class": "error",
+    "seconds": 0.57
+   },
+   "unfused": {
+    "class": "error",
+    "seconds": 0.55
+   }
+  },
+  "1001": {
+   "stock": {
+    "class": "clean",
+    "seconds": 0.24
+   },
+   "fixed": {
+    "class": "clean",
+    "seconds": 0.24
+   },
+   "unfused": {
+    "class": "error",
+    "seconds": 0.56
+   }
+  },
+  "2000": {
+   "stock": {
+    "class": "clean",
+    "seconds": 0.31
+   },
+   "fixed": {
+    "class": "clean",
+    "seconds": 0.29
+   },
+   "unfused": {
+    "class": "error",
+    "seconds": 1.96
+   }
+  }
+ },
+ "tuple_boundary": {
+  "9998": {
+   "class": "clean"
+  },
+  "9999": {
+   "class": "clean"
+  },
+  "10000": {
+   "class": "error TS2799"
+  },
+  "10001": {
+   "class": "error TS2799"
+  }
+ },
+ "tuple_cap_location": "internal/checker/checker.go:23493 (>= 10_000, LOUD error TS2799)",
+ "extra_constants_found": [
+  "checker.go:26109 count==100000 subtype-check estimation",
+  "checker.go:26325 100000 constituents"
+ ]
+}

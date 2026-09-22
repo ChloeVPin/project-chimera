@@ -1,0 +1,2 @@
+declare const src: Array<Array<Array<Array<Array<Array<Array<Array<Array<Array<string>>>>>>>>>>;
+const x: Array<Array<Array<Array<Array<Array<Array<Array<Array<Array<number>>>>>>>>>> = src;

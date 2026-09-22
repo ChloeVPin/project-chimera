@@ -138,6 +138,19 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               class variance. Mapped types & conditional-constraint chains unaffected.
 `);
 
+  console.log(`${C.bold}ACT XVI: THE HOLE REACHES THE EDITOR${C.reset}
+  ${C.green}✔ XVI-A:${C.reset} Real LSP run (tsgo --lsp --stdio, pull diagnostics): stock publishes
+              0 diagnostics on Array^150 mismatch — users get NO squiggles; unfused
+              reports TS2322 correctly. The lie is user-visible.
+  ${C.green}✔ XVI-B:${C.reset} tsgo-fixed (nest fuse 100→1000, one-line patch): hole just moves —
+              silent ≥1001. Honest checking costs ~0.57s @ depth 1000 vs 0.55s
+              unfused — the brake buys no user-perceptible time, only silence.
+  ${C.green}✔ XVI-C:${C.reset} TS2799 tuple cap located: checker.go:23493 '>= 10_000' in
+              tuple normalization. Boundary 9999 clean / 10000+ LOUD error —
+              an honest wall, unlike the relater hole. +2 more constants found
+              (100k subtype-check estimate, 100k union constituents).
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);

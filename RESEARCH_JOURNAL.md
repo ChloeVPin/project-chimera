@@ -1956,3 +1956,63 @@ silent-accept count pending resolution of which answer is semantically correct.
 (v1: array/promise/tuple/record/box, bottom+mid+prop; v2: conditional, infer,
 method, getter, indexsig, variance-class), boundary = depth 101 exactly, immune =
 unions, readonly arrays, mapped types, contravariant-position probes.
+
+## Act XVI. The hole reaches the editor, and the fix is free
+
+Three experiments closing out the silent-accept thread.
+
+### XVI-A. The editor lies (linux/run_lsp_probe.py, data/phaseXVI_lsp.json)
+
+tsgo's LSP server (`tsgo --lsp --stdio`) driven over real JSON-RPC —
+initialize, ACK `client/registerCapability`, `didOpen`, pull
+`textDocument/diagnostic` — on the same `Array^150` mismatch:
+
+| probe | diagnostics | verdict |
+|:---|:---:|:---|
+| tsgo-stock, depth 10 | 1 (TS2322) | pipeline works |
+| tsgo-stock, depth 150 | **0** | **silent accept, editor path** |
+| tsgo-unfused, depth 150 | 1 (TS2322) | correct |
+
+The relater's Maybe-swallow isn't compiler-internals trivia — every user on the
+new TypeScript language server gets **no red squiggles** on wrong code nested
+deeper than 100. `tsgo --lsp` needed one undocumented quirk handled: it sends
+`client/registerCapability` for `workspace/didChangeConfiguration` and cancels
+the request context if unanswered.
+
+**Novelty label:** first demonstration that the stock-tsgo silent-accept class
+is user-visible through the shipping LSP — prior published material does not
+exist (the bug itself is unpublished).
+
+### XVI-B. The price of correctness (linux/run_price_of_correctness.py, data/phaseXVI_price_of_correctness.json)
+
+Third tsgo build — `tsgo-fixed`, a one-line patch moving the relater nest fuse
+100→1000 (`relater.go:3133` `== 100` → `== 1000`) on the identical commit:
+
+| depth | stock | fixed | unfused |
+|:---:|:---:|:---:|:---:|
+| 101 | silent | error (0.26s) | error (0.24s) |
+| 1000 | silent | error (0.57s) | error (0.55s) |
+| 1001 | silent | **silent** | error (0.56s) |
+| 2000 | silent | silent | error (1.96s) |
+
+The hole doesn't close — it just moves wherever the dial sits. And the honest
+answer costs essentially nothing: erroring at depth 1000 takes 0.57s vs 0.55s
+unfused, ~7× slower than the dishonest path only in degenerate terms (1.96s at
+depth 2000). The 100-deep brake saves no user-perceptible time on these
+workloads; it trades correctness to bound pathological cases — the cost of
+reporting honestly is a rounding error.
+
+### XVI-C. The TS2799 tuple cap is honest (checker.go:23493)
+
+Located the second wall from Act XIV: `if len(spreadTypes)+len(n.types) >= 10_000`
+inside `newTupleNormalizer` (tuple spread normalization), producing TS2799.
+Bisection: **9,999 elements clean; 10,000+ errors — loudly.** Unlike the relater
+fuse this limit reports correctly: it's a true diagnostic, not a swallowed
+Maybe. Bonus constants found nearby while grepping: a 100,000 subtype-check
+estimation ceiling (checker.go:26109) and a 100,000-constituent union cap
+(26325) — the fuse catalog is larger than the five we ported.
+
+**Act XVI verdict:** the silent-accept bug reaches every user's editor; raising
+it is nearly free; and not all tsgo limits share the flaw — the tuple cap
+reports honestly. The relater hole stands out as a genuine defect, not a design
+pattern.
