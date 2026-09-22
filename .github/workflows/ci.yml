@@ -43,12 +43,6 @@ jobs:
         run: mkdir -p data && ./litmus_test_arm64 1000000 data/litmus_macos_arm64.json ABCDE || ./litmus_test_arm64 1000000 data/litmus_macos_arm64.json
       - name: "Run same sweep under Rosetta 2 (translated x86_64 to TSO)"
         run: arch -x86_64 ./litmus_test_x86_64 1000000 data/litmus_macos_rosetta.json ABCDE || arch -x86_64 ./litmus_test_x86_64 1000000 data/litmus_macos_rosetta.json
-      # XIX-2: experiment F is barrier-free — run it deep (20M samples) even
-      # where the synced suite is slow. Its verdict is the Rosetta leak hunt.
-      - name: "IRIW-FR deep hunt (native ARM64, 20M samples)"
-        run: ./litmus_test_arm64 20000000 data/litmus_macos_arm64_iriwfr.json F && cat data/litmus_macos_arm64_iriwfr.json
-      - name: "IRIW-FR deep hunt (Rosetta x86_64 TSO, 20M samples)"
-        run: arch -x86_64 ./litmus_test_x86_64 20000000 data/litmus_macos_rosetta_iriwfr.json F && cat data/litmus_macos_rosetta_iriwfr.json
       - uses: actions/upload-artifact@v4
         with:
           name: litmus-macos-arm64
@@ -57,6 +51,22 @@ jobs:
         with:
           name: litmus-macos-rosetta
           path: data/litmus_macos_rosetta.json
+
+  # XIX-2: free-running IRIW (experiment F) — the Rosetta TSO-leak hunt.
+  # Barrier-free by design, so it runs deep (20M samples) in seconds on a
+  # dedicated runner instead of queueing behind the synced suite.
+  macos-litmus-iriwfr:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile litmus harness (Apple Clang, ARM64)
+        run: clang -O2 -pthread -Wall -Wextra linux/litmus/litmus_test.c -o litmus_test_arm64
+      - name: Compile litmus harness (x86_64 cross-compile for Rosetta)
+        run: clang -O2 -pthread -Wall -Wextra -arch x86_64 linux/litmus/litmus_test.c -o litmus_test_x86_64
+      - name: "IRIW-FR deep hunt (native ARM64, 20M samples)"
+        run: mkdir -p data && ./litmus_test_arm64 20000000 data/litmus_macos_arm64_iriwfr.json F && cat data/litmus_macos_arm64_iriwfr.json
+      - name: "IRIW-FR deep hunt (Rosetta x86_64 TSO, 20M samples)"
+        run: arch -x86_64 ./litmus_test_x86_64 20000000 data/litmus_macos_rosetta_iriwfr.json F && cat data/litmus_macos_rosetta_iriwfr.json
       - uses: actions/upload-artifact@v4
         with:
           name: litmus-macos-arm64-iriwfr
