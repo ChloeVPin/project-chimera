@@ -1,0 +1,9 @@
+{
+ "act": "XVIII-5",
+ "finding": {
+  "conditional-10 Maybe sites": "SHARED parity \u2014 tsc5 typescript.js:70748/70866 isDeeplyNestedType(...,10) returns Maybe identically; not a tsgo porting defect",
+  "trigger attempt": "non-terminating conditional R<T>=T extends {marker} ? x : R<{inner:T}> hits TS2589 (5M instantiation) first in BOTH compilers \u2014 identical behavior",
+  "unfused extra": "unfused dies on goroutine 1GB stack limit on the same probe",
+  "conclusion": "the depth-100 nest fuse (relater.go:3137) remains the ONLY tsgo-unique silent accept: tsc5 returns False+overflow there, tsgo returns Maybe. The conditional-10 sites swallow in BOTH \u2014 inherited ambiguity, worth noting in upstream report but not the regression."
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "act": "XVIII-3",
+ "results": {
+  "fsharp": {
+   "25/good": "OK-CLEAN",
+   "25/bad": "LOUD-ERROR FS0001",
+   "note": "targetprofile:netstandard"
+  },
+  "vbnet": {
+   "excluded": "vbc.dll requires a .vbproj context to resolve framework refs \u2014 no clean headless invoke"
+  },
+  "ocaml": {
+   "25": "LOUD-ERROR",
+   "100": "LOUD-ERROR",
+   "300": "LOUD-ERROR",
+   "control": "clean"
+  },
+  "scala": {
+   "25": "LOUD-ERROR",
+   "100": "LOUD-ERROR",
+   "300": "java.lang.StackOverflowError IN THE PARSER (path() recursion)",
+   "control": "clean"
+  },
+  "kotlin": {
+   "25": "LOUD-ERROR",
+   "60": "~60-90s on control (slowdown begins on type itself, not just mismatch)",
+   "100": "HANG/SLOW >60s",
+   "300": "KotlinIllegalArgumentExceptionWithAttachments \u2014 internal FIR crash",
+   "family": "javac-like exponential deep-type wall"
+  },
+  "zig": {
+   "25": "LOUD-ERROR",
+   "100": "LOUD-ERROR",
+   "300": "LOUD-ERROR",
+   "control": "clean"
+  },
+  "haskell": {
+   "25": "LOUD-ERROR",
+   "300": "LOUD-ERROR",
+   "control": "clean (after main fix)"
+  },
+  "vbnet_excluded": true,
+  "summary": "Extended map to 11 production compilers total: tsgo remains the ONLY silent acceptor. New findings: kotlin reproduces the javac exponential-hang family (depth-100 types take >60s to even declare; depth-300 crashes the FIR checker with an internal exception); scala crashes in its own PARSER at depth 300. Honest: ocaml/zig/haskell/fsharp all reject loudly with clean controls."
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "act": "XVIII-2",
+ "root_cause": {
+  "tsc5 (typescript.js ~70284)": "if (sourceDepth===100 || targetDepth===100) { overflow=true; return False } \u2192 caller reports TS2321 + records Failed|ComplexityOverflow",
+  "tsgo (relater.go ~3137)": "if len(sourceStack)==100 || len(targetStack)==100 { return TernaryMaybe } \u2014 no overflow flag set, no errorChain",
+  "swallow site": "checkTypeRelatedToEx returns `result != TernaryFalse` \u2192 TernaryMaybe maps to TRUE (related) with zero diagnostics",
+  "verdict": "porting defect: the Go port changed the bail from (overflow-marked False) to (unmarked Maybe); the entry point then interprets Maybe as success. Wrong verdict AND swallowed diagnostic \u2014 two bugs at one site."
+ }
+}

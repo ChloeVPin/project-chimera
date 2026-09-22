@@ -2121,3 +2121,101 @@ of silence. The honest wall is time, not stack.
 **Novelty labels:** cross-language silent-accept map (new — tsgo unique);
 javac exponential-wall measurement (new); fuse census completeness table (new);
 divergence localization to spread-tails (new); unfused completion record (new).
+
+---
+
+# Act XVIII — Weaponizing the Hole: Root Cause, Realistic Accepts, and the Upstream Package
+
+> The campaign that converts Acts XIV–XVII from "interesting defect" into
+> "mechanism-level, realistic, and packaged" — the difference between a bug
+> report and a paper.
+
+## XVIII-2. Root cause: it's a porting defect, not a design choice
+### (data/phaseXVIII_rootcause.json)
+
+The exact divergence, line for line:
+
+| | tsc 5.9.3 (typescript.js ~70284) | tsgo (relater.go ~3137) |
+|---|---|---|
+| bail | `overflow = true; return False` | `return TernaryMaybe` (no overflow, no errorChain) |
+| verdict | **not related** | **related** — `checkTypeRelatedToEx` returns `result != TernaryFalse`, so `Maybe` maps to `true` |
+| diagnostic | TS2321 via overflow path | nothing — neither report path fires |
+
+Two bugs at one site: the Go port changed the bail from an
+overflow-marked `False` into an unmarked `Maybe`, and the entry point
+reads `Maybe` as *success*. Wrong answer AND swallowed warning.
+
+## XVIII-1. The weaponized accept: realistic code, silent failure
+### (linux/probes/WEAPONIZED_REALISTIC.ts, data/phaseXVIII_weaponized.json)
+
+The fuse counts *relation* depth, not syntax depth — so a 110-link
+typedef chain (exactly what codegen and migration tooling emit) hides it:
+
+- 231 lines of ordinary `type Lib1CfgN = { handler: Lib1CfgN-1 }` aliases,
+  differing only at the bottom leaf (`endpoint: string` vs `number`)
+- `const mine: Lib2Config = theirs;` — an utterly normal assignment
+- **stock tsgo: compiles CLEAN, zero diagnostics**
+- tsc5: TS2321 warning; unfused: true TS2322 at the leaf
+
+The hole is not a curiosity of pathological nesting — it is reachable
+through code that looks routine.
+
+## XVIII-3. Field expansion: 11 compilers, still one liar
+### (linux/run_crosslang2.py, data/phaseXVIII_crosslang2.json)
+
+New compilers probed at depths 25/100/300 with clean controls:
+
+| compiler | verdict |
+|---|---|
+| **F#** (fsc 12.8, netstandard) | LOUD-ERROR (FS0001) — honest |
+| **OCaml** 4.13 | LOUD-ERROR — honest |
+| **Zig** 0.13 | LOUD-ERROR — honest |
+| **Haskell** (ghc 9.4) | LOUD-ERROR — honest |
+| **Scala** 2.11 | LOUD ≤100; **StackOverflowError in the *parser*** at 300 |
+| **Kotlin** 2.1 | **javac family**: >60s on depth-100 control alone; internal FIR exception at 300 |
+| VB.NET | excluded — vbc.dll needs a .vbproj for framework refs |
+
+**Standing: tsgo remains the only silent acceptor across 11 production
+compilers.** The JVM family (javac + kotlinc) shares a distinct
+exponential-hang/exception mode; scala dies in its parser.
+
+## XVIII-5. The conditional-10 sites are shared, not a regression
+### (data/phaseXVIII_cond10.json)
+
+`relater.go:3576/3757` (same-conditional ×10 → Maybe) exist **identically**
+in tsc5 (typescript.js:70748/70866). A non-terminating conditional probe
+hits TS2589 (5M instantiation) first in BOTH compilers — identical
+behavior, and unfused dies on Go's 1GB goroutine stack. The depth-100
+nest fuse remains the **only** tsgo-unique silent swallow; the
+conditional sites are inherited ambiguity, noted for completeness in the
+upstream report.
+
+## XVIII-4. Rosetta leak hunt — free-running IRIW added
+### (linux/litmus/litmus_test.c, experiment F)
+
+Round-synchronized litmus serializes stores per-round — a *free-running*
+variant removes the barriers: writers spam monotone counters while two
+readers sample (x,y)/(y,x) continuously; a violation `x2>x3 && y3>y2`
+records observers disagreeing which independent store landed first —
+the textbook non-MCA leak signature. x86 control: **0/200k** as TSO
+requires. If Apple's TSO-enable under Rosetta is perfect, the translated
+arm also reads 0; any nonzero is a hardware-visible leak. Runs on both
+CI arms (ARM64 native + Rosetta x86_64) at 1M samples.
+
+## XVIII-6. The upstream package
+### (docs/upstream_report.md)
+
+Everything maintainers need, one document: minimal reproducer, boundary
+(101), 28-case construct map, LSP zero-diagnostic evidence, the
+weaponized-realistic case, the exact two-line mechanism (Maybe→success,
+no overflow flag), fix-cost data, and the parity note that the
+conditional-10 sites are shared. Honest novelty claim included.
+
+## Novelty labels (honest)
+
+- **New:** mechanism-level root cause (Maybe→success + missing overflow
+  flag, proven against tsc5 source); weaponized realistic silent accept;
+  kotlin join of the javac exponential-hang family; scala parser-SOE
+  mode; free-running IRIW harness; conditional-10 parity classification.
+- **First-measurement:** 11-compiler silent-accept map.
+- **Confirmed-known:** none new.
