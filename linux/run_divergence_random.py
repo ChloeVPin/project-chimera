@@ -6,7 +6,7 @@ port bugs hide in COMBINATIONS. This layer randomly composes: generic
 interfaces + conditional/mapped/variadic wrappers + mismatched leaves,
 seeded for reproducibility. Runs both checkers per case (~0.5s/1.5s each).
 
-Writes data/phaseXIX_divergence_random.json; prints divergent seeds.
+Usage: run_divergence_random.py [N] [SEED0] — writes data/phaseXIX_divergence_random_raw.json; prints divergent seeds.
 """
 import json, os, random, re, subprocess, sys, tempfile
 
@@ -56,8 +56,21 @@ def run(cmd, f):
     except subprocess.TimeoutExpired:
         return None, ['TIMEOUT']
 
-N = int(sys.argv[1]) if len(sys.argv) > 1 else 300
-SEED0 = int(sys.argv[2]) if len(sys.argv) > 2 else 19000
+def _usage():
+    sys.exit("usage: run_divergence_random.py [N] [SEED0] — N int, SEED0 int")
+
+def _arg(i, default):
+    if len(sys.argv) <= i:
+        return default
+    if sys.argv[i].startswith('-'):
+        _usage()
+    try:
+        return int(sys.argv[i])
+    except ValueError:
+        _usage()
+
+N = _arg(1, 300)
+SEED0 = _arg(2, 19000)
 OUT, divs = {}, []
 for i in range(N):
     seed = SEED0 + i
@@ -84,5 +97,5 @@ for i in range(N):
         print(f'...{i+1}/{N}, divergent so far: {len(divs)}')
 
 json.dump({'act': 'XIX-3b', 'total': N, 'divergent': len(divs), 'seeds': divs, 'results': OUT},
-          open('data/phaseXIX_divergence_random.json', 'w'), indent=1)
+          open('data/phaseXIX_divergence_random_raw.json', 'w'), indent=1)
 print(f'\n{len(divs)}/{N} divergent; seeds: {divs}')

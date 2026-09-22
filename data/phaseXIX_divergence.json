@@ -36,5 +36,9 @@
     }
    }
   }
+ },
+ "artifacts": {
+  "hand_raw": "data/phaseXIX_divergence_raw.json (regenerate: python3 linux/run_divergence_fuzzer.py)",
+  "random_raw": "data/phaseXIX_divergence_random.json (regenerate: python3 linux/run_divergence_random.py 1000 19000)"
  }
 }

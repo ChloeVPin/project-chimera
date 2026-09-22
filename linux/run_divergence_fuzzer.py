@@ -14,7 +14,7 @@ Classification:
   CODE_DIFFER        both error but different codes / targets
 
 Each case writes a self-contained file to cases/ for manual minimization.
-Writes data/phaseXIX_divergence.json.
+Writes data/phaseXIX_divergence_raw.json (raw per-case schema; the committed phaseXIX_divergence.json is the curated summary).
 """
 import json, os, re, subprocess, tempfile
 
@@ -262,6 +262,6 @@ for name, src in CASES.items():
 
 divs = {k: v for k, v in OUT.items() if not v['verdict'].startswith('IDENTICAL')}
 json.dump({'act': 'XIX-3', 'total': len(OUT), 'divergent': len(divs), 'results': OUT},
-          open('data/phaseXIX_divergence.json', 'w'), indent=1)
+          open('data/phaseXIX_divergence_raw.json', 'w'), indent=1)
 print(f"\n{len(divs)}/{len(OUT)} divergent")
 for k in divs: print(' ', k, divs[k]['verdict'])
