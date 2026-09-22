@@ -2281,8 +2281,31 @@ threads in one threadgroup may never execute truly concurrently.
 samples per test per CI run) plus a `desync` counter to detect
 verdict-before-write artifacts. First-order answer lands on CI.
 
-## XIX-2. Rosetta leak verdict
-*(pending — IRIW-FR experiment F data lands with this act's CI)*
+## XIX-2. Rosetta leak verdict — NO LEAK at 20M depth
+### (data/phaseXIX_iriwfr_verdict.json)
+
+Dedicated `macos-litmus-iriwfr` CI job (barrier-free experiment F needed
+no serialization behind the ~1h synced suite — now its own parallel job;
+the harness gained an A–F experiment selector for it).
+
+| arm | samples | violations |
+|---|--:|--:|
+| native ARM64 RELAXED | 20,000,000 | **0** |
+| native ARM64 ACQ_REL | 20,000,000 | **0** |
+| Rosetta x86-TSO RELAXED | 20,000,000 | **0** |
+| Rosetta x86-TSO ACQ_REL | 20,000,000 | **0** |
+
+Rosetta's TSO mode shows **no observable ordering leak under barrier-free
+free-running contention at 20M depth** — consistent with hardware-level
+TSO (ACTLR_EL1), not a low-contention artifact. Native ARM64 likewise 0 —
+consistent with published evidence that M1's fabric is effectively
+multi-copy-atomic for IRIW-shaped tests. Honest bound: rate < ~1.5e-7
+(95% CI) per arm/mode; this *bounds* leak probability, it cannot prove
+MCA. 100× deeper than the prior 200k barrier-synced corpus.
+
+## Novelty labels update
+- **First-measurement:** free-running (barrier-less) IRIW on Rosetta 2
+  at 20M depth — the deepest non-MCA probe run on translated x86.
 
 ## Novelty labels (honest)
 

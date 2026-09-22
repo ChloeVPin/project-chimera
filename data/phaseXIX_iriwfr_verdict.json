@@ -1,0 +1,29 @@
+{
+ "act": "XIX-2",
+ "experiment": "IRIW-FR free-running non-MCA leak hunt \u2014 dedicated CI job, 20M samples per arm per mode",
+ "run": "https://github.com/ChloeVPin/project-chimera/actions/runs/35690255033",
+ "arm64_native": {
+  "relaxed": {
+   "samples": 20000000,
+   "violations": 0
+  },
+  "acq_rel": {
+   "samples": 20000000,
+   "violations": 0
+  },
+  "cpu": "Apple M1 (Virtual)"
+ },
+ "rosetta_x86_tso": {
+  "relaxed": {
+   "samples": 20000000,
+   "violations": 0
+  },
+  "acq_rel": {
+   "samples": 20000000,
+   "violations": 0
+  }
+ },
+ "verdict": "NO LEAK DETECTED \u2014 0/20M order disagreements under barrier-free free-running contention on BOTH arms. Rosetta x86-TSO shows no observable leak at this contention level (consistent with hardware-level TSO, not just a low-contention artifact). Native ARM64 likewise 0 \u2014 consistent with the published finding that M1 fabric is effectively multi-copy-atomic for IRIW-shaped tests.",
+ "honest_bound": "violation rate < ~1.5e-7 at 95% confidence per arm per mode; does NOT prove MCA \u2014 only bounds leak probability at this test shape/contention",
+ "novelty": "first-measurement: free-running (barrier-less) IRIW on Rosetta 2 at 20M depth; prior corpus was 200k barrier-synced iterations"
+}
