@@ -106,6 +106,37 @@ Differential census of 1,044 cases (44 hand-targeted across 10 construct domains
 
 On the fuse-removed build, deep check time scales O(depth²): ~9s at 20k, ~166s at 60k (identical types), >600s at 40k (mismatched). CPU profile shows the cost is **not** in the relation — it is `binder.NameResolver.Resolve` (35%), `getConditionalFlowTypeOfType` (38%), `isResolvedByTypeAlias` (19%) and `ast` ancestor walks: per-node work that traverses AST ancestors. Deep nominal types also produce zero additional instantiations. A fix for the silent accept would need the bail-out to be loud; the asymptotic bound is a separate (performance) consideration.
 
+## Addendum (Act XX census) — two more silent-drop classes
+
+**Post-fuse permissive-any suppression (affects tsc as well).** After the instantiation
+fuse trips once (TS2589), the failed type becomes `errorType`, which is universally
+assignable. Every subsequent relation involving that type silently passes. Repro:
+```ts
+type Bomb<T> = T extends any ? (Bomb<T> extends infer U ? [U,U,U,U,U] : never) : never;
+const b = null as any as Bomb<Bomb<Bomb<Bomb<Bomb<string>>>>>;   // one TS2589
+const wrong: { x: number } = b;                                   // silently accepted
+```
+Identical on tsc 5.9.3 and tsgo. This is arguably intended (errorType is meant to be
+benign), but it means a single tripped fuse silently masks *all* further errors on that
+type — worth noting since the same mechanism will hide the fix for the main defect if
+it returns `errorType`.
+
+**Config-gate asymmetry.** `tsgo file.ts` from a directory containing `tsconfig.json`
+emits only TS5112 and returns `ExitStatusDiagnosticsPresent_OutputsSkipped` — the file
+is never checked; every diagnostic in it is suppressed (`internal/execute/tsc.go:180-187`).
+tsc 5.9.3 has no such gate: it checks the files but silently ignores the project config
+(`strict:true` + file args → implicit-any file compiles rc=0). The strictness failure
+mode is loud-exit/silent-check on tsgo vs silent-options on tsc; either way, a CI step
+of the form `tsc changed-file.ts` quietly stops enforcing the project's real rules.
+
+**Bail-site census (negative results are included for completeness).** Every
+`TernaryMaybe` site was probed: `expandingFlags==Both` (relater.go:3162),
+conditional-10 (3576/3757), union-include (1225/1232), cycle assumptions (3122/3130),
+and the inference expanding-skip at depth 2 (inference.go:352/355, 1074/1077).
+All are parity with tsc and, by construction, cannot hide a finite error — they fire
+only on infinitely self-similar shapes where any real difference surfaces above the
+trigger depth. `relater.go:3137` remains the only silent-accept regression in the port.
+
 ## Novelty claim (honest)
 
 We are not aware of a prior public report characterizing this as a silent *accept* (wrong code compiles clean) rather than a missing-diagnostic nuisance, nor of the LSP-path demonstration or the cross-compiler uniqueness result. If a duplicate exists upstream, the reproducer corpus (45 generated cases + weaponized realistic case + LSP session) is still the artifact the maintainers would need.
