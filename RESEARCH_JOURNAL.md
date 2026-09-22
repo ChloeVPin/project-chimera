@@ -2219,3 +2219,105 @@ conditional-10 sites are shared. Honest novelty claim included.
   mode; free-running IRIW harness; conditional-10 parity classification.
 - **First-measurement:** 11-compiler silent-accept map.
 - **Confirmed-known:** none new.
+
+---
+
+# Act XIX — The Divergence Taxonomy, the Quadratic's Address, and the GPU Frontier
+
+## XIX-3. How different are the two checkers? (data/phaseXIX_divergence.json)
+
+A systematic differential campaign — 44 hand-targeted cases across 10
+construct domains (variance, conditionals, mapped types, inference, unions,
+index signatures, tuples, intersections, this-types, excess-property checks)
+plus 1,000 randomized composition probes (`run_divergence_fuzzer.py`,
+`run_divergence_random.py`):
+
+| corpus | divergent | class |
+|---:|:---:|---|
+| 44 hand-targeted | **0** | — |
+| 1,000 randomized | **2** | elaboration-only, both same kind |
+
+**The only divergence class found:** when `Required<object>`/`Readonly<object>`
+(the empty object mapped over no keys) fails to assign, tsc5 emits the
+elaborated `TS2740` "missing properties" diagnostic while tsgo emits plain
+`TS2322` + a differently-shaped chain. **Same verdict, different diagnostic
+shape — no verdict-level divergence found in ~1,044 cases.** tsgo is a
+faithful port in composition space; the port defects concentrate in the
+relater bail-outs (Acts XIV–XVIII), not in everyday type judgements.
+
+## XIX-4. Where the quadratic lives — NOT in the relation
+### (data/phaseXIX_quadratic.json)
+
+pprof of `tsgo` checking `Array^20000` (identical, 8.9s): **33,897
+instantiations = pure lib baseline — the deep check instantiates nothing**.
+The time goes to:
+
+- `binder.NameResolver.Resolve` — 35.5% cum: every `Array<` node re-resolves
+- `checker.getConditionalFlowTypeOfType` — 37.9% cum: flow typing per node
+- `checker.isResolvedByTypeAlias` — 19.4% flat: alias-chain walks
+- `ast` helpers (`Locals`, `getIsDeferredContext`,
+  `isSelfReferenceLocation`, `IsStatement`) — ancestor walks
+
+**Mechanism:** a type 20k deep is an *AST* 20k deep; each node's name
+resolution + flow-type check walks ancestors — O(depth) per node →
+O(depth²) total. The quadratic lives in **symbol resolution + flow typing
+over AST depth**, not in the relation cache or instantiation machinery
+both checkers share this architecture — the fuse hides a structural
+bound, not a port defect.
+
+## XIX-5. GPU fabric litmus — first real data
+### (linux/litmus/metal_litmus.metal + metal_litmus_host.swift)
+
+New harness arm: SB/MP on Metal compute device-scope relaxed atomics,
+violation counters in a shared buffer, Swift host reads back JSON. Wired
+as `macos-metal-litmus` CI job.
+
+**v1 result (data/phaseXIX_metal_gpu.json):** 0/20k violations on the
+runner's *Apple Paravirtual device* — honest but uninformative: two
+threads in one threadgroup may never execute truly concurrently.
+
+**v2 (committed):** each SB/MP pair owns a slot; a dispatch launches
+`2*8192` threads so **8,192 pairs race simultaneously** (~1.6M effective
+samples per test per CI run) plus a `desync` counter to detect
+verdict-before-write artifacts.
+
+**v2 result:** **0/819,200 SB and 0/819,200 MP violations** on the Apple
+Paravirtual device, 0 desyncs — real contention ran; device-scope relaxed
+atomics showed no reordering on the virtualized GPU. Caveat: the
+paravirtual device may share/serialize on the host CPU fabric, so the
+null bounds but does not close the real-silicon question.
+
+## XIX-2. Rosetta leak verdict — NO LEAK at 20M depth
+### (data/phaseXIX_iriwfr_verdict.json)
+
+Dedicated `macos-litmus-iriwfr` CI job (barrier-free experiment F needed
+no serialization behind the ~1h synced suite — now its own parallel job;
+the harness gained an A–F experiment selector for it).
+
+| arm | samples | violations |
+|---|--:|--:|
+| native ARM64 RELAXED | 20,000,000 | **0** |
+| native ARM64 ACQ_REL | 20,000,000 | **0** |
+| Rosetta x86-TSO RELAXED | 20,000,000 | **0** |
+| Rosetta x86-TSO ACQ_REL | 20,000,000 | **0** |
+
+Rosetta's TSO mode shows **no observable ordering leak under barrier-free
+free-running contention at 20M depth** — consistent with hardware-level
+TSO (ACTLR_EL1), not a low-contention artifact. Native ARM64 likewise 0 —
+consistent with published evidence that M1's fabric is effectively
+multi-copy-atomic for IRIW-shaped tests. Honest bound: rate < ~1.5e-7
+(95% CI) per arm/mode; this *bounds* leak probability, it cannot prove
+MCA. 100× deeper than the prior 200k barrier-synced corpus.
+
+## Novelty labels update
+- **First-measurement:** free-running (barrier-less) IRIW on Rosetta 2
+  at 20M depth — the deepest non-MCA probe run on translated x86.
+
+## Novelty labels (honest)
+
+- **New:** quadratic-cost attribution to resolution/flow over AST depth
+  (contradicts the naive "relation cache" theory); divergence-taxonomy
+  measurement (~1,044 cases, elaboration-class only); GPU fabric litmus
+  harness design.
+- **First-measurement:** none yet (GPU results pending CI).
+- **Confirmed-known:** none.

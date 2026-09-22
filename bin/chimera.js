@@ -187,6 +187,21 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               corpus, LSP evidence, fix cost, honest novelty claim.
 `);
 
+  console.log(`${C.bold}ACT XIX: THE DIVERGENCE TAXONOMY${C.reset}
+  ${C.green}✔ XIX-3:${C.reset} 1,044-case differential census (tsc5 vs tsgo): ZERO
+              verdict divergences — only 2 elaboration-class diffs
+              (TS2740 vs TS2322 on Required<object>/Readonly<object>).
+  ${C.green}✔ XIX-4:${C.reset} The O(n^2) lives in RESOLUTION+FLOW, not the relation:
+              pprof names NameResolver.Resolve 35.5%, getConditionalFlow-
+              TypeOfType 37.9%, isResolvedByTypeAlias 19.4% — ancestor
+              walks on a 20k-deep AST; 0 extra instantiations.
+  ${C.green}✔ XIX-5:${C.reset} GPU fabric measured: Metal SB/MP v2 (8192 concurrent
+              pairs/dispatch) — 0/1.64M violations on Apple Paravirtual.
+  ${C.green}✔ XIX-2:${C.reset} ROSETTA VERDICT — NO LEAK: 0/20M IRIW-FR order
+              disagreements on BOTH native ARM64 and Rosetta x86-TSO at
+              barrier-free depth (rate < ~1.5e-7 at 95% CI).
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);

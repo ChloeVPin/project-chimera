@@ -18,3 +18,4 @@ linux/ipc/core_pingpong
 linux/probes/bench_*
 linux/probes/.rust_out/
 linux/hydra_*
+data/*_raw.json

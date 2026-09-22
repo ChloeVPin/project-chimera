@@ -1,0 +1,15 @@
+{
+ "act": "XIX-4",
+ "experiment": "pprof CPU profile of tsgo on Array^20000 identical-type check (8.9s)",
+ "finding": {
+  "instantiations": "33,897 = pure lib baseline \u2014 the deep check creates ZERO extra instantiations",
+  "profile_top": [
+   "binder.(*NameResolver).Resolve 35.5% cum \u2014 per-node entity name resolution",
+   "checker.getConditionalFlowTypeOfType 37.9% cum \u2014 flow typing per node",
+   "checker.isResolvedByTypeAlias 19.4% flat \u2014 alias-chain walks",
+   "ast helpers (Locals/getIsDeferredContext/isSelfReferenceLocation/IsStatement) \u2014 ancestor walks"
+  ],
+  "mechanism": "each of the 20k `Array<` type-reference nodes triggers resolveTypeReferenceName\u2192resolveEntityName\u2192NameResolver.Resolve plus flow-type work, and the helpers walk AST *ancestors* \u2014 on an AST 20k deep, per-node ancestor traversal is O(depth) \u2192 O(depth\u00b2) total. The quadratic lives in symbol resolution + flow typing over AST depth, NOT in the type relation or instantiation machinery.",
+  "implication": "both tsc5 and tsgo share this architecture \u2014 the fuse hides a structural (AST-depth-quadratic) bound, not a port-specific defect; a fix upstream means memoizing resolution/flow per node or bounding ancestor walks"
+ }
+}
