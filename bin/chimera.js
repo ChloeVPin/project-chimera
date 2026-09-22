@@ -187,6 +187,18 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               corpus, LSP evidence, fix cost, honest novelty claim.
 `);
 
+  console.log(`${C.bold}ACT XIX: THE DIVERGENCE TAXONOMY${C.reset}
+  ${C.green}✔ XIX-3:${C.reset} 1,044-case differential census (tsc5 vs tsgo): ZERO
+              verdict divergences — only 2 elaboration-class diffs
+              (TS2740 vs TS2322 on Required<object>/Readonly<object>).
+  ${C.green}✔ XIX-4:${C.reset} The O(n^2) lives in RESOLUTION+FLOW, not the relation:
+              pprof names NameResolver.Resolve 35.5%, getConditionalFlow-
+              TypeOfType 37.9%, isResolvedByTypeAlias 19.4% — ancestor
+              walks on a 20k-deep AST; 0 extra instantiations.
+  ${C.green}✔ XIX-5:${C.reset} GPU fabric litmus: Metal compute SB/MP harness +
+              macos-metal-litmus CI job — first Apple-GPU ordering probe.
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);

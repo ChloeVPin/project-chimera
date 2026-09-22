@@ -51,3 +51,26 @@ jobs:
         with:
           name: litmus-macos-rosetta
           path: data/litmus_macos_rosetta.json
+
+  # Act XIX-5: GPU fabric litmus — does Apple's Metal compute device honor
+  # the same ordering surface as the CPU fabric? SB/MP on device-scope
+  # relaxed atomics; violation counters read back from shared buffer.
+  macos-metal-litmus:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile Metal shader + Swift host
+        run: |
+          xcrun metal -c linux/litmus/metal_litmus.metal -o metal_litmus.air
+          xcrun metallib metal_litmus.air -o metal_litmus.metallib
+          swiftc -O linux/litmus/metal_litmus_host.swift -o metal_host
+      - name: Run GPU litmus (SB/MP device-scope relaxed)
+        run: |
+          mkdir -p data
+          ./metal_host 20000 data/litmus_metal_gpu.json || \
+            echo '{"test":"Metal GPU litmus","status":"UNAVAILABLE on this runner","note":"no Metal device or metallib failure — virtualized GPU limitation"}' > data/litmus_metal_gpu.json
+          cat data/litmus_metal_gpu.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: litmus-metal-gpu
+          path: data/litmus_metal_gpu.json

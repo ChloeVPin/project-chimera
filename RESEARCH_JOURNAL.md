@@ -2219,3 +2219,68 @@ conditional-10 sites are shared. Honest novelty claim included.
   mode; free-running IRIW harness; conditional-10 parity classification.
 - **First-measurement:** 11-compiler silent-accept map.
 - **Confirmed-known:** none new.
+
+---
+
+# Act XIX — The Divergence Taxonomy, the Quadratic's Address, and the GPU Frontier
+
+## XIX-3. How different are the two checkers? (data/phaseXIX_divergence.json)
+
+A systematic differential campaign — 44 hand-targeted cases across 10
+construct domains (variance, conditionals, mapped types, inference, unions,
+index signatures, tuples, intersections, this-types, excess-property checks)
+plus 1,000 randomized composition probes (`run_divergence_fuzzer.py`,
+`run_divergence_random.py`):
+
+| corpus | divergent | class |
+|---:|:---:|---|
+| 44 hand-targeted | **0** | — |
+| 1,000 randomized | **2** | elaboration-only, both same kind |
+
+**The only divergence class found:** when `Required<object>`/`Readonly<object>`
+(the empty object mapped over no keys) fails to assign, tsc5 emits the
+elaborated `TS2740` "missing properties" diagnostic while tsgo emits plain
+`TS2322` + a differently-shaped chain. **Same verdict, different diagnostic
+shape — no verdict-level divergence found in ~1,044 cases.** tsgo is a
+faithful port in composition space; the port defects concentrate in the
+relater bail-outs (Acts XIV–XVIII), not in everyday type judgements.
+
+## XIX-4. Where the quadratic lives — NOT in the relation
+### (data/phaseXIX_quadratic.json)
+
+pprof of `tsgo` checking `Array^20000` (identical, 8.9s): **33,897
+instantiations = pure lib baseline — the deep check instantiates nothing**.
+The time goes to:
+
+- `binder.NameResolver.Resolve` — 35.5% cum: every `Array<` node re-resolves
+- `checker.getConditionalFlowTypeOfType` — 37.9% cum: flow typing per node
+- `checker.isResolvedByTypeAlias` — 19.4% flat: alias-chain walks
+- `ast` helpers (`Locals`, `getIsDeferredContext`,
+  `isSelfReferenceLocation`, `IsStatement`) — ancestor walks
+
+**Mechanism:** a type 20k deep is an *AST* 20k deep; each node's name
+resolution + flow-type check walks ancestors — O(depth) per node →
+O(depth²) total. The quadratic lives in **symbol resolution + flow typing
+over AST depth**, not in the relation cache or instantiation machinery
+both checkers share this architecture — the fuse hides a structural
+bound, not a port defect.
+
+## XIX-5. GPU fabric litmus (linux/litmus/metal_litmus.metal + metal_litmus_host.swift)
+
+New harness arm: SB/MP on Metal compute device-scope relaxed atomics,
+violation counters in a shared buffer, Swift host reads back JSON. Wired
+as `macos-metal-litmus` CI job — first litmus data on Apple's GPU fabric
+if the runner exposes real hardware (degrades honestly to UNAVAILABLE
+status JSON on a virtualized GPU).
+
+## XIX-2. Rosetta leak verdict
+*(pending — IRIW-FR experiment F data lands with this act's CI)*
+
+## Novelty labels (honest)
+
+- **New:** quadratic-cost attribution to resolution/flow over AST depth
+  (contradicts the naive "relation cache" theory); divergence-taxonomy
+  measurement (~1,044 cases, elaboration-class only); GPU fabric litmus
+  harness design.
+- **First-measurement:** none yet (GPU results pending CI).
+- **Confirmed-known:** none.

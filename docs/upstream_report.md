@@ -98,6 +98,16 @@ The same nested-mismatch probe on 11 production compilers (`linux/run_crosslang.
 - `python3 linux/run_price_of_correctness.py` — stock vs fuse-fixed vs fuse-removed cost table.
 - tsgo binaries used: built from `microsoft/typescript-go` @ 89d5d5b2, `go build ./cmd/tsgo`.
 
+## Generalization check — is the port faithful elsewhere?
+
+Differential census of 1,044 cases (44 hand-targeted across 10 construct domains + 1,000 seeded random compositions, `linux/run_divergence_fuzzer.py` / `run_divergence_random.py` → `data/phaseXIX_divergence.json`): **zero verdict-level divergences** between tsc 5.9.3 and tsgo. The only diffs found are elaboration shape — on `Required<object>`/`Readonly<object>` (empty mapped type) assignment failures, tsc5 emits TS2740 ("missing properties …") while tsgo emits TS2322 with a differently-shaped chain. The silent accept is the anomaly, not the norm.
+
+## Related observation — the fuse hides a quadratic, not a crash
+
+On the fuse-removed build, deep check time scales O(depth²): ~9s at 20k, ~166s at 60k (identical types), >600s at 40k (mismatched). CPU profile shows the cost is **not** in the relation — it is `binder.NameResolver.Resolve` (35%), `getConditionalFlowTypeOfType` (38%), `isResolvedByTypeAlias` (19%) and `ast` ancestor walks: per-node work that traverses AST ancestors. Deep nominal types also produce zero additional instantiations. A fix for the silent accept would need the bail-out to be loud; the asymptotic bound is a separate (performance) consideration.
+
 ## Novelty claim (honest)
 
 We are not aware of a prior public report characterizing this as a silent *accept* (wrong code compiles clean) rather than a missing-diagnostic nuisance, nor of the LSP-path demonstration or the cross-compiler uniqueness result. If a duplicate exists upstream, the reproducer corpus (45 generated cases + weaponized realistic case + LSP session) is still the artifact the maintainers would need.
+
+*This report is a draft prepared for review; it has not been filed upstream.*

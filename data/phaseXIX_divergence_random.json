@@ -1,0 +1,6246 @@
+{
+ "act": "XIX-3b",
+ "total": 700,
+ "divergent": 0,
+ "seeds": [],
+ "results": {
+  "20000": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, readonly { f: (x: \"lit\") => void }[]>;\nconst b: Record<string, readonly { f: (x: symbol) => void }[]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20001": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ v: object & { tag: true } } extends any ? { v: object & { tag: true } } : never) & { tag: true };\nconst b: ({ v: object & { tag: true } } extends any ? { v: object & { tag: true } } : never) & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20002": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<[{ v: undefined }, number]> | undefined;\nconst b: Readonly<[{ v: string | number }, number]> | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20003": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<Promise<string>>) | ({ f: (x: [number, ...Promise<object>[]]) => void });\nconst b: (Partial<Promise<{v: string}>>) | ({ f: (x: [number, ...Promise<undefined>[]]) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20004": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: Partial<Required<string>> };\nconst b: { v: Partial<Required<{v: string}>> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20005": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<[RegExp | undefined, number]>;\nconst b: Required<[{v: string} | undefined, number]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20006": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly Readonly<number>[];\nconst b: readonly Readonly<string>[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20007": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...[number, ...Readonly<Array<number>>[]][]];\nconst b: [number, ...[number, ...Readonly<Array<[number, string]>>[]][]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20008": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<Array<Date>>) | ({ r(): Partial<[number, ...bigint[]]> });\nconst b: (Array<Array<object>>) | ({ r(): Partial<[number, ...number[]]> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20009": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: { f: (x: readonly { m(x: unknown): void }[]) => void } }) & (Partial<Readonly<object> & { tag: true }>);\nconst b: (keyof { k: { f: (x: readonly { m(x: null): void }[]) => void } }) & (Partial<Readonly<boolean> & { tag: true }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20010": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: object) => void };\nconst b: { f: (x: boolean) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20011": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: Record<string, { v: (boolean extends any ? boolean : never) }> };\nconst b: keyof { k: Record<string, { v: (number extends any ? number : never) }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20012": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: { f: (x: symbol) => void } | undefined };\nconst b: { v: { f: (x: never) => void } | undefined } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20013": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly Array<readonly Required<[number, string]>[]>[];\nconst b: readonly Array<readonly Required<{v: string}>[]>[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20014": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: {v: string} | undefined): void };\nconst b: { m(x: bigint | undefined): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20015": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<number>;\nconst b: Promise<object> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20016": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, { m(x: { f: (x: string) => void }): void }>;\nconst b: Record<string, { m(x: { f: (x: string | number) => void }): void }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20017": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<RegExp>) & ({ m(x: keyof { k: object }): void } | undefined);\nconst b: (Required<undefined>) & ({ m(x: keyof { k: object }): void } | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20018": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<Date & { tag: true }>) | ({ r(): Partial<{ f: (x: Date) => void }> });\nconst b: (Promise<[number, string] & { tag: true }>) | ({ r(): Partial<{ f: (x: string | number) => void }> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20019": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: number & { tag: true };\nconst b: null & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20020": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ m(x: Required<keyof { k: Partial<42> }>): void }) & ((never extends any ? never : never) | undefined);\nconst b: ({ m(x: Required<keyof { k: Partial<42> }>): void }) & ((unknown extends any ? unknown : never) | undefined) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20021": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<Required<Required<any>>>;\nconst b: Partial<Required<Required<symbol>>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20022": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: Required<any> } extends any ? { v: Required<any> } : never);\nconst b: ({ v: Required<42> } extends any ? { v: Required<42> } : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20023": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { r(): Required<{ v: string }> };\nconst b: { r(): Required<{ v: string | number }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20024": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): Promise<readonly string[]> };\nconst b: { r(): Promise<readonly boolean[]> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20025": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([readonly string[][], number]) | (Promise<{ r(): Partial<\"lit\"> }>);\nconst b: ([readonly null[], number]) | (Promise<{ r(): Partial<string> }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20026": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (string | undefined) & (Readonly<{ f: (x: keyof { k: null }) => void }>);\nconst b: (string[] | undefined) & (Readonly<{ f: (x: keyof { k: \"lit\" }) => void }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20027": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ([number, ...{ v?: Promise<boolean> | undefined }[]]) & (Readonly<never>);\nconst b: ([number, ...{ v?: Promise<[number, string]> | undefined }[]]) & (Readonly<{v: string}>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20028": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: readonly never[];\nconst b: readonly object[] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20029": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<{ m(x: {v: string}): void }>;\nconst b: Promise<{ m(x: unknown): void }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20030": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: Required<{ v: (never extends any ? never : never) }>) => void }) & (Record<string, { m(x: { r(): number }): void }>);\nconst b: ({ f: (x: Required<{ v: (object extends any ? object : never) }>) => void }) & (Record<string, { m(x: { r(): Date }): void }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20031": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): Record<string, Promise<boolean>> }) | ((keyof { k: Partial<{v: string}> } extends any ? keyof { k: Partial<{v: string}> } : never));\nconst b: ({ r(): Record<string, Promise<RegExp>> }) | ((keyof { k: Partial<null> } extends any ? keyof { k: Partial<null> } : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20032": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Record<string, Record<string, Partial<Partial<never>>>>) | ({ f: (x: Record<string, string[]>) => void });\nconst b: (Record<string, Record<string, Partial<Partial<object>>>>) | ({ f: (x: Record<string, string[]>) => void }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20033": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((Required<\"lit\"> extends any ? Required<\"lit\"> : never)) & (Array<42>);\nconst b: ((Required<any> extends any ? Required<any> : never)) & (Array<[number, string]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20034": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<Required<{ r(): keyof { k: null } }>>;\nconst b: Promise<Required<{ r(): keyof { k: {v: string} } }>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20035": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<keyof { k: { r(): 42 } }>;\nconst b: Required<keyof { k: { r(): \"lit\" } }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20036": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): (boolean extends any ? boolean : never) }) & (Promise<boolean>);\nconst b: ({ r(): (Date extends any ? Date : never) }) & (Promise<object>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20037": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<[number, ...boolean[]]> | undefined;\nconst b: Promise<[number, ...boolean[]]> | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20038": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): undefined };\nconst b: { r(): never } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20039": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: \"lit\" }) | (readonly ((boolean extends any ? boolean : never) extends any ? (boolean extends any ? boolean : never) : never)[]);\nconst b: (keyof { k: bigint }) | (readonly (({v: string} extends any ? {v: string} : never) extends any ? ({v: string} extends any ? {v: string} : never) : never)[]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20040": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (keyof { k: 42 }) & (Required<number>);\nconst b: (keyof { k: {v: string} }) & (Required<undefined>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20041": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...string[][]];\nconst b: [number, ...RegExp[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20042": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Array<keyof { k: { r(): Array<string> } }>;\nconst b: Array<keyof { k: { r(): Array<\"lit\"> } }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20043": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { f: (x: ({ m(x: number): void } & { tag: true } extends any ? { m(x: number): void } & { tag: true } : never)) => void };\nconst b: { f: (x: ({ m(x: unknown): void } & { tag: true } extends any ? { m(x: unknown): void } & { tag: true } : never)) => void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20044": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, Readonly<{ f: (x: unknown) => void }>>;\nconst b: Record<string, Readonly<{ f: (x: {v: string}) => void }>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20045": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): { m(x: string): void } & { tag: true } }) & ([Array<boolean> & { tag: true }, number]);\nconst b: ({ r(): { m(x: unknown): void } & { tag: true } }) & ([Array<null> & { tag: true }, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20046": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Readonly<keyof { k: Array<string> }>;\nconst b: Readonly<keyof { k: Array<string> }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20047": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<{ v?: Date }>) | (keyof { k: Partial<null> });\nconst b: (Array<{ v?: {v: string} }>) | (keyof { k: Partial<string | number> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20048": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: RegExp } & { tag: true }) & ([number, ...Readonly<Record<string, any>>[]]);\nconst b: ({ v: bigint } & { tag: true }) & ([number, ...Readonly<Record<string, object>>[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20049": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<Date>) | ({ r(): RegExp } & { tag: true });\nconst b: (Required<string[]>) | ({ r(): symbol } & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20050": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): {v: string} } | undefined;\nconst b: { r(): [number, string] } | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20051": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): unknown };\nconst b: { r(): undefined } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20052": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<{ m(x: [number, ...\"lit\"[]]): void }>) & (readonly \"lit\"[]);\nconst b: (Partial<{ m(x: [number, ...undefined[]]): void }>) & (readonly \"lit\"[]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20053": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...{ v?: string | number } | undefined[]]) | ({ v?: { v?: unknown } });\nconst b: ([number, ...{ v?: string[] } | undefined[]]) | ({ v?: { v?: string | number } }) = a;\n",
+   "tsc5": [
+    "2322",
+    "2574"
+   ],
+   "tsgo": [
+    "2322",
+    "2574"
+   ]
+  },
+  "20054": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...never[]]) | ((number extends any ? number : never));\nconst b: ([number, ...undefined[]]) | (([number, string] extends any ? [number, string] : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20055": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: [number, ...readonly Date[][]] };\nconst b: { v?: [number, ...readonly number[][]] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20056": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<string[]>) & (keyof { k: { r(): symbol } });\nconst b: (Required<bigint>) & (keyof { k: { r(): unknown } }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20057": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: [Readonly<boolean>, number]): void };\nconst b: { m(x: [Readonly<boolean>, number]): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20058": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...Array<Partial<object>>[]];\nconst b: [number, ...Array<Partial<42>>[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20059": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): Required<Array<undefined>> }) | ((Array<Required<RegExp>> extends any ? Array<Required<RegExp>> : never));\nconst b: ({ r(): Required<Array<unknown>> }) | ((Array<Required<string>> extends any ? Array<Required<string>> : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20060": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...{ v: Record<string, string | number> }[]];\nconst b: [number, ...{ v: Record<string, Date> }[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20061": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, { v: Required<readonly null[]> }>;\nconst b: Record<string, { v: Required<readonly any[]> }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20062": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: ([string, number] extends any ? [string, number] : never) } & { tag: true };\nconst b: { v: ([unknown, number] extends any ? [unknown, number] : never) } & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20063": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [readonly [number, ...[number, ...\"lit\"[]][]][], number];\nconst b: [readonly [number, ...[number, ...null[]][]][], number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20064": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Partial<{ f: (x: { v?: { m(x: RegExp): void } }) => void }>) | (keyof { k: keyof { k: object } } & { tag: true });\nconst b: (Partial<{ f: (x: { v?: { m(x: any): void } }) => void }>) | (keyof { k: keyof { k: symbol } } & { tag: true }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20065": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<{ f: (x: [number, string]) => void }>;\nconst b: Required<{ f: (x: string | number) => void }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20066": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: readonly boolean[] };\nconst b: { v: readonly RegExp[] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20067": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: symbol };\nconst b: { v: bigint } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20068": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<symbol>;\nconst b: Promise<[number, string]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20069": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Required<undefined>) & ({ v: { v?: Required<boolean> } });\nconst b: (Required<string[]>) & ({ v: { v?: Required<unknown> } }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20070": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: {v: string} | undefined;\nconst b: {v: string} | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20071": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly object[];\nconst b: readonly string | number[] = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20072": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: readonly [Readonly<string[]>, number][] };\nconst b: { v?: readonly [Readonly<undefined>, number][] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20073": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...[{ f: (x: Array<RegExp>) => void }, number][]]) | (Partial<undefined>);\nconst b: ([number, ...[{ f: (x: Array<undefined>) => void }, number][]]) | (Partial<unknown>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20074": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, string] | undefined;\nconst b: string | number | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20075": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly { r(): { v?: symbol } }[]) & ({ f: (x: symbol) => void });\nconst b: (readonly { r(): { v?: bigint } }[]) & ({ f: (x: string[]) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20076": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: string[]): void };\nconst b: { m(x: string[]): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20077": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (\"lit\" & { tag: true }) & ({ v: readonly {v: string}[] });\nconst b: (never & { tag: true }) & ({ v: readonly string | number[] }) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20078": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<Record<string, RegExp>>;\nconst b: Array<Record<string, undefined>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20079": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): { v: Partial<(number extends any ? number : never)> } };\nconst b: { r(): { v: Partial<(never extends any ? never : never)> } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20080": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ f: (x: string | number) => void } | undefined> & { tag: true };\nconst b: Array<{ f: (x: string[]) => void } | undefined> & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20081": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ v: Array<symbol> }>;\nconst b: Array<{ v: Array<boolean> }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20082": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...Required<RegExp>[]]) | ({ v?: [number, ...readonly RegExp[][]] });\nconst b: ([number, ...Required<string[]>[]]) | ({ v?: [number, ...readonly {v: string}[][]] }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20083": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ([number, string] | undefined extends any ? [number, string] | undefined : never);\nconst b: (unknown | undefined extends any ? unknown | undefined : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20084": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: { f: (x: [number, string]) => void } };\nconst b: keyof { k: { f: (x: RegExp) => void } } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20085": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: { f: (x: (Readonly<bigint> extends any ? Readonly<bigint> : never)) => void } };\nconst b: { v?: { f: (x: (Readonly<42> extends any ? Readonly<42> : never)) => void } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20086": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [[number, ...string[]], number];\nconst b: [[number, ...undefined[]], number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20087": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<[number, number]> & { tag: true };\nconst b: Promise<[undefined, number]> & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20088": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: readonly Partial<number>[] };\nconst b: { v?: readonly Partial<object>[] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20089": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<Required<[number, ...number[]]>>) | (readonly bigint[]);\nconst b: (Partial<Required<[number, ...null[]]>>) | (readonly number[]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20090": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, {v: string}>;\nconst b: Record<string, string | number> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20091": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<Required<RegExp | undefined>>;\nconst b: Partial<Required<RegExp | undefined>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20092": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: RegExp) => void };\nconst b: { f: (x: \"lit\") => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20093": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, [number, string]> | undefined;\nconst b: Record<string, 42> | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20094": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<any>;\nconst b: Required<42> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20095": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: RegExp };\nconst b: { v: \"lit\" } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20096": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: { v?: Required<object> } }) | (Required<Readonly<null>>);\nconst b: (keyof { k: { v?: Required<symbol> } }) | (Required<Readonly<boolean>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20097": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<Readonly<Readonly<Partial<string>>>>) & ({ m(x: RegExp): void });\nconst b: (Partial<Readonly<Readonly<Partial<number>>>>) & ({ m(x: string | number): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20098": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (number | undefined) & (readonly Promise<boolean> | undefined[]);\nconst b: (symbol | undefined) & (readonly Promise<\"lit\"> | undefined[]) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20099": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: Array<boolean> }) | (({v: string} extends any ? {v: string} : never) | undefined);\nconst b: ({ v?: Array<string> }) | ((boolean extends any ? boolean : never) | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20100": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly { v: [number, ...string[]] } & { tag: true }[]) | (Required<undefined>);\nconst b: (readonly { v: [number, ...symbol[]] } & { tag: true }[]) | (Required<undefined>) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20101": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<null>;\nconst b: Array<string[]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20102": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Readonly<{ f: (x: unknown) => void }> extends any ? Readonly<{ f: (x: unknown) => void }> : never);\nconst b: (Readonly<{ f: (x: 42) => void }> extends any ? Readonly<{ f: (x: 42) => void }> : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20103": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: unknown };\nconst b: keyof { k: string | number } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20104": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: null | undefined | undefined;\nconst b: RegExp | undefined | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20105": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: string | number & { tag: true };\nconst b: boolean & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20106": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly Record<string, string[]>[] & { tag: true };\nconst b: readonly Record<string, undefined>[] & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20107": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, Array<keyof { k: Required<object> }>>;\nconst b: Record<string, Array<keyof { k: Required<boolean> }>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20108": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Readonly<bigint>) & (keyof { k: Partial<bigint> } & { tag: true });\nconst b: (Readonly<Date>) & (keyof { k: Partial<42> } & { tag: true }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20109": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): Readonly<any> };\nconst b: { r(): Readonly<never> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20110": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: bigint & { tag: true }) => void }) & ({ m(x: number): void });\nconst b: ({ f: (x: object & { tag: true }) => void }) & ({ m(x: [number, string]): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20111": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [Readonly<symbol> & { tag: true }, number];\nconst b: [Readonly<number> & { tag: true }, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20112": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [number, ...Readonly<{ r(): [number, ...null[]] }>[]];\nconst b: [number, ...Readonly<{ r(): [number, ...unknown[]] }>[]] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20113": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Date & { tag: true }) | (Promise<Date>);\nconst b: (number & { tag: true }) | (Promise<42>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20114": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, (Promise<unknown> extends any ? Promise<unknown> : never)>) | (Readonly<number>);\nconst b: (Record<string, (Promise<\"lit\"> extends any ? Promise<\"lit\"> : never)>) | (Readonly<symbol>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20115": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<readonly { v: bigint }[]>;\nconst b: Array<readonly { v: \"lit\" }[]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20116": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([keyof { k: readonly string[] }, number]) | ({ v?: Required<42> });\nconst b: ([keyof { k: readonly string | number[] }, number]) | ({ v?: Required<symbol> }) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20117": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Required<readonly boolean[]> extends any ? Required<readonly boolean[]> : never);\nconst b: (Required<readonly unknown[]> extends any ? Required<readonly unknown[]> : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20118": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Readonly<(any extends any ? any : never) | undefined>) | (keyof { k: Promise<unknown> });\nconst b: (Readonly<(never extends any ? never : never) | undefined>) | (keyof { k: Promise<42> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20119": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (boolean extends any ? boolean : never);\nconst b: (unknown extends any ? unknown : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20120": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ v: Array<boolean> }) & (undefined | undefined);\nconst b: ({ v: Array<symbol> }) & (42 | undefined) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20121": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<string | number>;\nconst b: Array<number> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20122": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, bigint>;\nconst b: Record<string, string[]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20123": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, [never, number] & { tag: true } | undefined>;\nconst b: Record<string, [null, number] & { tag: true } | undefined> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20124": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...{ v: bigint }[]] | undefined;\nconst b: [number, ...{ v: Date }[]] | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20125": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<readonly ({ v: number } extends any ? { v: number } : never)[]>) & ({ r(): 42 });\nconst b: (Partial<readonly ({ v: boolean } extends any ? { v: boolean } : never)[]>) & ({ r(): 42 }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20126": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: Record<string, { v?: 42 }> };\nconst b: keyof { k: Record<string, { v?: [number, string] }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20127": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<keyof { k: boolean }> & { tag: true }) & (Array<readonly \"lit\"[]>);\nconst b: (Partial<keyof { k: [number, string] }> & { tag: true }) & (Array<readonly 42[]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20128": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<Promise<Array<{v: string}>>>) & (Partial<Record<string, object>>);\nconst b: (Required<Promise<Array<string>>>) & (Partial<Record<string, symbol>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20129": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: readonly { f: (x: any) => void }[] };\nconst b: { v: readonly { f: (x: any) => void }[] } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20130": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: readonly keyof { k: bigint }[] }) | (keyof { k: \"lit\" });\nconst b: ({ v: readonly keyof { k: null }[] }) | (keyof { k: {v: string} }) = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20131": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly {v: string}[];\nconst b: readonly 42[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20132": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<{ f: (x: undefined) => void }>;\nconst b: Required<{ f: (x: {v: string}) => void }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20133": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, Date> & { tag: true }) | ({ r(): undefined });\nconst b: (Record<string, null> & { tag: true }) | ({ r(): never }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20134": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...\"lit\"[]]) & ([{ v?: \"lit\" }, number]);\nconst b: ([number, ...string | number[]]) & ([{ v?: null }, number]) = a;\n",
+   "tsc5": [
+    "2322",
+    "2574"
+   ],
+   "tsgo": [
+    "2322",
+    "2574"
+   ]
+  },
+  "20135": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, [Partial<{ v?: never }>, number]>;\nconst b: Record<string, [Partial<{ v?: [number, string] }>, number]> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20136": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((Required<{ v: (undefined extends any ? undefined : never) }> extends any ? Required<{ v: (undefined extends any ? undefined : never) }> : never)) | ({ v: null });\nconst b: ((Required<{ v: (RegExp extends any ? RegExp : never) }> extends any ? Required<{ v: (RegExp extends any ? RegExp : never) }> : never)) | ({ v: 42 }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20137": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<[number, ...string[]]>;\nconst b: Readonly<[number, ...{v: string}[]]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20138": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: Record<string, 42 | undefined> }) | (Record<string, { f: (x: {v: string}) => void }> | undefined);\nconst b: ({ v: Record<string, unknown | undefined> }) | (Record<string, { f: (x: \"lit\") => void }> | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20139": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, Required<[number, string]>>;\nconst b: Record<string, Required<[number, string]>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20140": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((object extends any ? object : never)) | (Readonly<Array<RegExp>>);\nconst b: ((never extends any ? never : never)) | (Readonly<Array<any>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20141": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: never) => void }) | (Readonly<{ r(): Array<RegExp> }>);\nconst b: ({ f: (x: {v: string}) => void }) | (Readonly<{ r(): Array<\"lit\"> }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20142": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...unknown[]];\nconst b: [number, ...42[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20143": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: never } | undefined;\nconst b: keyof { k: null } | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20144": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ([keyof { k: number }, number]) & ([number, ...Promise<number>[]]);\nconst b: ([keyof { k: string[] }, number]) & ([number, ...Promise<null>[]]) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20145": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: 42 }) | (Partial<Date> | undefined);\nconst b: (keyof { k: {v: string} }) | (Partial<RegExp> | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20146": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([Required<{v: string}> | undefined, number] | undefined) & ({ v?: string[] });\nconst b: ([Required<\"lit\"> | undefined, number] | undefined) & ({ v?: never }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20147": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<{ v: symbol }>) & (Record<string, null>);\nconst b: (Array<{ v: symbol }>) & (Record<string, boolean>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20148": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: Required<\"lit\" & { tag: true }> };\nconst b: keyof { k: Required<number & { tag: true }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20149": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Readonly<Partial<RegExp>>;\nconst b: Readonly<Partial<object>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20150": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: Promise<[number, ...null | undefined[]]> }) | ({ m(x: keyof { k: { v: unknown } }): void });\nconst b: ({ v?: Promise<[number, ...number | undefined[]]> }) | ({ m(x: keyof { k: { v: undefined } }): void }) = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20151": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<symbol>) & (Array<string>);\nconst b: (Partial<string | number>) & (Array<symbol>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20152": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, Partial<string[]>>) & (Partial<any>);\nconst b: (Record<string, Partial<string | number>>) & (Partial<Date>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20153": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly Record<string, { m(x: Array<object>): void }>[];\nconst b: readonly Record<string, { m(x: Array<undefined>): void }>[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20154": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (bigint extends any ? bigint : never);\nconst b: (null extends any ? null : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20155": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<any>;\nconst b: Partial<string> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20156": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Readonly<string>) & (Required<number | undefined & { tag: true }>);\nconst b: (Readonly<RegExp>) & (Required<never | undefined & { tag: true }>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20157": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Partial<{ m(x: Date): void }>) | ({ v: Readonly<{v: string}> });\nconst b: (Partial<{ m(x: Date): void }>) | ({ v: Readonly<unknown> }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20158": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: [number, ...string[][]] } extends any ? { v?: [number, ...string[][]] } : never);\nconst b: ({ v?: [number, ...number[]] } extends any ? { v?: [number, ...number[]] } : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20159": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<[number, ...{ f: (x: unknown) => void }[]]>;\nconst b: Promise<[number, ...{ f: (x: undefined) => void }[]]> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20160": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: undefined }) & ([string[], number]);\nconst b: ({ v?: Date }) & ([symbol, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20161": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [never, number];\nconst b: [unknown, number] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20162": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Array<keyof { k: Date } & { tag: true }>;\nconst b: Array<keyof { k: object } & { tag: true }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20163": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: any };\nconst b: keyof { k: symbol } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20164": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ v?: any & { tag: true } }) | ((keyof { k: 42 } extends any ? keyof { k: 42 } : never));\nconst b: ({ v?: {v: string} & { tag: true } }) | ((keyof { k: string[] } extends any ? keyof { k: string[] } : never)) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20165": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly symbol[]) & ([number, ...{ v: symbol }[]]);\nconst b: (readonly \"lit\"[]) & ([number, ...{ v: number }[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20166": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<Record<string, { v: \"lit\" }> & { tag: true }>;\nconst b: Array<Record<string, { v: undefined }> & { tag: true }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20167": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): { f: (x: { r(): { v?: symbol } }) => void } }) & ([number, ...{ v?: null }[]]);\nconst b: ({ r(): { f: (x: { r(): { v?: boolean } }) => void } }) & ([number, ...{ v?: object }[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20168": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [boolean, number];\nconst b: [string[], number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20169": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: { r(): RegExp }) => void }) | ([number, ...symbol[]]);\nconst b: ({ f: (x: { r(): object }) => void }) | ([number, ...any[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20170": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: keyof { k: Array<number> } };\nconst b: { v: keyof { k: Array<number> } } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20171": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: { v?: Required<Record<string, null>> }): void };\nconst b: { m(x: { v?: Required<Record<string, symbol>> }): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20172": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: string };\nconst b: keyof { k: null } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20173": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly {v: string} | undefined & { tag: true }[];\nconst b: readonly RegExp | undefined & { tag: true }[] = a;\n",
+   "tsc5": [
+    "1354",
+    "2740"
+   ],
+   "tsgo": [
+    "1354",
+    "2740"
+   ]
+  },
+  "20174": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: { r(): Partial<string[]> | undefined }): void };\nconst b: { m(x: { r(): Partial<{v: string}> | undefined }): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20175": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<Readonly<42>> | undefined) & (keyof { k: object });\nconst b: (Promise<Readonly<null>> | undefined) & (keyof { k: RegExp }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20176": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: Record<string, Record<string, boolean>> };\nconst b: { v?: Record<string, Record<string, object>> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20177": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: \"lit\"): void };\nconst b: { m(x: RegExp): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20178": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<Record<string, readonly string[][]>>;\nconst b: Required<Record<string, readonly boolean[]>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20179": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<[number, ...keyof { k: { v?: string[] } }[]]>;\nconst b: Promise<[number, ...keyof { k: { v?: any } }[]]> = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20180": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Readonly<(string[] extends any ? string[] : never)>) | (Array<bigint>);\nconst b: (Readonly<(bigint extends any ? bigint : never)>) | (Array<unknown>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20181": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: { v: object & { tag: true } }): void };\nconst b: { m(x: { v: any & { tag: true } }): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20182": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<{ v: readonly [number, ...[number, string][]][] }>;\nconst b: Partial<{ v: readonly [number, ...\"lit\"[]][] }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20183": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...[number, ...\"lit\"[]][]];\nconst b: [number, ...[number, ...RegExp[]][]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20184": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<Promise<{ m(x: bigint): void }>> & { tag: true }) & ([Required<{ v: symbol }>, number]);\nconst b: (Promise<Promise<{ m(x: RegExp): void }>> & { tag: true }) & ([Required<{ v: [number, string] }>, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20185": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): readonly [symbol, number][] & { tag: true } };\nconst b: { r(): readonly [\"lit\", number][] & { tag: true } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20186": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<unknown> | undefined;\nconst b: Array<never> | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20187": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: { f: (x: readonly bigint[] | undefined) => void } }) | ({ r(): [number, ...keyof { k: [number, string] }[]] });\nconst b: ({ v?: { f: (x: readonly [number, string][] | undefined) => void } }) | ({ r(): [number, ...keyof { k: [number, string] }[]] }) = a;\n",
+   "tsc5": [
+    "2322",
+    "2574"
+   ],
+   "tsgo": [
+    "2322",
+    "2574"
+   ]
+  },
+  "20188": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly bigint[]) | (Record<string, { v?: {v: string} }>);\nconst b: (readonly never[]) | (Record<string, { v?: bigint }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20189": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (keyof { k: Array<{ v: 42 }> }) & ((Array<boolean> extends any ? Array<boolean> : never));\nconst b: (keyof { k: Array<{ v: unknown }> }) & ((Array<boolean> extends any ? Array<boolean> : never)) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20190": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: Date };\nconst b: keyof { k: undefined } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20191": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...Required<{ r(): Promise<null> }>[]]) & (Partial<Required<any>>);\nconst b: ([number, ...Required<{ r(): Promise<null> }>[]]) & (Partial<Required<bigint>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20192": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: Array<{ v: [number, string] & { tag: true } }>) => void }) & (Required<{ r(): boolean }>);\nconst b: ({ f: (x: Array<{ v: [number, string] & { tag: true } }>) => void }) & (Required<{ r(): null }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20193": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: (Record<string, object> extends any ? Record<string, object> : never)): void } & { tag: true }) | (Record<string, { r(): (null extends any ? null : never) }>);\nconst b: ({ m(x: (Record<string, number> extends any ? Record<string, number> : never)): void } & { tag: true }) | (Record<string, { r(): (string extends any ? string : never) }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20194": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: keyof { k: [keyof { k: never }, number] } };\nconst b: { v: keyof { k: [keyof { k: 42 }, number] } } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20195": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([[number, ...Array<[number, number]>[]], number]) | (keyof { k: Record<string, Partial<any>> });\nconst b: ([[number, ...Array<[bigint, number]>[]], number]) | (keyof { k: Record<string, Partial<string[]>> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20196": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<([number, ...never[]] & { tag: true } extends any ? [number, ...never[]] & { tag: true } : never)>) & (Required<Date>);\nconst b: (Array<([number, ...null[]] & { tag: true } extends any ? [number, ...null[]] & { tag: true } : never)>) & (Required<42>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20197": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Readonly<\"lit\">) & (keyof { k: [number, ...undefined[]] } | undefined);\nconst b: (Readonly<unknown>) & (keyof { k: [number, ...any[]] } | undefined) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20198": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [readonly unknown[] | undefined, number];\nconst b: [readonly object[] | undefined, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20199": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: Array<Array<Array<[number, string]>>>): void }) | (Readonly<null>);\nconst b: ({ m(x: Array<Array<Array<{v: string}>>>): void }) | (Readonly<null>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20200": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<Record<string, string>>;\nconst b: Array<Record<string, string[]>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20201": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): Readonly<Array<Readonly<number>>> }) | ({ m(x: Required<{ r(): never }>): void });\nconst b: ({ r(): Readonly<Array<Readonly<[number, string]>>> }) | ({ m(x: Required<{ r(): 42 }>): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20202": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...object[]];\nconst b: [number, ...null[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20203": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: ({ v: Readonly<object> } extends any ? { v: Readonly<object> } : never) };\nconst b: { v?: ({ v: Readonly<undefined> } extends any ? { v: Readonly<undefined> } : never) } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20204": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: bigint } | undefined;\nconst b: { v: undefined } | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20205": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: readonly { f: (x: Readonly<object>) => void }[] };\nconst b: keyof { k: readonly { f: (x: Readonly<symbol>) => void }[] } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20206": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: boolean }) & ({ m(x: unknown): void });\nconst b: ({ v: undefined }) & ({ m(x: never): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20207": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, [number, ...{v: string} | undefined[]]>;\nconst b: Record<string, [number, ...Date | undefined[]]> = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20208": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: (boolean extends any ? boolean : never)) => void };\nconst b: { f: (x: (string[] extends any ? string[] : never)) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20209": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: Array<\"lit\"> };\nconst b: { v: Array<bigint> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20210": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: { v: { r(): never } }) => void };\nconst b: { f: (x: { v: { r(): number } }) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20211": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): 42 };\nconst b: { r(): symbol } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20212": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: { v: boolean }): void };\nconst b: { m(x: { v: {v: string} }): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20213": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): Partial<({ v?: symbol } extends any ? { v?: symbol } : never)> };\nconst b: { r(): Partial<({ v?: object } extends any ? { v?: object } : never)> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20214": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<{ m(x: Date): void } & { tag: true }>) | (Partial<{ m(x: object): void }>);\nconst b: (Array<{ m(x: symbol): void } & { tag: true }>) | (Partial<{ m(x: [number, string]): void }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20215": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ m(x: any): void } extends any ? { m(x: any): void } : never);\nconst b: ({ m(x: string): void } extends any ? { m(x: string): void } : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20216": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<symbol>) & (readonly symbol[] | undefined);\nconst b: (Array<null>) & (readonly unknown[] | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20217": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<Readonly<symbol>>;\nconst b: Array<Readonly<RegExp>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20218": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): { v: RegExp & { tag: true } } };\nconst b: { r(): { v: number & { tag: true } } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20219": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Readonly<keyof { k: string }>;\nconst b: Readonly<keyof { k: number }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20220": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [number, ...\"lit\" & { tag: true }[]];\nconst b: [number, ...string & { tag: true }[]] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20221": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [[readonly undefined[] | undefined, number], number];\nconst b: [[readonly RegExp[] | undefined, number], number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20222": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ((keyof { k: string } extends any ? keyof { k: string } : never)) | ({ v: { r(): { v: 42 } } });\nconst b: ((keyof { k: number } extends any ? keyof { k: number } : never)) | ({ v: { r(): { v: any } } }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20223": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: { v?: symbol | undefined } | undefined };\nconst b: keyof { k: { v?: {v: string} | undefined } | undefined } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20224": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: Array<Partial<string> & { tag: true }> };\nconst b: { v: Array<Partial<any> & { tag: true }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20225": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v?: Readonly<keyof { k: Array<bigint> }> };\nconst b: { v?: Readonly<keyof { k: Array<string[]> }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20226": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v?: undefined };\nconst b: { v?: unknown } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20227": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<keyof { k: readonly 42[] }>;\nconst b: Partial<keyof { k: readonly RegExp[] }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20228": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v?: Promise<number> };\nconst b: { v?: Promise<string | number> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20229": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, string] extends any ? [number, string] : never);\nconst b: (42 extends any ? 42 : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20230": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (symbol & { tag: true }) & (Required<[number, string]>);\nconst b: (42 & { tag: true }) & (Required<string[]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20231": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...[bigint & { tag: true }, number][]]) & (keyof { k: undefined });\nconst b: ([number, ...[Date & { tag: true }, number][]]) & (keyof { k: null }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20232": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: [number, ...{ v: string[] | undefined }[]] };\nconst b: { v: [number, ...{ v: boolean | undefined }[]] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20233": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Partial<null & { tag: true }>) & ([string | number | undefined, number]);\nconst b: (Partial<\"lit\" & { tag: true }>) & ([never | undefined, number]) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20234": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): { r(): [string[], number] } }) & (keyof { k: Readonly<RegExp> } | undefined);\nconst b: ({ r(): { r(): [never, number] } }) & (keyof { k: Readonly<never> } | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20235": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly [number, string][];\nconst b: readonly number[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20236": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<{ r(): { v: Required<never> } }>) & (Promise<Readonly<[[number, string], number]>>);\nconst b: (Partial<{ r(): { v: Required<never> } }>) & (Promise<Readonly<[string | number, number]>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20237": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: undefined) => void };\nconst b: { f: (x: Date) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20238": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<[{ v?: Date }, number]>;\nconst b: Required<[{ v?: 42 }, number]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20239": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: { f: (x: (Promise<boolean> extends any ? Promise<boolean> : never)) => void }): void }) | ({ r(): [number, ...keyof { k: unknown }[]] });\nconst b: ({ m(x: { f: (x: (Promise<\"lit\"> extends any ? Promise<\"lit\"> : never)) => void }): void }) | ({ r(): [number, ...keyof { k: {v: string} }[]] }) = a;\n",
+   "tsc5": [
+    "2322",
+    "2574"
+   ],
+   "tsgo": [
+    "2322",
+    "2574"
+   ]
+  },
+  "20240": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (readonly Array<Date>[] extends any ? readonly Array<Date>[] : never);\nconst b: (readonly Array<Date>[] extends any ? readonly Array<Date>[] : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20241": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<undefined | undefined>) | ({ v?: Readonly<any> });\nconst b: (Promise<[number, string] | undefined>) | ({ v?: Readonly<bigint> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20242": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [undefined, number];\nconst b: [bigint, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20243": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: { r(): object } | undefined };\nconst b: { v: { r(): string | number } | undefined } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20244": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<[{ r(): [number, string] }, number]>;\nconst b: Readonly<[{ r(): string | number }, number]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20245": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<Readonly<null>>;\nconst b: Promise<Readonly<Date>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20246": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (keyof { k: Record<string, { v: string | number }> } extends any ? keyof { k: Record<string, { v: string | number }> } : never);\nconst b: (keyof { k: Record<string, { v: unknown }> } extends any ? keyof { k: Record<string, { v: unknown }> } : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20247": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: [number, ...Promise<{ v: object }>[]] };\nconst b: { v: [number, ...Promise<{ v: unknown }>[]] } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20248": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, [null, number]> extends any ? Record<string, [null, number]> : never);\nconst b: (Record<string, [bigint, number]> extends any ? Record<string, [bigint, number]> : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20249": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Array<keyof { k: Partial<(undefined extends any ? undefined : never)> }>;\nconst b: Array<keyof { k: Partial<(string[] extends any ? string[] : never)> }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20250": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, Array<object | undefined>>;\nconst b: Record<string, Array<any | undefined>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20251": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [symbol, number];\nconst b: [unknown, number] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20252": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<Readonly<object>> | undefined;\nconst b: Readonly<Readonly<boolean>> | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20253": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<{ r(): [undefined, number] }>;\nconst b: Readonly<{ r(): [object, number] }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20254": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: { m(x: null): void } }) & (Readonly<[number, ...Record<string, number>[]]>);\nconst b: ({ v?: { m(x: never): void } }) & (Readonly<[number, ...Record<string, symbol>[]]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20255": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [{ r(): any }, number];\nconst b: [{ r(): string }, number] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20256": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<[Readonly<{ v: boolean }>, number]>) & (keyof { k: { m(x: number): void } });\nconst b: (Array<[Readonly<{ v: bigint }>, number]>) & (keyof { k: { m(x: string | number): void } }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20257": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((Promise<({ r(): string | number } extends any ? { r(): string | number } : never)> extends any ? Promise<({ r(): string | number } extends any ? { r(): string | number } : never)> : never)) | ({ v: [[number, string], number] | undefined });\nconst b: ((Promise<({ r(): any } extends any ? { r(): any } : never)> extends any ? Promise<({ r(): any } extends any ? { r(): any } : never)> : never)) | ({ v: [string, number] | undefined }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20258": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<Array<Readonly<{ r(): \"lit\" }>>>) | (Promise<readonly Readonly<unknown>[]>);\nconst b: (Partial<Array<Readonly<{ r(): string | number }>>>) | (Promise<readonly Readonly<string>[]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20259": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, { v?: boolean }>;\nconst b: Record<string, { v?: bigint }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20260": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Readonly<undefined>) & (Readonly<[bigint, number]>);\nconst b: (Readonly<bigint>) & (Readonly<[42, number]>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20261": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: any };\nconst b: { v: 42 } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20262": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<never>;\nconst b: Required<Date> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20263": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: Array<{ f: (x: object) => void }>) => void };\nconst b: { f: (x: Array<{ f: (x: boolean) => void }>) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20264": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<any>;\nconst b: Readonly<42> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20265": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([{ v?: unknown | undefined }, number]) & (Readonly<bigint> & { tag: true });\nconst b: ([{ v?: symbol | undefined }, number]) & (Readonly<unknown> & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20266": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { f: (x: keyof { k: undefined & { tag: true } }) => void };\nconst b: { f: (x: keyof { k: boolean & { tag: true } }) => void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20267": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [{ v?: never }, number] | undefined;\nconst b: [{ v?: \"lit\" }, number] | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20268": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: 42 };\nconst b: keyof { k: object } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20269": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Array<any>) & ({ v?: Promise<{v: string}> & { tag: true } });\nconst b: (Array<any>) & ({ v?: Promise<{v: string}> & { tag: true } }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20270": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: null & { tag: true };\nconst b: symbol & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20271": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: Array<Promise<Readonly<string[]>>> };\nconst b: keyof { k: Array<Promise<Readonly<unknown>>> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20272": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<never>;\nconst b: Required<symbol> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20273": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly [number, string][];\nconst b: readonly undefined[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20274": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, Required<symbol>>) | (keyof { k: { r(): 42 } });\nconst b: (Record<string, Required<null>>) | (keyof { k: { r(): \"lit\" } }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20275": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<boolean> & { tag: true };\nconst b: Required<null> & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20276": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<[string, number]> | undefined;\nconst b: Promise<[symbol, number]> | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20277": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { f: (x: { r(): { v?: object } } | undefined) => void };\nconst b: { f: (x: { r(): { v?: [number, string] } } | undefined) => void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20278": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (readonly { f: (x: { r(): Required<42> }) => void }[]) | ({ m(x: [number, ...never[]]): void });\nconst b: (readonly { f: (x: { r(): Required<42> }) => void }[]) | ({ m(x: [number, ...42[]]): void }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20279": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): { r(): \"lit\" } }) & ((readonly never[] extends any ? readonly never[] : never));\nconst b: ({ r(): { r(): string[] } }) & ((readonly symbol[] extends any ? readonly symbol[] : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20280": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([[number, ...{ v?: null }[]], number]) | (Promise<{ f: (x: [number, string]) => void }>);\nconst b: ([[number, ...{ v?: null }[]], number]) | (Promise<{ f: (x: 42) => void }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20281": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: Record<string, { f: (x: Date) => void } | undefined> }) | (Array<(RegExp extends any ? RegExp : never)>);\nconst b: ({ v: Record<string, { f: (x: Date) => void } | undefined> }) | (Array<(never extends any ? never : never)>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20282": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): { m(x: { f: (x: string[]) => void }): void } }) | ({ m(x: { v: boolean }): void });\nconst b: ({ r(): { m(x: { f: (x: number) => void }): void } }) | ({ m(x: { v: {v: string} }): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20283": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<{ v?: { v: string } }>;\nconst b: Partial<{ v?: { v: never } }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20284": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: [[readonly undefined[], number], number]): void };\nconst b: { m(x: [[readonly string | number[], number], number]): void } = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20285": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly readonly Date[][] & { tag: true };\nconst b: readonly readonly RegExp[][] & { tag: true } = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20286": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, Partial<boolean>>) & ([number, ...Promise<undefined>[]]);\nconst b: (Record<string, Partial<never>>) & ([number, ...Promise<symbol>[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20287": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { f: (x: string | number) => void };\nconst b: { f: (x: \"lit\") => void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20288": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [{ r(): { v: \"lit\" } }, number];\nconst b: [{ r(): { v: never } }, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20289": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<[number, ...Partial<{ r(): \"lit\" }>[]]>;\nconst b: Readonly<[number, ...Partial<{ r(): 42 }>[]]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20290": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [{ v: { r(): {v: string} } }, number] | undefined;\nconst b: [{ v: { r(): bigint } }, number] | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20291": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Readonly<{ r(): (Partial<42> extends any ? Partial<42> : never) }>) & ({ f: (x: Partial<number>) => void });\nconst b: (Readonly<{ r(): (Partial<string | number> extends any ? Partial<string | number> : never) }>) & ({ f: (x: Partial<boolean>) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20292": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: [number, ...keyof { k: 42 }[]] & { tag: true } };\nconst b: { v?: [number, ...keyof { k: undefined }[]] & { tag: true } } = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20293": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<Readonly<Array<42 | undefined>>>;\nconst b: Readonly<Readonly<Array<boolean | undefined>>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20294": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: ({ r(): (unknown extends any ? unknown : never) } extends any ? { r(): (unknown extends any ? unknown : never) } : never) };\nconst b: { v?: ({ r(): (undefined extends any ? undefined : never) } extends any ? { r(): (undefined extends any ? undefined : never) } : never) } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20295": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<[{ m(x: unknown): void }, number]>) | (readonly keyof { k: { f: (x: unknown) => void } }[]);\nconst b: (Partial<[{ m(x: Date): void }, number]>) | (readonly keyof { k: { f: (x: string | number) => void } }[]) = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20296": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: unknown }) | ([number, ...Readonly<null>[]]);\nconst b: ({ v: never }) | ([number, ...Readonly<object>[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20297": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Record<string, { v: {v: string} }> extends any ? Record<string, { v: {v: string} }> : never);\nconst b: (Record<string, { v: object }> extends any ? Record<string, { v: object }> : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20298": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: [keyof { k: Partial<null> }, number] };\nconst b: keyof { k: [keyof { k: Partial<symbol> }, number] } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20299": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Required<readonly {v: string}[]>) & (Partial<[{v: string}, number]>);\nconst b: (Required<readonly object[]>) & (Partial<[any, number]>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20300": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Array<Promise<{v: string}> | undefined> extends any ? Array<Promise<{v: string}> | undefined> : never);\nconst b: (Array<Promise<unknown> | undefined> extends any ? Array<Promise<unknown> | undefined> : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20301": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, Readonly<Partial<{ m(x: boolean): void }>>>) & (any & { tag: true });\nconst b: (Record<string, Readonly<Partial<{ m(x: 42): void }>>>) & (never & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20302": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<{ v: (Date extends any ? Date : never) & { tag: true } }>;\nconst b: Promise<{ v: (boolean extends any ? boolean : never) & { tag: true } }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20303": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...{ m(x: { v?: null }): void }[]]) & ([never, number]);\nconst b: ([number, ...{ m(x: { v?: string[] }): void }[]]) & ([string | number, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20304": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, Promise<string> & { tag: true }>;\nconst b: Record<string, Promise<number> & { tag: true }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20305": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly { m(x: 42): void } | undefined[];\nconst b: readonly { m(x: never): void } | undefined[] = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20306": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (readonly { m(x: [string | number, number]): void }[] extends any ? readonly { m(x: [string | number, number]): void }[] : never);\nconst b: (readonly { m(x: [\"lit\", number]): void }[] extends any ? readonly { m(x: [\"lit\", number]): void }[] : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20307": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [string[] | undefined, number];\nconst b: [{v: string} | undefined, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20308": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [Required<symbol & { tag: true }>, number];\nconst b: [Required<\"lit\" & { tag: true }>, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20309": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Readonly<(never extends any ? never : never)>;\nconst b: Readonly<(boolean extends any ? boolean : never)> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20310": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([[number, string], number]) | (Promise<Array<undefined> & { tag: true }>);\nconst b: ([symbol, number]) | (Promise<Array<symbol> & { tag: true }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20311": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<Partial<string> | undefined>;\nconst b: Required<Partial<[number, string]> | undefined> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20312": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly string | number[];\nconst b: readonly RegExp[] = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20313": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<[number, string]>) & ({ r(): [number, ...RegExp[]] });\nconst b: (Promise<string>) & ({ r(): [number, ...string[][]] }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20314": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: string };\nconst b: keyof { k: unknown } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20315": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ f: (x: Partial<Readonly<number>>) => void }) & ({ f: (x: keyof { k: { m(x: any): void } }) => void });\nconst b: ({ f: (x: Partial<Readonly<never>>) => void }) & ({ f: (x: keyof { k: { m(x: undefined): void } }) => void }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20316": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([{ f: (x: undefined) => void }, number]) & (Date | undefined);\nconst b: ([{ f: (x: string | number) => void }, number]) & (string[] | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20317": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: [number, ...Promise<unknown>[]] & { tag: true }): void };\nconst b: { m(x: [number, ...Promise<any>[]] & { tag: true }): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20318": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<Required<RegExp>>) & (Required<number>);\nconst b: (Partial<Required<bigint>>) & (Required<string | number>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20319": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, null>;\nconst b: Record<string, [number, string]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20320": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, [string, number]>;\nconst b: Record<string, [undefined, number]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20321": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, string] | undefined) | ({ v?: { f: (x: never) => void } | undefined });\nconst b: ([number, string] | undefined) | ({ v?: { f: (x: string | number) => void } | undefined }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20322": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<keyof { k: {v: string} & { tag: true } }> | undefined;\nconst b: Promise<keyof { k: boolean & { tag: true } }> | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20323": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<{ v: [42, number] } & { tag: true }>;\nconst b: Partial<{ v: [\"lit\", number] } & { tag: true }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20324": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<readonly {v: string} & { tag: true }[]>;\nconst b: Readonly<readonly {v: string} & { tag: true }[]> = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20325": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<([number, ...{ f: (x: any) => void }[]] extends any ? [number, ...{ f: (x: any) => void }[]] : never)>;\nconst b: Promise<([number, ...{ f: (x: object) => void }[]] extends any ? [number, ...{ f: (x: object) => void }[]] : never)> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20326": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...{ v?: Required<{ v: string }> }[]]) & (Readonly<RegExp>);\nconst b: ([number, ...{ v?: Required<{ v: {v: string} }> }[]]) & (Readonly<bigint>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20327": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: 42): void };\nconst b: { m(x: \"lit\"): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20328": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: symbol } & { tag: true }) & (\"lit\" | undefined & { tag: true });\nconst b: ({ v: {v: string} } & { tag: true }) & ({v: string} | undefined & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20329": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: Readonly<any> } extends any ? { v: Readonly<any> } : never);\nconst b: ({ v: Readonly<undefined> } extends any ? { v: Readonly<undefined> } : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20330": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: readonly bigint[]): void };\nconst b: { m(x: readonly string[][]): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20331": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, RegExp & { tag: true }>) | ([number, ...Array<Required<string[]>>[]]);\nconst b: (Record<string, string & { tag: true }>) | ([number, ...Array<Required<symbol>>[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20332": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: [{ m(x: null): void }, number] };\nconst b: { v: [{ m(x: bigint): void }, number] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20333": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: bigint }) & ({ r(): number });\nconst b: ({ v?: [number, string] }) & ({ r(): symbol }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20334": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (((readonly RegExp | undefined[] extends any ? readonly RegExp | undefined[] : never) extends any ? (readonly RegExp | undefined[] extends any ? readonly RegExp | undefined[] : never) : never)) & (Array<{ v: [RegExp, number] }>);\nconst b: (((readonly string | number | undefined[] extends any ? readonly string | number | undefined[] : never) extends any ? (readonly string | number | undefined[] extends any ? readonly string | number | undefined[] : never) : never)) & (Array<{ v: [unknown, number] }>) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20335": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<string | number>) & ({ v?: [Array<[number, string]>, number] });\nconst b: (Partial<string | number>) & ({ v?: [Array<string | number>, number] }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20336": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...{ f: (x: [number, string]) => void } | undefined[]]) & (Partial<{ f: (x: Readonly<string[]>) => void }>);\nconst b: ([number, ...{ f: (x: [number, string]) => void } | undefined[]]) & (Partial<{ f: (x: Readonly<string[]>) => void }>) = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20337": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { f: (x: keyof { k: \"lit\" }) => void };\nconst b: { f: (x: keyof { k: RegExp }) => void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20338": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<readonly { v?: Required<symbol> }[]>) | ((RegExp extends any ? RegExp : never));\nconst b: (Promise<readonly { v?: Required<undefined> }[]>) | ((never extends any ? never : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20339": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((Required<Array<{ f: (x: [number, string]) => void }>> extends any ? Required<Array<{ f: (x: [number, string]) => void }>> : never)) & (Promise<{ m(x: (any extends any ? any : never)): void }>);\nconst b: ((Required<Array<{ f: (x: string[]) => void }>> extends any ? Required<Array<{ f: (x: string[]) => void }>> : never)) & (Promise<{ m(x: (string extends any ? string : never)): void }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20340": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<keyof { k: Partial<RegExp> }>) | ({ f: (x: \"lit\") => void });\nconst b: (Array<keyof { k: Partial<bigint> }>) | ({ f: (x: symbol) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20341": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<{ m(x: \"lit\" | undefined): void }>) | (keyof { k: [number, ...{ m(x: any): void }[]] });\nconst b: (Partial<{ m(x: null | undefined): void }>) | (keyof { k: [number, ...{ m(x: symbol): void }[]] }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20342": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): ({ v: number } & { tag: true } extends any ? { v: number } & { tag: true } : never) };\nconst b: { r(): ({ v: symbol } & { tag: true } extends any ? { v: symbol } & { tag: true } : never) } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20343": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, Required<keyof { k: Array<symbol> }>>;\nconst b: Record<string, Required<keyof { k: Array<object> }>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20344": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([null, number] & { tag: true } extends any ? [null, number] & { tag: true } : never);\nconst b: ([string | number, number] & { tag: true } extends any ? [string | number, number] & { tag: true } : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20345": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<string[]>) | (({ m(x: symbol): void } extends any ? { m(x: symbol): void } : never));\nconst b: (Promise<never>) | (({ m(x: string | number): void } extends any ? { m(x: string | number): void } : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20346": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): never }) | ([bigint, number]);\nconst b: ({ r(): undefined }) | ([undefined, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20347": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([Partial<bigint>, number]) & (Partial<string | number>);\nconst b: ([Partial<42>, number]) & (Partial<symbol>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20348": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: Partial<{ f: (x: bigint) => void }> };\nconst b: { v: Partial<{ f: (x: object) => void }> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20349": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Array<\"lit\">) | (keyof { k: Array<Promise<unknown>> });\nconst b: (Array<string | number>) | (keyof { k: Array<Promise<string>> }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20350": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<readonly { f: (x: string & { tag: true }) => void }[]>) | ({v: string} | undefined);\nconst b: (Required<readonly { f: (x: number & { tag: true }) => void }[]>) | ([number, string] | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20351": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): Readonly<string[]> };\nconst b: { r(): Readonly<string | number> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20352": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Readonly<Promise<Record<string, { v?: null }>>>;\nconst b: Readonly<Promise<Record<string, { v?: unknown }>>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20353": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: [Date, number] };\nconst b: keyof { k: [[number, string], number] } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20354": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: Partial<symbol> };\nconst b: keyof { k: Partial<number> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20355": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: Required<[keyof { k: unknown }, number]>) => void }) & ({ v: Array<Required<undefined>> });\nconst b: ({ f: (x: Required<[keyof { k: Date }, number]>) => void }) & ({ v: Array<Required<symbol>> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20356": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...{ r(): RegExp }[]]) & (Array<{ f: (x: Record<string, unknown>) => void }>);\nconst b: ([number, ...{ r(): 42 }[]]) & (Array<{ f: (x: Record<string, undefined>) => void }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20357": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [{ f: (x: string) => void }, number] | undefined;\nconst b: [{ f: (x: Date) => void }, number] | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20358": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ f: (x: { v?: {v: string} }) => void }) & ({ v: Partial<Promise<string[]>> });\nconst b: ({ f: (x: { v?: undefined }) => void }) & ({ v: Partial<Promise<any>> }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20359": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<Required<readonly 42[]>> | undefined;\nconst b: Readonly<Required<readonly undefined[]>> | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20360": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: null & { tag: true };\nconst b: number & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20361": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly [number, ...RegExp[]][]) | (readonly [number, ...string[]][]);\nconst b: (readonly [number, ...object[]][]) | (readonly [number, ...string | number[]][]) = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20362": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<object>;\nconst b: Array<string | number> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20363": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: { f: (x: Date) => void } };\nconst b: { v: { f: (x: 42) => void } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20364": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: { m(x: [number, string]): void }): void }) | (Partial<(undefined extends any ? undefined : never)>);\nconst b: ({ m(x: { m(x: Date): void }): void }) | (Partial<(unknown extends any ? unknown : never)>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20365": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: { r(): readonly undefined[] } };\nconst b: { v: { r(): readonly {v: string}[] } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20366": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: [number, ...[number, string][]]): void }) & ([number, ...Record<string, (object extends any ? object : never)>[]]);\nconst b: ({ m(x: [number, ...number[]]): void }) & ([number, ...Record<string, (string[] extends any ? string[] : never)>[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20367": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<null>;\nconst b: Readonly<Date> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20368": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<{ f: (x: [number, string]) => void }> | undefined) | (Required<{ f: (x: string) => void }>);\nconst b: (Required<{ f: (x: bigint) => void }> | undefined) | (Required<{ f: (x: number) => void }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20369": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): [Partial<boolean>, number] } & { tag: true };\nconst b: { r(): [Partial<[number, string]>, number] } & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20370": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<[number, ...undefined | undefined & { tag: true }[]]>;\nconst b: Promise<[number, ...object | undefined & { tag: true }[]]> = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20371": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<Required<42 & { tag: true }>>) & ({ v?: string[] });\nconst b: (Promise<Required<{v: string} & { tag: true }>>) & ({ v?: Date }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20372": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<bigint & { tag: true }>;\nconst b: Required<any & { tag: true }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20373": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: [number, ...bigint[]]) => void }) & ({ v?: Record<string, undefined> });\nconst b: ({ f: (x: [number, ...[number, string][]]) => void }) & ({ v?: Record<string, \"lit\"> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20374": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<[string[], number] | undefined> & { tag: true };\nconst b: Partial<[unknown, number] | undefined> & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20375": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (({ v: bigint } | undefined extends any ? { v: bigint } | undefined : never) & { tag: true }) | (any | undefined);\nconst b: (({ v: unknown } | undefined extends any ? { v: unknown } | undefined : never) & { tag: true }) | (string[] | undefined) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20376": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<42>) | ({ v?: { r(): number } });\nconst b: (Partial<null>) | ({ v?: { r(): string[] } }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20377": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: (readonly object[] extends any ? readonly object[] : never) };\nconst b: { v?: (readonly number[] extends any ? readonly number[] : never) } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20378": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: string };\nconst b: { v: Date } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20379": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Readonly<{ v: Readonly<bigint> }>) & ({ r(): any & { tag: true } });\nconst b: (Readonly<{ v: Readonly<unknown> }>) & ({ r(): \"lit\" & { tag: true } }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20380": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly Record<string, any>[]) | (Promise<{ v: Record<string, object> }>);\nconst b: (readonly Record<string, \"lit\">[]) | (Promise<{ v: Record<string, 42> }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20381": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<[number, ...Promise<string>[]]>;\nconst b: Readonly<[number, ...Promise<number>[]]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20382": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (((Required<\"lit\"> extends any ? Required<\"lit\"> : never) extends any ? (Required<\"lit\"> extends any ? Required<\"lit\"> : never) : never)) & (Readonly<Readonly<[number, string]>>);\nconst b: (((Required<undefined> extends any ? Required<undefined> : never) extends any ? (Required<undefined> extends any ? Required<undefined> : never) : never)) & (Readonly<Readonly<unknown>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20383": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<Promise<readonly \"lit\"[]>>;\nconst b: Promise<Promise<readonly 42[]>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20384": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v?: { m(x: Promise<(string extends any ? string : never)>): void } };\nconst b: { v?: { m(x: Promise<(string | number extends any ? string | number : never)>): void } } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20385": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...object[]] | undefined) | (Required<readonly readonly Date[][]>);\nconst b: ([number, ...{v: string}[]] | undefined) | (Required<readonly readonly any[][]>) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20386": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<Array<string | number>>) & ([Date, number] & { tag: true });\nconst b: (Array<Array<boolean>>) & ([null, number] & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20387": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: Readonly<bigint>) => void }) & (Readonly<boolean>);\nconst b: ({ f: (x: Readonly<bigint>) => void }) & (Readonly<undefined>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20388": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: Required<string & { tag: true }> };\nconst b: { v: Required<\"lit\" & { tag: true }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20389": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: Readonly<string>): void };\nconst b: { m(x: Readonly<{v: string}>): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20390": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: null) => void };\nconst b: { f: (x: string | number) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20391": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): [number, ...[42, number][]] };\nconst b: { r(): [number, ...[\"lit\", number][]] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20392": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (([number, string] extends any ? [number, string] : never) & { tag: true }) & (Readonly<symbol | undefined>);\nconst b: ((boolean extends any ? boolean : never) & { tag: true }) & (Readonly<null | undefined>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20393": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: readonly [number, ...bigint[]][] | undefined): void }) & (readonly [[number, ...Date[]], number][]);\nconst b: ({ m(x: readonly [number, ...RegExp[]][] | undefined): void }) & (readonly [[number, ...null[]], number][]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20394": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<readonly { v?: \"lit\" }[]> extends any ? Array<readonly { v?: \"lit\" }[]> : never);\nconst b: (Array<readonly { v?: {v: string} }[]> extends any ? Array<readonly { v?: {v: string} }[]> : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20395": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: { m(x: { r(): keyof { k: Date } }): void } };\nconst b: { v: { m(x: { r(): keyof { k: object } }): void } } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20396": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<keyof { k: Promise<keyof { k: null }> }>) | (Promise<RegExp> | undefined);\nconst b: (Array<keyof { k: Promise<keyof { k: unknown }> }>) | (Promise<42> | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20397": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<readonly any[]>;\nconst b: Promise<readonly RegExp[]> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20398": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: (unknown extends any ? unknown : never) };\nconst b: { v?: (RegExp extends any ? RegExp : never) } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20399": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [string | number, number] | undefined;\nconst b: [bigint, number] | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20400": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (keyof { k: Partial<never> & { tag: true } | undefined }) & (keyof { k: (string | number extends any ? string | number : never) });\nconst b: (keyof { k: Partial<number> & { tag: true } | undefined }) & (keyof { k: (unknown extends any ? unknown : never) }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20401": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: bigint | undefined };\nconst b: { v: any | undefined } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20402": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: { f: (x: Record<string, bigint>) => void }): void };\nconst b: { m(x: { f: (x: Record<string, undefined>) => void }): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20403": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<string>;\nconst b: Partial<unknown> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20404": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ([number, ...undefined & { tag: true } & { tag: true }[]]) | (keyof { k: { f: (x: { v: boolean }) => void } });\nconst b: ([number, ...unknown & { tag: true } & { tag: true }[]]) | (keyof { k: { f: (x: { v: RegExp }) => void } }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20405": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((Partial<{ v?: bigint }> extends any ? Partial<{ v?: bigint }> : never)) & (Readonly<[number, string]>);\nconst b: ((Partial<{ v?: any }> extends any ? Partial<{ v?: any }> : never)) & (Readonly<boolean>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20406": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, string] extends any ? [number, string] : never);\nconst b: (null extends any ? null : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20407": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...Readonly<Readonly<\"lit\">>[]]) & ([number, ...unknown[]]);\nconst b: ([number, ...Readonly<Readonly<string>>[]]) & ([number, ...boolean[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20408": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<{ m(x: Partial<string[]>): void }> extends any ? Partial<{ m(x: Partial<string[]>): void }> : never);\nconst b: (Partial<{ m(x: Partial<[number, string]>): void }> extends any ? Partial<{ m(x: Partial<[number, string]>): void }> : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20409": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [number, ...{ v: 42 }[]];\nconst b: [number, ...{ v: 42 }[]] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20410": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: symbol & { tag: true };\nconst b: any & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20411": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, [\"lit\", number]>;\nconst b: Record<string, [\"lit\", number]> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20412": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): (any extends any ? any : never) & { tag: true } };\nconst b: { r(): (undefined extends any ? undefined : never) & { tag: true } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20413": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<string>;\nconst b: Partial<boolean> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20414": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<keyof { k: Date }>) | (readonly keyof { k: readonly never[] }[]);\nconst b: (Promise<keyof { k: RegExp }>) | (readonly keyof { k: readonly 42[] }[]) = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20415": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<{ m(x: object): void }> & { tag: true };\nconst b: Promise<{ m(x: null): void }> & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20416": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((keyof { k: Record<string, { f: (x: {v: string}) => void }> } extends any ? keyof { k: Record<string, { f: (x: {v: string}) => void }> } : never)) & (Required<readonly string | number[] | undefined>);\nconst b: ((keyof { k: Record<string, { f: (x: {v: string}) => void }> } extends any ? keyof { k: Record<string, { f: (x: {v: string}) => void }> } : never)) & (Required<readonly [number, string][] | undefined>) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20417": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<{ f: (x: { f: (x: 42 | undefined) => void }) => void }>;\nconst b: Partial<{ f: (x: { f: (x: bigint | undefined) => void }) => void }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20418": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: object & { tag: true };\nconst b: never & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20419": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly readonly Record<string, { v?: never }>[][]) & (Required<Partial<string>>);\nconst b: (readonly readonly Record<string, { v?: [number, string] }>[][]) & (Required<Partial<{v: string}>>) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20420": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, Record<string, \"lit\">>) & (Record<string, [number, string]>);\nconst b: (Record<string, Record<string, boolean>>) & (Record<string, number>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20421": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: Required<string> }) & (Partial<object>);\nconst b: ({ v: Required<unknown> }) & (Partial<bigint>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20422": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, readonly Partial<\"lit\">[]>;\nconst b: Record<string, readonly Partial<[number, string]>[]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20423": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ r(): { m(x: keyof { k: keyof { k: symbol } }): void } }) & (Array<[number, number]>);\nconst b: ({ r(): { m(x: keyof { k: keyof { k: string } }): void } }) & (Array<[unknown, number]>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20424": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<{ m(x: string | number): void }>) & (({ r(): undefined } extends any ? { r(): undefined } : never));\nconst b: (Partial<{ m(x: unknown): void }>) & (({ r(): Date } extends any ? { r(): Date } : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20425": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (([{ f: (x: string[]) => void }, number] extends any ? [{ f: (x: string[]) => void }, number] : never) | undefined) | (Required<{ v: never } & { tag: true }>);\nconst b: (([{ f: (x: bigint) => void }, number] extends any ? [{ f: (x: bigint) => void }, number] : never) | undefined) | (Required<{ v: 42 } & { tag: true }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20426": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (42 extends any ? 42 : never);\nconst b: (null extends any ? null : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20427": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: bigint): void }) & (Partial<Partial<readonly unknown[]>>);\nconst b: ({ m(x: symbol): void }) & (Partial<Partial<readonly unknown[]>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20428": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<Required<boolean>>;\nconst b: Partial<Required<[number, string]>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20429": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, never>;\nconst b: Record<string, object> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20430": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([{v: string}, number]) & (readonly { v: bigint }[]);\nconst b: ([null, number]) & (readonly { v: bigint }[]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20431": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [{ r(): { f: (x: Date) => void } }, number];\nconst b: [{ r(): { f: (x: RegExp) => void } }, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20432": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<{ m(x: bigint): void }> & { tag: true }) | (Readonly<string[]>);\nconst b: (Array<{ m(x: number): void }> & { tag: true }) | (Readonly<never>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20433": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: (unknown extends any ? unknown : never) };\nconst b: keyof { k: (unknown extends any ? unknown : never) } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20434": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<{ v: Readonly<{ r(): \"lit\" }> }>;\nconst b: Required<{ v: Readonly<{ r(): RegExp }> }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20435": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: (Required<unknown> extends any ? Required<unknown> : never) };\nconst b: { v: (Required<undefined> extends any ? Required<undefined> : never) } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20436": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly number[]) | ({ r(): RegExp & { tag: true } });\nconst b: (readonly any[]) | ({ r(): {v: string} & { tag: true } }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20437": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: { v: 42 }): void }) | (Required<{ v: undefined }> & { tag: true });\nconst b: ({ m(x: { v: never }): void }) | (Required<{ v: number }> & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20438": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): Required<{ f: (x: boolean) => void }> };\nconst b: { r(): Required<{ f: (x: {v: string}) => void }> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20439": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<Required<42>> & { tag: true };\nconst b: Array<Required<null>> & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20440": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly { f: (x: Readonly<RegExp>) => void }[];\nconst b: readonly { f: (x: Readonly<number>) => void }[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20441": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((keyof { k: keyof { k: boolean } } extends any ? keyof { k: keyof { k: boolean } } : never)) | (Record<string, string | number>);\nconst b: ((keyof { k: keyof { k: Date } } extends any ? keyof { k: keyof { k: Date } } : never)) | (Record<string, string[]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20442": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: readonly Record<string, Required<keyof { k: symbol }>>[];\nconst b: readonly Record<string, Required<keyof { k: string[] }>>[] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20443": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: {v: string} } & { tag: true };\nconst b: keyof { k: string[] } & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20444": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: [[number, ...RegExp[]], number] };\nconst b: { v?: [[number, ...[number, string][]], number] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20445": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: \"lit\" & { tag: true };\nconst b: [number, string] & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20446": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: [number, string]): void }) & (Partial<Readonly<Readonly<42>>>);\nconst b: ({ m(x: {v: string}): void }) & (Partial<Readonly<Readonly<Date>>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20447": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((Required<{v: string} & { tag: true }> | undefined extends any ? Required<{v: string} & { tag: true }> | undefined : never)) | ([null, number]);\nconst b: ((Required<number & { tag: true }> | undefined extends any ? Required<number & { tag: true }> | undefined : never)) | ([[number, string], number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20448": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [RegExp, number];\nconst b: [{v: string}, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20449": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: { v?: keyof { k: string | number | undefined } } }) & (Readonly<{ v?: Array<null> }>);\nconst b: (keyof { k: { v?: keyof { k: symbol | undefined } } }) & (Readonly<{ v?: Array<string | number> }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20450": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<Record<string, RegExp>>;\nconst b: Promise<Record<string, unknown>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20451": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: { r(): Date }): void };\nconst b: { m(x: { r(): any }): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20452": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: 42 | undefined;\nconst b: [number, string] | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20453": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: undefined } | undefined;\nconst b: keyof { k: never } | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20454": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, string | number & { tag: true }> | undefined;\nconst b: Record<string, string | number & { tag: true }> | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20455": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): 42 };\nconst b: { r(): string } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20456": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly Required<(Required<undefined> extends any ? Required<undefined> : never)>[];\nconst b: readonly Required<(Required<RegExp> extends any ? Required<RegExp> : never)>[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20457": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ v?: null }>;\nconst b: Array<{ v?: boolean }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20458": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: [[number, ...(Date extends any ? Date : never)[]], number]): void };\nconst b: { m(x: [[number, ...(symbol extends any ? symbol : never)[]], number]): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20459": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, Record<string, 42>>;\nconst b: Record<string, Record<string, RegExp>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20460": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...42[]];\nconst b: [number, ...boolean[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20461": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<{ v?: 42 & { tag: true } }>;\nconst b: Required<{ v?: number & { tag: true } }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20462": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...Array<symbol>[]];\nconst b: [number, ...Array<RegExp>[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20463": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: {v: string} };\nconst b: keyof { k: object } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20464": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [number, ...Readonly<{ f: (x: any) => void }>[]];\nconst b: [number, ...Readonly<{ f: (x: any) => void }>[]] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20465": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...{ r(): null }[]]) | ([Date, number]);\nconst b: ([number, ...{ r(): unknown }[]]) | ([symbol, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20466": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([keyof { k: undefined }, number] & { tag: true }) & (Partial<bigint>);\nconst b: ([keyof { k: bigint }, number] & { tag: true }) & (Partial<boolean>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20467": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ r(): string | number }>;\nconst b: Array<{ r(): number }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20468": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: Promise<{v: string}> } | undefined) & (Array<{ r(): { f: (x: \"lit\") => void } }>);\nconst b: (keyof { k: Promise<null> } | undefined) & (Array<{ r(): { f: (x: unknown) => void } }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20469": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly keyof { k: (undefined extends any ? undefined : never) }[]) | (Required<Partial<string | number & { tag: true }>>);\nconst b: (readonly keyof { k: (object extends any ? object : never) }[]) | (Required<Partial<symbol & { tag: true }>>) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20470": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<Required<{ v?: Required<RegExp> }>>) | (Array<Date>);\nconst b: (Partial<Required<{ v?: Required<string | number> }>>) | (Array<{v: string}>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20471": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: { f: (x: 42 | undefined) => void } };\nconst b: { v: { f: (x: string | number | undefined) => void } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20472": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: number) => void };\nconst b: { f: (x: symbol) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20473": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: { m(x: \"lit\"): void } };\nconst b: { v: { m(x: unknown): void } } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20474": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<Array<[number, string]>>;\nconst b: Readonly<Array<\"lit\">> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20475": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { r(): RegExp };\nconst b: { r(): unknown } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20476": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: Partial<boolean> };\nconst b: { v?: Partial<[number, string]> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20477": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Required<Required<{ v: Partial<bigint> }>>) | (Partial<symbol & { tag: true }>);\nconst b: (Required<Required<{ v: Partial<\"lit\"> }>>) | (Partial<string[] & { tag: true }>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20478": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Required<{ v?: undefined }> | undefined) & ({ f: (x: { m(x: { v?: never }): void }) => void });\nconst b: (Required<{ v?: [number, string] }> | undefined) & ({ f: (x: { m(x: { v?: boolean }): void }) => void }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20479": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: never & { tag: true } }) | ([{ r(): { v: unknown } }, number]);\nconst b: ({ v?: string | number & { tag: true } }) | ([{ r(): { v: [number, string] } }, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20480": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<{v: string}>;\nconst b: Promise<Date> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20481": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<object>;\nconst b: Promise<{v: string}> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20482": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: string | undefined;\nconst b: RegExp | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20483": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<number>;\nconst b: Array<[number, string]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20484": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: Partial<{ v?: string[] }> };\nconst b: { v?: Partial<{ v?: undefined }> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20485": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [object & { tag: true }, number];\nconst b: [object & { tag: true }, number] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20486": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<{ m(x: Promise<{ r(): any }>): void }>;\nconst b: Required<{ m(x: Promise<{ r(): string | number }>): void }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20487": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, { r(): \"lit\" }>;\nconst b: Record<string, { r(): RegExp }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20488": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [{ m(x: Array<Record<string, object>>): void }, number];\nconst b: [{ m(x: Array<Record<string, string | number>>): void }, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20489": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<Required<keyof { k: keyof { k: null } }>>;\nconst b: Promise<Required<keyof { k: keyof { k: {v: string} } }>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20490": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { r(): [number, ...Array<never>[]] };\nconst b: { r(): [number, ...Array<string[]>[]] } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20491": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: { f: (x: { v?: { r(): undefined } }) => void }) => void };\nconst b: { f: (x: { f: (x: { v?: { r(): string } }) => void }) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20492": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<{ v?: [number, string] } & { tag: true }>;\nconst b: Required<{ v?: 42 } & { tag: true }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20493": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: { m(x: Readonly<{ r(): string | number }>): void }) => void };\nconst b: { f: (x: { m(x: Readonly<{ r(): bigint }>): void }) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20494": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v?: Readonly<never> } | undefined;\nconst b: { v?: Readonly<unknown> } | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20495": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, keyof { k: string | number }> | undefined;\nconst b: Record<string, keyof { k: never }> | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20496": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ r(): Promise<Required<undefined> & { tag: true }> }) & ([null & { tag: true }, number]);\nconst b: ({ r(): Promise<Required<symbol> & { tag: true }> }) & ([object & { tag: true }, number]) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20497": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (never | undefined) | (Promise<{ m(x: string[] & { tag: true }): void }>);\nconst b: (object | undefined) | (Promise<{ m(x: {v: string} & { tag: true }): void }>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20498": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [{ v?: string }, number];\nconst b: [{ v?: object }, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20499": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: [number, ...Readonly<number>[]]) => void };\nconst b: { f: (x: [number, ...Readonly<\"lit\">[]]) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20500": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ v: { v?: { f: (x: never) => void } } }) & ([{ m(x: object | undefined): void }, number]);\nconst b: ({ v: { v?: { f: (x: never) => void } } }) & ([{ m(x: unknown | undefined): void }, number]) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20501": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Array<Readonly<RegExp>>;\nconst b: Array<Readonly<unknown>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20502": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<Required<{ r(): string | number }>>) & (Promise<readonly object[]>);\nconst b: (Partial<Required<{ r(): string }>>) & (Promise<readonly RegExp[]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20503": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [never, number];\nconst b: [Date, number] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20504": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): { r(): symbol } & { tag: true } };\nconst b: { r(): { r(): number } & { tag: true } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20505": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<[\"lit\", number]>;\nconst b: Array<[undefined, number]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20506": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: Record<string, [number, ...string[]]> }) & ({ v?: [number, ...[number, number][]] });\nconst b: ({ v: Record<string, [number, ...null[]]> }) & ({ v?: [number, ...[never, number][]] }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20507": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [[number, ...{ f: (x: { f: (x: any) => void }) => void }[]], number];\nconst b: [[number, ...{ f: (x: { f: (x: string[]) => void }) => void }[]], number] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20508": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [Partial<(string extends any ? string : never)>, number];\nconst b: [Partial<(boolean extends any ? boolean : never)>, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20509": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, { r(): (({v: string} extends any ? {v: string} : never) extends any ? ({v: string} extends any ? {v: string} : never) : never) }>) & ({ m(x: Array<{v: string}>): void });\nconst b: (Record<string, { r(): ((string extends any ? string : never) extends any ? (string extends any ? string : never) : never) }>) & ({ m(x: Array<undefined>): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20510": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<Partial<({ f: (x: unknown) => void } extends any ? { f: (x: unknown) => void } : never)>>;\nconst b: Promise<Partial<({ f: (x: number) => void } extends any ? { f: (x: number) => void } : never)>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20511": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...Partial<{ v: \"lit\" }>[]] | undefined;\nconst b: [number, ...Partial<{ v: symbol }>[]] | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20512": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, { m(x: Record<string, bigint>): void }>) & ({ f: (x: { f: (x: [never, number]) => void }) => void });\nconst b: (Record<string, { m(x: Record<string, symbol>): void }>) & ({ f: (x: { f: (x: [RegExp, number]) => void }) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20513": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: [number, ...[string | number, number][]]) => void };\nconst b: { f: (x: [number, ...[string[], number][]]) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20514": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...\"lit\"[]] & { tag: true }) & ({ r(): { v: Required<string[]> } });\nconst b: ([number, ...never[]] & { tag: true }) & ({ r(): { v: Required<string | number> } }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20515": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<{ m(x: Readonly<Date>): void }>;\nconst b: Required<{ m(x: Readonly<string>): void }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20516": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: (Required<string | number> extends any ? Required<string | number> : never) }) & (Readonly<Date>);\nconst b: ({ v: (Required<[number, string]> extends any ? Required<[number, string]> : never) }) & (Readonly<symbol>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20517": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Readonly<Required<42>>) & (Required<Date> | undefined);\nconst b: (Readonly<Required<{v: string}>>) & (Required<symbol> | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20518": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ({ r(): never } extends any ? { r(): never } : never);\nconst b: ({ r(): any } extends any ? { r(): any } : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20519": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<symbol | undefined>;\nconst b: Promise<42 | undefined> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20520": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v?: Readonly<keyof { k: [number, string] }> };\nconst b: { v?: Readonly<keyof { k: boolean }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20521": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<(Promise<undefined> extends any ? Promise<undefined> : never)> | undefined;\nconst b: Promise<(Promise<unknown> extends any ? Promise<unknown> : never)> | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20522": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: readonly (Array<bigint> extends any ? Array<bigint> : never)[];\nconst b: readonly (Array<any> extends any ? Array<any> : never)[] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20523": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [number, ...Partial<keyof { k: Required<never> }>[]];\nconst b: [number, ...Partial<keyof { k: Required<string | number> }>[]] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20524": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<any>) & ({ v?: bigint });\nconst b: (Promise<string>) & ({ v?: boolean }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20525": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: readonly { v: Partial<\"lit\"> }[]): void };\nconst b: { m(x: readonly { v: Partial<symbol> }[]): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20526": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<keyof { k: keyof { k: null } }>) & (Required<{v: string}>);\nconst b: (Required<keyof { k: keyof { k: string | number } }>) & (Required<\"lit\">) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20527": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: { v?: { r(): any } & { tag: true } } };\nconst b: { v: { v?: { r(): number } & { tag: true } } } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20528": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, Readonly<boolean>>;\nconst b: Record<string, Readonly<symbol>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20529": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...Required<null>[]];\nconst b: [number, ...Required<RegExp>[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20530": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: keyof { k: Partial<number> }): void };\nconst b: { m(x: keyof { k: Partial<RegExp> }): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20531": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Array<bigint>;\nconst b: Array<any> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20532": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<(Record<string, boolean> extends any ? Record<string, boolean> : never) & { tag: true }>;\nconst b: Promise<(Record<string, symbol> extends any ? Record<string, symbol> : never) & { tag: true }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20533": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Partial<Partial<object & { tag: true }>>) & (Record<string, 42>);\nconst b: (Partial<Partial<unknown & { tag: true }>>) & (Record<string, 42>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20534": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: { f: (x: Partial<readonly null[]>) => void }) => void };\nconst b: { f: (x: { f: (x: Partial<readonly object[]>) => void }) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20535": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Readonly<never> & { tag: true } extends any ? Readonly<never> & { tag: true } : never);\nconst b: (Readonly<42> & { tag: true } extends any ? Readonly<42> & { tag: true } : never) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20536": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...null[]];\nconst b: [number, ...object[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20537": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (({ m(x: Promise<unknown>): void } extends any ? { m(x: Promise<unknown>): void } : never)) | (Partial<(RegExp extends any ? RegExp : never)>);\nconst b: (({ m(x: Promise<number>): void } extends any ? { m(x: Promise<number>): void } : never)) | (Partial<(\"lit\" extends any ? \"lit\" : never)>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20538": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: bigint): void };\nconst b: { m(x: undefined): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20539": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly Promise<(boolean extends any ? boolean : never)>[]) & ([number, ...42[]]);\nconst b: (readonly Promise<([number, string] extends any ? [number, string] : never)>[]) & ([number, ...undefined[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20540": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: { v: bigint }): void }) | (Record<string, Promise<[number, string] & { tag: true }>>);\nconst b: ({ m(x: { v: null }): void }) | (Record<string, Promise<Date & { tag: true }>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20541": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<{ v: 42 }> | undefined extends any ? Required<{ v: 42 }> | undefined : never);\nconst b: (Required<{ v: [number, string] }> | undefined extends any ? Required<{ v: [number, string] }> | undefined : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20542": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...[Readonly<[number, string]>, number][]]) & ({ m(x: Date): void } & { tag: true });\nconst b: ([number, ...[Readonly<bigint>, number][]]) & ({ m(x: any): void } & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20543": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<[string[], number]>;\nconst b: Readonly<[boolean, number]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20544": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: readonly number[]) => void }) & ({ m(x: string): void });\nconst b: ({ f: (x: readonly string[]) => void }) & ({ m(x: string): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20545": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly symbol[]) | (Readonly<Partial<{ f: (x: undefined) => void }>>);\nconst b: (readonly string[]) | (Readonly<Partial<{ f: (x: null) => void }>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20546": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<RegExp> & { tag: true };\nconst b: Readonly<symbol> & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20547": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): Promise<Partial<any>> };\nconst b: { r(): Promise<Partial<string>> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20548": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<Promise<Partial<keyof { k: null }>>>;\nconst b: Required<Promise<Partial<keyof { k: boolean }>>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20549": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: \"lit\"): void } & { tag: true };\nconst b: { m(x: 42): void } & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20550": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<string[]>;\nconst b: Readonly<never> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20551": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((Partial<Date> extends any ? Partial<Date> : never)) & (Partial<string | number>);\nconst b: ((Partial<Date> extends any ? Partial<Date> : never)) & (Partial<string>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20552": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): { f: (x: {v: string}) => void } } & { tag: true }) & (keyof { k: readonly null[] });\nconst b: ({ r(): { f: (x: string) => void } } & { tag: true }) & (keyof { k: readonly unknown[] }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20553": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((readonly [number, ...Readonly<number>[]][] extends any ? readonly [number, ...Readonly<number>[]][] : never)) & ({ f: (x: boolean) => void });\nconst b: ((readonly [number, ...Readonly<bigint>[]][] extends any ? readonly [number, ...Readonly<bigint>[]][] : never)) & ({ f: (x: symbol) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20554": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<Record<string, [number, string] | undefined>>;\nconst b: Partial<Record<string, 42 | undefined>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20555": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: null }) | ({ v?: Promise<42> });\nconst b: ({ v?: null }) | ({ v?: Promise<bigint> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20556": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: readonly Record<string, Promise<string[]>>[] }) | (Readonly<Required<Promise<string>>>);\nconst b: ({ v: readonly Record<string, Promise<unknown>>[] }) | (Readonly<Required<Promise<{v: string}>>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20557": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [{ v: never }, number];\nconst b: [{ v: string[] }, number] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20558": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((RegExp & { tag: true } extends any ? RegExp & { tag: true } : never) & { tag: true }) | (Array<boolean>);\nconst b: ((boolean & { tag: true } extends any ? boolean & { tag: true } : never) & { tag: true }) | (Array<[number, string]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20559": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ f: (x: 42) => void }>;\nconst b: Array<{ f: (x: [number, string]) => void }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20560": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): Readonly<Partial<string | number> & { tag: true }> };\nconst b: { r(): Readonly<Partial<bigint> & { tag: true }> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20561": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly any | undefined[]) & ({ m(x: RegExp): void });\nconst b: (readonly [number, string] | undefined[]) & ({ m(x: object): void }) = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20562": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: number): void } extends any ? { m(x: number): void } : never);\nconst b: ({ m(x: \"lit\"): void } extends any ? { m(x: \"lit\"): void } : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20563": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<Promise<Readonly<bigint>>>;\nconst b: Readonly<Promise<Readonly<\"lit\">>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20564": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...Record<string, ([number, ...string[]] extends any ? [number, ...string[]] : never)>[]]) & ({ v?: {v: string} });\nconst b: ([number, ...Record<string, ([number, ...42[]] extends any ? [number, ...42[]] : never)>[]]) & ({ v?: Date }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20565": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([(readonly [number, string][] extends any ? readonly [number, string][] : never), number]) | (Promise<{ v?: {v: string} }>);\nconst b: ([(readonly unknown[] extends any ? readonly unknown[] : never), number]) | (Promise<{ v?: string | number }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20566": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly \"lit\"[];\nconst b: readonly bigint[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20567": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (RegExp extends any ? RegExp : never);\nconst b: (never extends any ? never : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20568": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: \"lit\" };\nconst b: { v?: boolean } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20569": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Promise<Readonly<{ m(x: never): void }>>;\nconst b: Promise<Readonly<{ m(x: null): void }>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20570": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): [number, number] };\nconst b: { r(): [object, number] } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20571": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: {v: string} & { tag: true } }) & ([Readonly<[number, ...{v: string}[]]>, number]);\nconst b: ({ v?: unknown & { tag: true } }) & ([Readonly<[number, ...string[]]>, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20572": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<Partial<readonly Date[]>>;\nconst b: Array<Partial<readonly symbol[]>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20573": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, Promise<undefined>> | undefined) & (RegExp & { tag: true });\nconst b: (Record<string, Promise<null>> | undefined) & (boolean & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20574": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [Readonly<[number, ...string | number[]]>, number];\nconst b: [Readonly<[number, ...any[]]>, number] = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20575": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<{ r(): (boolean extends any ? boolean : never) }>;\nconst b: Partial<{ r(): (null extends any ? null : never) }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20576": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [Record<string, { v: readonly symbol[] }>, number];\nconst b: [Record<string, { v: readonly object[] }>, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20577": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly { r(): [number, string] }[] extends any ? readonly { r(): [number, string] }[] : never);\nconst b: (readonly { r(): \"lit\" }[] extends any ? readonly { r(): \"lit\" }[] : never) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20578": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<readonly [number, ...unknown[]] & { tag: true }[]>;\nconst b: Promise<readonly [number, ...undefined[]] & { tag: true }[]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20579": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<[Record<string, Record<string, string[]>>, number]>;\nconst b: Required<[Record<string, Record<string, object>>, number]> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20580": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<readonly readonly unknown[][]>) | (Promise<\"lit\">);\nconst b: (Promise<readonly readonly unknown[][]>) | (Promise<string | number>) = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20581": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, symbol>) | ({ m(x: string[]): void });\nconst b: (Record<string, symbol>) | ({ m(x: 42): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20582": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([{ r(): Array<boolean> }, number]) | ({ f: (x: Record<string, [number, ...null[]]>) => void });\nconst b: ([{ r(): Array<unknown> }, number]) | ({ f: (x: Record<string, [number, ...undefined[]]>) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20583": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: object & { tag: true };\nconst b: never & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20584": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (keyof { k: bigint }) & ((keyof { k: Promise<RegExp> } extends any ? keyof { k: Promise<RegExp> } : never));\nconst b: (keyof { k: object }) & ((keyof { k: Promise<string | number> } extends any ? keyof { k: Promise<string | number> } : never)) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20585": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, [Partial<symbol> | undefined, number]>;\nconst b: Record<string, [Partial<string> | undefined, number]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20586": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Partial<[number, ...{ v?: undefined }[]]> | undefined) & (({ m(x: string[]): void } extends any ? { m(x: string[]): void } : never) | undefined);\nconst b: (Partial<[number, ...{ v?: null }[]]> | undefined) & (({ m(x: object): void } extends any ? { m(x: object): void } : never) | undefined) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20587": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v?: Array<unknown> }) & (({ v?: string } extends any ? { v?: string } : never));\nconst b: ({ v?: Array<string | number> }) & (({ v?: symbol } extends any ? { v?: symbol } : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20588": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: { v?: { v?: boolean } }): void };\nconst b: { m(x: { v?: { v?: \"lit\" } }): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20589": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<undefined>;\nconst b: Readonly<string[]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20590": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: Array<{ r(): RegExp }> | undefined): void };\nconst b: { m(x: Array<{ r(): [number, string] }> | undefined): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20591": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<bigint>;\nconst b: Required<object> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20592": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: { m(x: [number, string]): void }) => void };\nconst b: { f: (x: { m(x: boolean): void }) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20593": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<[number, string]>;\nconst b: Required<string | number> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20594": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, { f: (x: undefined) => void } | undefined>) & (Record<string, [{ f: (x: object) => void }, number]>);\nconst b: (Record<string, { f: (x: string) => void } | undefined>) & (Record<string, [{ f: (x: undefined) => void }, number]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20595": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly bigint & { tag: true }[]) | ((string[] extends any ? string[] : never));\nconst b: (readonly string | number & { tag: true }[]) | ((never extends any ? never : never)) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20596": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<Promise<Partial<symbol> & { tag: true }>>;\nconst b: Readonly<Promise<Partial<[number, string]> & { tag: true }>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20597": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Partial<[[number, ...(object extends any ? object : never)[]], number]>) & (null | undefined);\nconst b: (Partial<[[number, ...(never extends any ? never : never)[]], number]>) & (number | undefined) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20598": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: keyof { k: Partial<Array<never>> | undefined };\nconst b: keyof { k: Partial<Array<null>> | undefined } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20599": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (readonly { r(): ({ v: string | number } extends any ? { v: string | number } : never) }[]) & ([undefined & { tag: true }, number]);\nconst b: (readonly { r(): ({ v: unknown } extends any ? { v: unknown } : never) }[]) & ([unknown & { tag: true }, number]) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20600": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ v?: string[] } & { tag: true }>;\nconst b: Array<{ v?: bigint } & { tag: true }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20601": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<string>;\nconst b: Promise<RegExp> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20602": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { m(x: { v?: bigint }): void };\nconst b: { m(x: { v?: string }): void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20603": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Required<Required<{ v: Promise<string[]> }>>;\nconst b: Required<Required<{ v: Promise<number> }>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20604": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<{ v: Record<string, 42> }>;\nconst b: Required<{ v: Record<string, string | number> }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20605": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [{ f: (x: undefined) => void }, number];\nconst b: [{ f: (x: number) => void }, number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20606": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly RegExp[];\nconst b: readonly string | number[] = a;\n",
+   "tsc5": [
+    "1354",
+    "2322"
+   ],
+   "tsgo": [
+    "1354",
+    "2322"
+   ]
+  },
+  "20607": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<keyof { k: Promise<[number, ...never[]]> }>) | ({ v: [unknown & { tag: true }, number] });\nconst b: (Required<keyof { k: Promise<[number, ...[number, string][]]> }>) | ({ v: [{v: string} & { tag: true }, number] }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20608": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<string[]>;\nconst b: Promise<string> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20609": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...keyof { k: any }[]]) & ({ v?: readonly boolean[] });\nconst b: ([number, ...keyof { k: string }[]]) & ({ v?: readonly [number, string][] }) = a;\n",
+   "tsc5": [
+    "2322",
+    "2574"
+   ],
+   "tsgo": [
+    "2322",
+    "2574"
+   ]
+  },
+  "20610": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...Record<string, number>[]];\nconst b: [number, ...Record<string, RegExp>[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20611": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<Required<symbol>>) & ({ v: Required<unknown> });\nconst b: (Array<Required<RegExp>>) & ({ v: Required<boolean> }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20612": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (readonly Promise<Record<string, Record<string, bigint>>>[]) & ([number, ...null & { tag: true }[]]);\nconst b: (readonly Promise<Record<string, Record<string, null>>>[]) & ([number, ...string[] & { tag: true }[]]) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20613": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, bigint> | undefined;\nconst b: Record<string, \"lit\"> | undefined = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20614": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<\"lit\">) | (Required<symbol>);\nconst b: (Partial<{v: string}>) | (Required<string | number>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20615": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ v: any }) & ({ f: (x: object) => void });\nconst b: ({ v: RegExp }) & ({ f: (x: symbol) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20616": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Readonly<{ f: (x: [number, ...{ f: (x: [number, string]) => void }[]]) => void }>) & (Promise<bigint>);\nconst b: (Readonly<{ f: (x: [number, ...{ f: (x: Date) => void }[]]) => void }>) & (Promise<{v: string}>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20617": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Required<keyof { k: Promise<[number, ...bigint[]]> }>;\nconst b: Required<keyof { k: Promise<[number, ...string[][]]> }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20618": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Readonly<readonly 42[] & { tag: true }>) | ([{ v: symbol }, number]);\nconst b: (Readonly<readonly string[][] & { tag: true }>) | ([{ v: symbol }, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20619": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Array<{ m(x: Required<boolean>): void }>;\nconst b: Array<{ m(x: Required<unknown>): void }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20620": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: Required<bigint> | undefined): void };\nconst b: { m(x: Required<undefined> | undefined): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20621": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly Partial<{ v: 42 }>[];\nconst b: readonly Partial<{ v: symbol }>[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20622": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Partial<keyof { k: { v: Partial<unknown> } }>) & (readonly Readonly<Date>[]);\nconst b: (Partial<keyof { k: { v: Partial<undefined> } }>) & (readonly Readonly<never>[]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20623": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<{ v?: string | number | undefined }>) & (keyof { k: { f: (x: (symbol extends any ? symbol : never)) => void } });\nconst b: (Promise<{ v?: boolean | undefined }>) & (keyof { k: { f: (x: (unknown extends any ? unknown : never)) => void } }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20624": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: Required<Array<never | undefined>> }) | (Readonly<object> | undefined);\nconst b: (keyof { k: Required<Array<Date | undefined>> }) | (Readonly<never> | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20625": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<Partial<Record<string, { f: (x: {v: string}) => void }>>>;\nconst b: Promise<Partial<Record<string, { f: (x: symbol) => void }>>> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20626": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...keyof { k: { v?: never } }[]];\nconst b: [number, ...keyof { k: { v?: string } }[]] = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20627": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: unknown }) | ((Array<Partial<Date>> extends any ? Array<Partial<Date>> : never));\nconst b: (keyof { k: [number, string] }) | ((Array<Partial<undefined>> extends any ? Array<Partial<undefined>> : never)) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20628": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<keyof { k: \"lit\" & { tag: true } }>) & (Record<string, RegExp>);\nconst b: (Promise<keyof { k: string & { tag: true } }>) & (Record<string, string>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20629": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: ({ r(): { v?: string } } extends any ? { r(): { v?: string } } : never) };\nconst b: { v: ({ r(): { v?: {v: string} } } extends any ? { r(): { v?: {v: string} } } : never) } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20630": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Readonly<keyof { k: bigint }>;\nconst b: Readonly<keyof { k: null }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20631": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (Partial<null>) & (Record<string, keyof { k: symbol }>);\nconst b: (Partial<string | number>) & (Record<string, keyof { k: never }>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20632": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly { r(): Date }[]) | (Readonly<[number, string] | undefined>);\nconst b: (readonly { r(): bigint }[]) | (Readonly<null | undefined>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20633": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ f: (x: object) => void }>;\nconst b: Array<{ f: (x: string | number) => void }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20634": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<[number, ...string | number[]]>) | (Partial<readonly string | number[]>);\nconst b: (Promise<[number, ...unknown[]]>) | (Partial<readonly object[]>) = a;\n",
+   "tsc5": [
+    "1354",
+    "2322",
+    "2574"
+   ],
+   "tsgo": [
+    "1354",
+    "2322",
+    "2574"
+   ]
+  },
+  "20635": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Record<string, [keyof { k: { v?: \"lit\" } }, number]>) | (Required<{ r(): number | undefined }>);\nconst b: (Record<string, [keyof { k: { v?: 42 } }, number]>) | (Required<{ r(): string[] | undefined }>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20636": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<\"lit\">;\nconst b: Promise<Date> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20637": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([number, ...(Promise<[number, string]> extends any ? Promise<[number, string]> : never)[]]) | (Array<({v: string} extends any ? {v: string} : never)>);\nconst b: ([number, ...(Promise<bigint> extends any ? Promise<bigint> : never)[]]) | (Array<([number, string] extends any ? [number, string] : never)>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20638": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): [number, ...keyof { k: [number, ...boolean[]] }[]] }) | (({ v: { r(): [number, string] } } extends any ? { v: { r(): [number, string] } } : never));\nconst b: ({ r(): [number, ...keyof { k: [number, ...number[]] }[]] }) | (({ v: { r(): any } } extends any ? { v: { r(): any } } : never)) = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20639": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): { m(x: Array<string[]>): void } };\nconst b: { r(): { m(x: Array<string>): void } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20640": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((boolean & { tag: true } extends any ? boolean & { tag: true } : never) & { tag: true }) & ({ r(): 42 });\nconst b: ((unknown & { tag: true } extends any ? unknown & { tag: true } : never) & { tag: true }) & ({ r(): Date }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20641": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): [number, string] } & { tag: true };\nconst b: { r(): undefined } & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20642": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...any[]];\nconst b: [number, ...string | number[]] = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20643": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<{ r(): Readonly<number> }> | undefined;\nconst b: Partial<{ r(): Readonly<unknown> }> | undefined = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20644": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([[number, ...object[]] | undefined, number]) | (Partial<[number, ...42[]]>);\nconst b: ([[number, ...undefined[]] | undefined, number]) | (Partial<[number, ...Date[]]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20645": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (([number, string] extends any ? [number, string] : never)) & (Readonly<never>);\nconst b: ((symbol extends any ? symbol : never)) & (Readonly<symbol>) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20646": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { r(): { r(): [number, ...42[]] } };\nconst b: { r(): { r(): [number, ...bigint[]] } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20647": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: { f: (x: 42) => void } };\nconst b: { v: { f: (x: string) => void } } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20648": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ m(x: Required<[Partial<Date>, number]>): void }) | (Readonly<Required<string>> | undefined);\nconst b: ({ m(x: Required<[Partial<RegExp>, number]>): void }) | (Readonly<Required<{v: string}>> | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20649": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { f: (x: unknown) => void };\nconst b: { f: (x: string | number) => void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20650": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: Record<string, unknown>): void };\nconst b: { m(x: Record<string, boolean>): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20651": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<{ r(): [number, ...object[]] & { tag: true } }>;\nconst b: Partial<{ r(): [number, ...object[]] & { tag: true } }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20652": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: Record<string, (readonly 42[] extends any ? readonly 42[] : never)>) => void }) & ({ m(x: Record<string, object>): void });\nconst b: ({ f: (x: Record<string, (readonly undefined[] extends any ? readonly undefined[] : never)>) => void }) & ({ m(x: Record<string, object>): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20653": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<never>;\nconst b: Partial<object> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20654": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Promise<Array<[number, string]>>) | (Array<symbol> | undefined);\nconst b: (Promise<Array<42>>) | (Array<any> | undefined) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20655": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Promise<{ r(): { v?: [number, ...[number, string][]] } }>;\nconst b: Promise<{ r(): { v?: [number, ...never[]] } }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20656": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Array<{ v?: string[] }>;\nconst b: Array<{ v?: string[] }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20657": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v: Readonly<{ v: Promise<never> }> };\nconst b: { v: Readonly<{ v: Promise<string | number> }> } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20658": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: [number, ...Readonly<string[]>[]];\nconst b: [number, ...Readonly<object>[]] = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20659": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly { r(): readonly { f: (x: never) => void }[] }[]) | ({ v: 42 });\nconst b: (readonly { r(): readonly { f: (x: RegExp) => void }[] }[]) | ({ v: unknown }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20660": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, Readonly<{ m(x: [undefined, number]): void }>>;\nconst b: Record<string, Readonly<{ m(x: [undefined, number]): void }>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20661": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v?: { r(): keyof { k: (bigint extends any ? bigint : never) } } };\nconst b: { v?: { r(): keyof { k: (bigint extends any ? bigint : never) } } } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20662": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Array<[number, ...Array<unknown>[]]>) | (Promise<[string | number, number]>);\nconst b: (Array<[number, ...Array<string>[]]>) | (Promise<[boolean, number]>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20663": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<\"lit\" & { tag: true }> & { tag: true };\nconst b: Partial<object & { tag: true }> & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20664": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ((Array<keyof { k: number }> extends any ? Array<keyof { k: number }> : never)) & ([\"lit\", number]);\nconst b: ((Array<keyof { k: \"lit\" }> extends any ? Array<keyof { k: \"lit\" }> : never)) & ([Date, number]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20665": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { f: (x: number) => void };\nconst b: { f: (x: RegExp) => void } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20666": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<{ v?: boolean | undefined }>;\nconst b: Readonly<{ v?: 42 | undefined }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20667": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly Readonly<Promise<any>> & { tag: true }[]) & (readonly any[]);\nconst b: (readonly Readonly<Promise<bigint>> & { tag: true }[]) & (readonly object[]) = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20668": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (keyof { k: undefined & { tag: true } & { tag: true } }) & ({ f: (x: Promise<any>) => void });\nconst b: (keyof { k: any & { tag: true } & { tag: true } }) & ({ f: (x: Promise<[number, string]>) => void }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20669": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ((keyof { k: Date } extends any ? keyof { k: Date } : never)) | ([number, ...{ v: readonly Date[] }[]]);\nconst b: ((keyof { k: null } extends any ? keyof { k: null } : never)) | ([number, ...{ v: readonly any[] }[]]) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20670": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ r(): Array<Array<null>> }) | (null & { tag: true });\nconst b: ({ r(): Array<Array<undefined>> }) | (never & { tag: true }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20671": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Required<{ r(): unknown }>) & ({ f: (x: null) => void });\nconst b: (Required<{ r(): {v: string} }>) & ({ f: (x: any) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20672": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: (readonly 42[]) | (keyof { k: Date });\nconst b: (readonly unknown[]) | (keyof { k: symbol }) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20673": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ({ f: (x: Readonly<string[] | undefined>) => void }) | (Readonly<Array<(42 extends any ? 42 : never)>>);\nconst b: ({ f: (x: Readonly<boolean | undefined>) => void }) | (Readonly<Array<(undefined extends any ? undefined : never)>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20674": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v?: [number, ...Date | undefined[]] };\nconst b: { v?: [number, ...number | undefined[]] } = a;\n",
+   "tsc5": [
+    "2574"
+   ],
+   "tsgo": [
+    "2574"
+   ]
+  },
+  "20675": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: { v: Promise<Array<string | number>> };\nconst b: { v: Promise<Array<object>> } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20676": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: ([42, number]) & ({ f: (x: [{ m(x: \"lit\"): void }, number]) => void });\nconst b: ([undefined, number]) & ({ f: (x: [{ m(x: unknown): void }, number]) => void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20677": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (readonly any[]) & ({ m(x: string | number): void });\nconst b: (readonly null[]) & ({ m(x: null): void }) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20678": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly keyof { k: never }[];\nconst b: readonly keyof { k: unknown }[] = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20679": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [[{ r(): string | number }, number], number];\nconst b: [[{ r(): null }, number], number] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20680": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: { f: (x: { f: (x: string | number) => void }) => void }): void };\nconst b: { m(x: { f: (x: { f: (x: \"lit\") => void }) => void }): void } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20681": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: [number, ...Readonly<Required<[number, string] | undefined>>[]];\nconst b: [number, ...Readonly<Required<string | undefined>>[]] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20682": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly { v: { v: Date } }[];\nconst b: readonly { v: { v: number } }[] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20683": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Readonly<{ v: undefined }>;\nconst b: Readonly<{ v: 42 }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20684": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly string[][];\nconst b: readonly [number, string][] = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20685": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Record<string, keyof { k: { r(): \"lit\" } | undefined }>;\nconst b: Record<string, keyof { k: { r(): Date } | undefined }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20686": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { m(x: never): void } & { tag: true };\nconst b: { m(x: Date): void } & { tag: true } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20687": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<Record<string, string | number>> & { tag: true };\nconst b: Array<Record<string, null>> & { tag: true } = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20688": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<{ v?: null } & { tag: true }>;\nconst b: Partial<{ v?: boolean } & { tag: true }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20689": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (keyof { k: never & { tag: true } }) & ([number, ...Readonly<Array<[number, string]>>[]]);\nconst b: (keyof { k: never & { tag: true } }) & ([number, ...Readonly<Array<null>>[]]) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20690": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: ([Array<string[]> & { tag: true }, number]) & ([number, ...undefined & { tag: true }[]]);\nconst b: ([Array<string[]> & { tag: true }, number]) & ([number, ...symbol & { tag: true }[]]) = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20691": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Partial<keyof { k: unknown } & { tag: true }>;\nconst b: Partial<keyof { k: 42 } & { tag: true }> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20692": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Partial<unknown>;\nconst b: Partial<[number, string]> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20693": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ m(x: {v: string}): void }>;\nconst b: Array<{ m(x: 42): void }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20694": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Record<string, RegExp>;\nconst b: Record<string, Date> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20695": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: readonly keyof { k: Date }[];\nconst b: readonly keyof { k: unknown }[] = a;\n",
+   "tsc5": [
+    "1354"
+   ],
+   "tsgo": [
+    "1354"
+   ]
+  },
+  "20696": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: { v?: undefined };\nconst b: { v?: bigint } = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20697": {
+   "verdict": "IDENTICAL-ACCEPT",
+   "src": "declare const a: Array<Readonly<{ m(x: Readonly<string | number>): void }>>;\nconst b: Array<Readonly<{ m(x: Readonly<42>): void }>> = a;\n",
+   "tsc5": [],
+   "tsgo": []
+  },
+  "20698": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: (Readonly<Readonly<string>>) & (Partial<Record<string, string>>);\nconst b: (Readonly<Readonly<string[]>>) & (Partial<Record<string, 42>>) = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  },
+  "20699": {
+   "verdict": "IDENTICAL-REJECT",
+   "src": "declare const a: Array<{ f: (x: { f: (x: RegExp) => void } & { tag: true }) => void }>;\nconst b: Array<{ f: (x: { f: (x: string[]) => void } & { tag: true }) => void }> = a;\n",
+   "tsc5": [
+    "2322"
+   ],
+   "tsgo": [
+    "2322"
+   ]
+  }
+ }
+}

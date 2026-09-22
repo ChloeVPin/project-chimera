@@ -1,0 +1,40 @@
+{
+ "act": "XIX-3",
+ "summary": {
+  "hand_corpus": "0/44 divergent (run_divergence_fuzzer.py)",
+  "random_composition": "2/1000 divergent \u2014 both same class: tsgo emits TS2322 primary + different elaboration chain where tsc5 emits TS2740 \"missing properties\"; same verdict, different diagnostic shape. NO verdict-level divergences found in composition space.",
+  "taxonomy": "elaboration-class divergence only; soundness verdicts match across ~1044 cases",
+  "cases": {
+   "seed19052": {
+    "src": "declare const a: Required<object>;\nconst b: Required<RegExp> = a;",
+    "tsc5": {
+     "codes": [
+      "2740"
+     ],
+     "first": "../../../../tmp/tmp63bg7sje/p.ts(2,7): error TS2740: Type '{}' is missing the following properties from type 'Required<RegExp>': exec, test, source, global, and 13 more."
+    },
+    "tsgo": {
+     "codes": [
+      "2322"
+     ],
+     "first": "../../../../tmp/tmp63bg7sje/p.ts(2,7): error TS2322: Type 'object' is not assignable to type 'Required<RegExp>'."
+    }
+   },
+   "seed19262": {
+    "src": "declare const a: Readonly<object>;\nconst b: Readonly<Date> = a;",
+    "tsc5": {
+     "codes": [
+      "2740"
+     ],
+     "first": "../../../../tmp/tmpqojrya25/p.ts(2,7): error TS2740: Type '{}' is missing the following properties from type 'Readonly<Date>': toDateString, toTimeString, toLocaleDateString, toLocaleTimeString, and 38 more."
+    },
+    "tsgo": {
+     "codes": [
+      "2322"
+     ],
+     "first": "../../../../tmp/tmpqojrya25/p.ts(2,7): error TS2322: Type 'object' is not assignable to type 'Readonly<Date>'."
+    }
+   }
+  }
+ }
+}
