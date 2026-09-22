@@ -202,6 +202,20 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               barrier-free depth (rate < ~1.5e-7 at 95% CI).
 `);
 
+  console.log(`${C.bold}ACT XX: THE COMPILER WHISPERER${C.reset}
+  ${C.green}✔ XX-1:${C.reset} Every silent-drop site censused in BOTH checkers: 9 Maybe
+              sites + 4 inference bails + fuse + quiet channels mapped.
+  ${C.green}✔ XX-2:${C.reset} POST-FUSE SUPPRESSION (SHARED): after one loud TS2589 the
+              type becomes errorType — universally assignable. Real errors
+              on it silently pass on BOTH compilers (tsc5's own silent spot).
+  ${C.green}✔ XX-3:${C.reset} CONFIG-GATE ASYMMETRY: tsgo file.ts + tsconfig present =
+              TS5112 only, file NEVER checked. tsc5 file.ts = silently
+              ignores strict:true project config → false-clean rc=0.
+  ${C.green}✔ XX-4:${C.reset} Benign bails proven: expanding-Both/conditional-10/
+              inference-circularity fire only on infinitely-similar shapes —
+              cannot swallow a finite error (probe-verified on all 3).
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);

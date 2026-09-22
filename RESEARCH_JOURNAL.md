@@ -2321,3 +2321,65 @@ MCA. 100× deeper than the prior 200k barrier-synced corpus.
   harness design.
 - **First-measurement:** none yet (GPU results pending CI).
 - **Confirmed-known:** none.
+
+---
+
+# Act XX — The Compiler Whisperer: Census of Every Silently-Dropped Diagnostic
+
+*Goal:* both known defects live in bail-out paths — map the entire class. Census every
+`TernaryMaybe` return, every discarded check result, every suppressed-diagnostic flag and
+every `errorType` substitution in **both** checkers, then differential-probe each site on
+stock tsgo, tsgo-unfused, and tsc 5.9.3.
+
+Reproducer battery: `linux/run_whisperer_census.py` → `data/phaseXX_whisperer_raw.json`
+(curated taxonomy: `data/phaseXX_whisperer.json`).
+
+## The taxonomy
+
+**Class A — the proven hole (tsgo-unique).** `relater.go:3137` returns an *unmarked*
+`TernaryMaybe` past relation depth 100; `checkTypeRelatedToEx` reads Maybe as success.
+tsc5's counterpart returns `{overflow, False}` and emits TS2321. 28 reproducer cases,
+11 construct families, boundary exact at type depth 101.
+
+**Class B — post-fuse permissive-any suppression (SHARED — new).** At
+`instantiationDepth==100 || instantiationCount>=5e6` both compilers emit one loud
+TS2589 and yield `errorType` — which is *universally assignable*. Every later check
+involving that type silently passes. Probe: `const wrong: {x:number} = bomb` accepted
+on **both** compilers; two bombs each trip once, both wrong-shape assignments swallowed.
+tsc5's own silent spot, found by hunting the class instead of the bug.
+
+**Class E — the config-gate asymmetry (new, opposite silences).** `tsgo file.ts` from a
+directory containing tsconfig.json emits *only* TS5112 and returns
+`ExitStatusDiagnosticsPresent_OutputsSkipped` — the file is never checked; every
+diagnostic in it is dropped (tsc.go:180-187). Flip side: `tsc5 file.ts` in the same
+situation **silently bypasses the project config** — `strict:true` + `noImplicitAny`
+project, `tsc anytest.ts` on an implicit-any file returns rc=0 clean. tsgo hides every
+diagnostic; tsc5 hides that your rules were never applied.
+
+**Class C — benign bails (parity).** `expandingFlags==Both` (relater.go:3162,
+tsc5:65708), conditional-10 (3576/3757, tsc5:66137/66255), union-include (1225/1232),
+cycle assumptions (3122/3130), inference circularity (inference.go:352/355/1074/1077
+at depth **2**, tsc5:68741/68344). All fire only on infinitely self-similar shapes —
+a finite difference always materializes above the trigger depth. Proven by probes:
+phantom types accepted *correctly* on all three compilers; `generic-leaf` errors at
+level 1 before flags can reach Both. Both compilers even emit tracer events
+(`recursiveTypeRelatedTo_DepthLimit`, `instantiateType_DepthLimit`) — the compiler
+logs its own surrender into a channel no user sees.
+
+**Class D — by-design quiet channels.** `CheckModeTypeOnly` (internal type queries omit
+diagnostics), ~20 `reportErrors=false` global resolvers, `isTypeComparableTo` flow
+queries, diagnostic dedup with related-info merge.
+
+## What the whisperer found
+The depth-100 hole is confirmed as *the only* checker-internal silent accept unique to
+tsgo — but the hunt surfaced a **shared** swallow class (post-fuse `errorType`) and a
+**symmetric** config-layer divergence where each checker goes quiet in opposite
+directions. The silent-drop map is now closed on the relation/inference side; the open
+surface is invocation and post-fuse behavior.
+
+## Novelty labels (honest)
+- **New:** post-fuse permissive-any suppression as a shared silent-accept class; the
+  config-gate asymmetry (whole-file suppression vs silent config bypass); the complete
+  per-site Maybe/bail census with verdicts.
+- **Confirmed-known:** tsc5 ignores tsconfig when given file arguments — now quantified
+  as a diagnostic-drop class rather than a UX quirk.

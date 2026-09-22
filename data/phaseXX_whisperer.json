@@ -1,0 +1,80 @@
+{
+  "act": "XX",
+  "title": "The Compiler Whisperer — census of every silently-dropped diagnostic in tsc5 and tsgo",
+  "date": "2026-09-20",
+  "compilers": {
+    "tsc5": "TypeScript 5.9.3 (node /home/ubuntu/d1/ts5/node_modules/typescript/bin/tsc)",
+    "tsgo": "typescript-go @89d5d5b2 stock build",
+    "tsgo-unfused": "same commit, all fuse constants disabled (Act XIV build)"
+  },
+  "method": "Exhaustive grep of every TernaryMaybe return, bail-out, discarded check result, suppressed-diagnostic flag and errorType substitution in both checkers; each candidate site probed with a targeted reproducer run on all three compilers. Raw run data: data/phaseXX_whisperer_raw.json (runner: linux/run_whisperer_census.py).",
+  "taxonomy": {
+    "class-A-tsgo-unique-silent-accept": {
+      "site": "internal/checker/relater.go:3137 (maybeCount > 100 -> unmarked TernaryMaybe)",
+      "status": "PROVEN HOLE (Acts XIV-XVI corpus: 28 cases, 11 construct families)",
+      "tsc5-counterpart": "returns {overflow, False} + emits TS2321 'Excessive stack depth comparing types' — loud bail",
+      "verdict": "tsgo reads the unmarked Maybe as success: wrong-code silent accept AND no depth warning. Boundary exact at type depth 101."
+    },
+    "class-B-post-fuse-permissive-any": {
+      "site": "tsgo internal/checker/checker.go:22225 / tsc5 instantiateType (identical constants: depth==100 || count>=5_000_000)",
+      "status": "PROVEN SHARED SWALLOW (new this act)",
+      "mechanism": "fuse trips once — one loud TS2589 — and yields errorType, which is universally assignable; every subsequent check involving that type silently passes",
+      "evidence": "post-fuse-1: `const wrong: {x:number} = bomb` silently accepted on BOTH compilers (only the fuse error + an unrelated shallow error print). post-fuse-2: two independent bombs each trip once; both wrong-shape assignments swallowed.",
+      "verdict": "a real silent-accept in BOTH checkers — diagnosed once at the fuse, then permissive-forever per type. tsc5's own silent spot."
+    },
+    "class-E-config-gate-asymmetry": {
+      "site": "tsgo internal/execute/tsc.go:180-187 (findConfigFile from CWD -> TS5112 -> ExitStatusDiagnosticsPresent_OutputsSkipped)",
+      "status": "PROVEN DIVERGENT SILENCE (new this act)",
+      "tsgo-side": "file args + tsconfig.json in cwd: emits ONLY TS5112, skips compilation entirely — every diagnostic in the file dropped (loud failure, silent checking)",
+      "tsc5-side": "same invocation: silently ignores the project config, compiles with command-line defaults — `strict:true` project + `tsc anytest.ts` => rc=0, the TS7006 implicit-any error never reported (false clean)",
+      "verdict": "both checkers go quiet at the same edge, in opposite directions: tsgo hides every diagnostic behind a config complaint; tsc5 hides that your project's rules were never applied"
+    },
+    "class-C-benign-bails-parity": {
+      "sites": {
+        "expanding-Both": "relater.go:3162 / tsc5 _tsc.js:65708 — expandingFlags==Both -> TernaryMaybe (both emit tracer event recursiveTypeRelatedTo_DepthLimit). PROBES: phantom-deep (Deep<T>={v:Deep<T[]>}), phantom-recur (interface B<T>{v:B<T>}) — accepted correctly on all three; a finite error cannot be hidden below the trigger depth because any real difference materializes at level 1 (generic-leaf probe: D6<T> vs D6<number> -> TS2322 on all three).",
+        "conditional-10": "relater.go:3576,3757 / tsc5 _tsc.js:66137,66255 — 10 same-identity conditional levels -> Maybe. Same reach-but-harmless geometry.",
+        "union-include": "relater.go:1225,1232 — target union already contains source -> Maybe. Parity.",
+        "cycle-assumptions": "relater.go:3122,3130 — same-id/assumption checks -> Maybe. Parity.",
+        "inference-circularity": "inference.go:352,355 (depth 2) + 1074,1077 (reverse-mapped) / tsc5 _tsc.js:68741,68344 — expanding-Both skips the inference action, sets Circularity priority. Benign: params infer at top level before descent (inference-top-arg probe: T=string, correct on all three)."
+      },
+      "verdict": "fires, but provably cannot swallow a finite error — Maybe only materializes where the compared shapes are infinitely self-similar"
+    },
+    "class-D-by-design-quiet-channels": {
+      "sites": [
+        "CheckModeTypeOnly (checker.go:48,12567-12570) — getTypeOfExpression deliberately omits diagnostics for internal queries",
+        "reportErrors=false global resolvers (checker.go:1068-1086 — ~20 sites: ESSymbol, BigInt, Promise, ImportMeta...) — missing-lib types degrade to silent unknown/errorType",
+        "isTypeComparableTo / flow-pruning relation queries with reportErrors=false",
+        "tracer-only bail events (instantiateType_DepthLimit, recursiveTypeRelatedTo_DepthLimit) — the compiler logs its own bail into a channel no user sees",
+        "diagnostic dedup (program.go:1610-1633) — identical diagnostics merged into one with related-info"
+      ],
+      "verdict": "intended suppression — diagnostics are omitted by design when the check is a query, not a report"
+    }
+  },
+  "summary": {
+    "maybe_sites_censused": 9,
+    "inference_bail_sites": 4,
+    "proven_silent_swallows": [
+      "relater.go:3137 depth-100 (tsgo-unique)",
+      "post-fuse errorType suppression (SHARED — both compilers)",
+      "config-gate whole-file suppression (tsgo) + silent config bypass (tsc5)"
+    ],
+    "benign_bails": ["expanding-Both 3162", "conditional-10 x2", "union-include x2", "cycle-assumptions x2", "inference-circularity x4"],
+    "by_design_channels": 5
+  },
+  "novelty_labels": {
+    "new": "post-fuse permissive-any suppression as a shared silent-accept class; the config-gate asymmetry (tsgo drops all diagnostics / tsc5 drops all project options); the complete Maybe+bail site census with per-site verdicts",
+    "first_measurement": "none",
+    "confirmed_known": "tsc5 silently ignores tsconfig when given file args (long-standing behavior, now quantified as a diagnostic-drop class)"
+  },
+  "evidence": {
+    "runner": "linux/run_whisperer_census.py",
+    "raw": "data/phaseXX_whisperer_raw.json",
+    "source_refs": [
+      "internal/checker/relater.go:3115-3200,3576,3757,1225,1232,3122,3130",
+      "internal/checker/inference.go:352-355,1074-1077",
+      "internal/checker/checker.go:22225 (fuse), 48 (CheckModeTypeOnly), 1068-1086 (reportErrors=false)",
+      "internal/execute/tsc.go:180-187 (TS5112 gate)",
+      "tsc5 _tsc.js:63594 (instantiateType fuse), 65708 (expanding-Both), 66137/66255 (conditional-10), 68741/68344 (inference)"
+    ]
+  }
+}
