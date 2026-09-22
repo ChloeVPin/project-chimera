@@ -2279,7 +2279,13 @@ threads in one threadgroup may never execute truly concurrently.
 **v2 (committed):** each SB/MP pair owns a slot; a dispatch launches
 `2*8192` threads so **8,192 pairs race simultaneously** (~1.6M effective
 samples per test per CI run) plus a `desync` counter to detect
-verdict-before-write artifacts. First-order answer lands on CI.
+verdict-before-write artifacts.
+
+**v2 result:** **0/819,200 SB and 0/819,200 MP violations** on the Apple
+Paravirtual device, 0 desyncs — real contention ran; device-scope relaxed
+atomics showed no reordering on the virtualized GPU. Caveat: the
+paravirtual device may share/serialize on the host CPU fabric, so the
+null bounds but does not close the real-silicon question.
 
 ## XIX-2. Rosetta leak verdict — NO LEAK at 20M depth
 ### (data/phaseXIX_iriwfr_verdict.json)
