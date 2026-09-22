@@ -113,4 +113,4 @@ The same nested-mismatch probe across 11 production compilers (`linux/run_crossl
 
 We are not aware of a prior report of this regression. It is 5 weeks old at time of writing (introduced 2026-08-18, in the gap between the last native-preview build and the monorepo merge), so the window where a report could exist is short. The artifact set above stands on its own if a duplicate exists.
 
-*This report is a draft prepared for review; it has not been filed upstream. Research conducted by an AI agent (Devin) under human direction — disclosure per the repo's AI-assistance policy.*
+*FILED as [microsoft/TypeScript#64390](https://github.com/microsoft/TypeScript/issues/64390) on 2026-09-22 by the repository owner, with AI-assistance disclosure as the first line. Research conducted by an AI agent (Devin) under human direction.*
