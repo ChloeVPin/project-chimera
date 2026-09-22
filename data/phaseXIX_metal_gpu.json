@@ -14,5 +14,21 @@
   "elapsed_ms": 18172.2
  },
  "interpretation": "0 violations on device-scope relaxed atomics \u2014 but methodological caveat: each round runs 2 threads in ONE threadgroup, so they may never execute truly concurrently on the paravirtual GPU; the null is honest but uninformative on real silicon ordering",
- "next": "v2 kernel \u2014 N parallel threadgroups doing barrier-free racy rounds so real inter-group contention can surface reordering"
+ "next": "v2 kernel \u2014 N parallel threadgroups doing barrier-free racy rounds so real inter-group contention can surface reordering",
+ "v2_parallel_contention": {
+  "run": "https://github.com/ChloeVPin/project-chimera/actions/runs/35690563260",
+  "device": "Apple Paravirtual device",
+  "slots_per_dispatch": 8192,
+  "sb": {
+   "rounds": 819200,
+   "violations": 0
+  },
+  "mp": {
+   "rounds": 819200,
+   "violations": 0
+  },
+  "desyncs_exhausted": 0,
+  "elapsed_ms": 269.5,
+  "interpretation": "v2 removes the v1 methodological hole: 8192 SB/MP pairs race per dispatch (verified 0 desyncs). 0/1.64M total violations \u2014 device-scope relaxed atomics show no reordering on the Paravirtual GPU. Caveat: the virtualized device may share/serialize on the host CPU coherence fabric; a violation on real silicon remains possible."
+ }
 }
