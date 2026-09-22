@@ -2383,3 +2383,43 @@ surface is invocation and post-fuse behavior.
   per-site Maybe/bail census with verdicts.
 - **Confirmed-known:** tsc5 ignores tsconfig when given file arguments — now quantified
   as a diagnostic-drop class rather than a UX quirk.
+
+# Post-merge — Pre-submission audit of the upstream report
+
+Before filing, the draft was audited end-to-end against live upstream state. Findings,
+each verified empirically this session:
+
+- **The `typescript-go` repo is closed.** Commit 89d5d5b2 (2026-08-20) is a closure
+  notice; the native port now lives as `tsc/` inside `microsoft/TypeScript`. The bug
+  reproduces verbatim there (`tsc/internal/checker/relater.go:3133`) on a
+  from-source 7.1.0-dev build.
+- **The regression has an exact birthday.** `git log -S` bisect on the full
+  typescript-go history: PR **#4913** ("Improve recursion identities and
+  `isDeeplyNestedType`", 12548e2a1, 2026-08-18) replaced
+  `r.overflow = true; return TernaryFalse` with `return TernaryMaybe`. That commit
+  deliberately fixed *false-positive* TS2321s (typescript-go #4807/#4465/#1730;
+  it deleted an 8-error test baseline) — the silent accept of true mismatches is
+  an over-reach side effect, not carelessness.
+- **Shipped status:** `@typescript/native-preview` ≤ 2026-07-07 (last preview build)
+  is clean; **`typescript@next` (7.1.0-dev, native binary via launcher) is affected
+  today** — the bug ships in every current nightly. Boundary re-verified on
+  7.1.0-dev: depth 100 errors, depth 101 silent, rc=0.
+- **Novelty check passed:** no prior report found in either tracker; nearest LSP
+  silence report (#63887) is an unrelated session-state mechanism.
+- **Two claims needed reframing to survive review:** (a) tsc's file-args-ignore-
+  tsconfig is documented handbook behavior — downgraded from "defect" to
+  ecosystem note; (b) per the repo's own security-properties doc, this is a
+  correctness bug report, not a security issue — "weaponized" language reframed
+  as reachability.
+
+Novelty label update: the silent-accept is now a *pinpointed regression* (exact
+commit, exact diff, clean revert path) rather than a defect of unknown vintage —
+strictly stronger than the original Act XIV claim.
+
+### Filed — 2026-09-22
+The report was filed as [microsoft/TypeScript#64390](https://github.com/microsoft/TypeScript/issues/64390)
+by the repository owner with AI-assistance disclosure as the opening line. The filed
+body matches `docs/issue_draft.md` (corrected once in place: an initial submission
+truncated the 309-char literal type lines and left the code fence open — repaired via
+`gh issue edit` with programmatically generated literals; verified 202 `W<`-deep
+lines, balanced fence, disclosure intact).
