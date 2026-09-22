@@ -8,7 +8,9 @@ CRASH. New languages: F#, VB.NET, OCaml, Scala, Kotlin, Zig, Haskell.
 Each gets a 'control' (identical types) that must compile clean so a LOUD
 result isn't misparsed.
 
-Writes data/phaseXVIII_crosslang2.json.
+Writes raw cells to data/phaseXVIII_crosslang2_raw.json; the committed
+data/phaseXVIII_crosslang2.json is the curated summary (with annotations)
+derived from it — do not overwrite.
 """
 import json, os, subprocess, tempfile
 
@@ -59,8 +61,8 @@ CASES = {
         ext='.zig', cmd=lambda f: [ZIG, 'build-obj', f],
         errpat=r'error'),
     'haskell': dict(
-        good=lambda n: f'newtype W a = W a\na :: {wrap("W ({0})", n, "Int")}\na = W (W undefined)\nb :: {wrap("W ({0})", n, "Int")}\nb = a\n',
-        bad=lambda n: f'newtype W a = W a\na :: {wrap("W ({0})", n, "Int")}\na = W (W undefined)\nb :: {wrap("W ({0})", n, "String")}\nb = a\n',
+        good=lambda n: f'main :: IO ()\nmain = return ()\nnewtype W a = W a\na :: {wrap("W ({0})", n, "Int")}\na = undefined\nb :: {wrap("W ({0})", n, "Int")}\nb = a\n',
+        bad=lambda n: f'main :: IO ()\nmain = return ()\nnewtype W a = W a\na :: {wrap("W ({0})", n, "Int")}\na = undefined\nb :: {wrap("W ({0})", n, "String")}\nb = a\n',
         ext='.hs', cmd=lambda f: ['ghc', '-fno-code', f],
         errpat=r'error'),
 }
@@ -94,5 +96,5 @@ if __name__ == "__main__":
                     except subprocess.TimeoutExpired:
                         OUT[lang][f'{n}/{kind}'] = 'HANG(>120s)'
                 print(f'{lang:8}: ' + '  '.join(f'{k}={v}' for k, v in list(OUT[lang].items())[-2:]))
-    json.dump({'act': 'XVIII-3', 'results': OUT}, open('data/phaseXVIII_crosslang2.json', 'w'), indent=1)
+    json.dump({'act': 'XVIII-3', 'results': OUT}, open('data/phaseXVIII_crosslang2_raw.json', 'w'), indent=1)
     print('done')
