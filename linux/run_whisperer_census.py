@@ -22,7 +22,7 @@ Honest labels: a case is 'silent-accept' only when a real error is dropped;
 'correct-accept' when acceptance is semantically right (phantom params);
 'loud' when the diagnostic is emitted.
 """
-import json, os, re, subprocess, sys, tempfile
+import json, os, re, shutil, subprocess, sys, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STOCK   = os.path.expanduser('~/tools/tsgo-stock')
@@ -44,7 +44,7 @@ case('post-fuse-1',
      BOMB + "const b = null as any as Bomb<Bomb<Bomb<Bomb<Bomb<string>>>>>;\n"
             "const wrong: { x: number } = b;   // real mismatch — expect silent\n"
             "const plain: number = \"str\";     // ordinary error — expect loud\n",
-     expect={'tsc5': ['TS2589', 'TS2322'], 'tsgo': ['TS2589', 'TS2322'],
+     expect={'tsc5': ['TS2322', 'TS2589'], 'tsgo': ['TS2322', 'TS2589'],
              'unfused': ['TIMEOUT']},
      klass='post-fuse-suppression',
      note='w1 silently accepted on both stock checkers; fuse converts the '
@@ -55,7 +55,7 @@ case('post-fuse-2',
             "const w1: { x: number } = b1;\n"
             "const w2: { y: string } = b2;\n"
             "const ok: number = \"loud\";\n",
-     expect={'tsc5': ['TS2589', 'TS2589', 'TS2322'], 'tsgo': ['TS2589', 'TS2589', 'TS2322'],
+     expect={'tsc5': ['TS2322', 'TS2589', 'TS2589'], 'tsgo': ['TS2322', 'TS2589', 'TS2589'],
              'unfused': ['TIMEOUT']},
      klass='post-fuse-suppression',
      note='each bomb trips once (2x TS2589); BOTH wrong-shape assigns swallowed')
@@ -65,7 +65,7 @@ case('deep-mismatch-150',
      'declare const src: %s;\nconst x: %s = src;\n' % (
          ''.join('Array<' for _ in range(150)) + 'string' + '>' * 150,
          ''.join('Array<' for _ in range(150)) + 'number' + '>' * 150),
-     expect={'tsc5': ['TS2321'], 'tsgo': [], 'unfused': ['TS2322']},
+     expect={'tsc5': ['TS2321', 'TS2321'], 'tsgo': [], 'unfused': ['TS2322']},
      klass='relater-depth-100-hole',
      note='proven tsgo-unique hole: stock swallows the whole subtree at relater '
           'stack>100; tsc5 warns TS2321, unfused reports the real mismatch')
@@ -174,7 +174,8 @@ def run_one(cmd, src, timeout=90, workdir=None, strict_args=True):
             [os.path.basename(path)]
         p = subprocess.run(args, capture_output=True, text=True, timeout=timeout,
                            cwd=workdir)
-        return sorted(set(DIAG.findall(p.stdout + p.stderr))), p.returncode
+        # keep multiplicity: e.g. post-fuse-2's two independent TS2589 trips
+        return sorted(DIAG.findall(p.stdout + p.stderr)), p.returncode
     except subprocess.TimeoutExpired:
         return ['TIMEOUT'], -1
     finally:
@@ -194,13 +195,20 @@ def main():
                                 strict_args=not c.get('no_strict_args'))
             row['runs'][label] = {'diags': diags, 'rc': rc}
         row['expect'] = c['expect']
+        # mechanical check: recorded diags (sorted, multiplicity kept) vs expect
+        mismatches = [l for l, r in row['runs'].items()
+                      if r['diags'] != sorted(c['expect'][l])]
+        row['mismatch'] = mismatches
         results[name] = row
+        flag = '  <-- EXPECT-MISMATCH ' + ','.join(mismatches) if mismatches else ''
         print(f"{name:22s} " + ' '.join(
-            f"{l}={r['diags']}" for l, r in row['runs'].items()))
+            f"{l}={r['diags']}" for l, r in row['runs'].items()) + flag)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w') as f:
         json.dump({'act': 'XX-whisperer', 'cases': results}, f, indent=2)
     print('wrote', OUT)
+    for d in (CLEAN_DIR, CFG_DIR, STRICT_DIR):
+        shutil.rmtree(d, ignore_errors=True)
 
 if __name__ == '__main__':
     sys.exit(main())
