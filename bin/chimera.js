@@ -106,6 +106,15 @@ ${C.bold}ACT XII: THE FULL FRONTIER${C.reset}
   ${C.green}✔ XII-D:${C.reset} Litmus gains LB + WRC(3-thread) families; macos-litmus CI runs ARM64 AND
              Rosetta-x86_64 arms every push
   ${C.green}✔ XII-E:${C.reset} Monograph v2 — Part II covers Acts V–XII + novelty ledger
+
+${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
+  ${C.green}✔ XIII-A:${C.reset} The Mutant Compiler — tsgo rebuilt with shifted fuse constants (depth 100→500,
+              count 5M→20M, fuel 1,000→5,000); every wall moved EXACTLY to the transplanted
+              constant: fuel trips at 5,000, depth at 248, count at 20,035,107 inst. Causation proven.
+  ${C.green}✔ XIII-B:${C.reset} The Wall Equation — g++ driver secretly self-raises RLIMIT_STACK to
+              min(rlim_max, 64MB); wall = S_eff/1621B predicts g++ to <0.3% error at EVERY
+              stack size (4M→128M + hard=∞), swiftc <0.7%, tsc5/javac <10%
+  ${C.green}✔ XIII-C:${C.reset} IRIW litmus family (4-thread MCA discriminator) live on x86 + both CI arms
 `);
 
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);

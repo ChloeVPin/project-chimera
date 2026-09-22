@@ -1,0 +1,127 @@
+{
+ "act": "XIII-A",
+ "results": {
+  "stock_binary": "/home/ubuntu/tools/tsgo-stock",
+  "mutant_binary": "/home/ubuntu/tools/tsgo-mutant",
+  "mutations": {
+   "instantiationDepth": "100->500",
+   "instantiationCount": "5_000_000->20_000_000",
+   "tailCount": "1000->5000"
+  },
+  "predictions": {
+   "tco": "mutant trips at 4999-5001 (5x stock 999/1000)",
+   "nontco": "mutant trips at ~240 (5x stock 48)",
+   "count": "FREEZE_10 stock trips at ~5.03M inst; mutant trips at ~20.03M (4x)"
+  },
+  "measurements": {
+   "tco_stock_999": {
+    "class": "ok",
+    "errors": [],
+    "inst": 549045,
+    "s": 0.85
+   },
+   "tco_stock_1000": {
+    "class": "trip",
+    "errors": [
+     "TS2589"
+    ],
+    "inst": 549038,
+    "s": 0.9
+   },
+   "tco_mutant_1000": {
+    "class": "ok",
+    "errors": [],
+    "inst": 550058,
+    "s": 0.85
+   },
+   "tco_mutant_4999": {
+    "class": "ok",
+    "errors": [],
+    "inst": 12599045,
+    "s": 32.15
+   },
+   "tco_mutant_5000": {
+    "class": "trip",
+    "errors": [
+     "TS2589"
+    ],
+    "inst": 12599038,
+    "s": 29.53
+   },
+   "nontco_stock_47": {
+    "class": "ok",
+    "errors": [],
+    "inst": 38154,
+    "s": 0.28
+   },
+   "nontco_stock_48": {
+    "class": "trip",
+    "errors": [
+     "TS2589"
+    ],
+    "inst": 38166,
+    "s": 0.28
+   },
+   "nontco_mutant_48": {
+    "class": "ok",
+    "errors": [],
+    "inst": 38214,
+    "s": 0.27
+   },
+   "nontco_mutant_239": {
+    "class": "ok",
+    "errors": [],
+    "inst": 68010,
+    "s": 0.28
+   },
+   "nontco_mutant_240": {
+    "class": "ok",
+    "errors": [],
+    "inst": 68262,
+    "s": 0.28
+   },
+   "nontco_mutant_241": {
+    "class": "ok",
+    "errors": [],
+    "inst": 68515,
+    "s": 0.28
+   },
+   "nontco_mutant_trip": [
+    247,
+    248
+   ],
+   "freeze_stock_10": {
+    "class": "trip",
+    "errors": [
+     "TS2589"
+    ],
+    "inst": 5035107,
+    "s": 8.68
+   },
+   "freeze_mutant_10": {
+    "class": "trip",
+    "errors": [
+     "TS2589"
+    ],
+    "inst": 20035107,
+    "s": 36.48
+   },
+   "freeze_stock_12": {
+    "class": "trip",
+    "errors": [
+     "TS2589"
+    ],
+    "inst": 5035160,
+    "s": 8.72
+   },
+   "freeze_mutant_12": {
+    "class": "trip",
+    "errors": [
+     "TS2589"
+    ],
+    "inst": 20035160,
+    "s": 34.11
+   }
+  }
+ }
+}
