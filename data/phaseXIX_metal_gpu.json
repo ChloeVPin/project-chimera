@@ -1,0 +1,18 @@
+{
+ "act": "XIX-5",
+ "run": "macos-latest CI, macos-metal-litmus job, 20,000 rounds",
+ "device": "Apple Paravirtual device (virtualized GPU on GitHub runner)",
+ "results": {
+  "sb": {
+   "rounds": 10000,
+   "violations": 0
+  },
+  "mp": {
+   "rounds": 10000,
+   "violations": 0
+  },
+  "elapsed_ms": 18172.2
+ },
+ "interpretation": "0 violations on device-scope relaxed atomics \u2014 but methodological caveat: each round runs 2 threads in ONE threadgroup, so they may never execute truly concurrently on the paravirtual GPU; the null is honest but uninformative on real silicon ordering",
+ "next": "v2 kernel \u2014 N parallel threadgroups doing barrier-free racy rounds so real inter-group contention can surface reordering"
+}

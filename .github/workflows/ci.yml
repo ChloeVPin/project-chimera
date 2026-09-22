@@ -64,10 +64,10 @@ jobs:
           xcrun metal -c linux/litmus/metal_litmus.metal -o metal_litmus.air
           xcrun metallib metal_litmus.air -o metal_litmus.metallib
           swiftc -O linux/litmus/metal_litmus_host.swift -o metal_host
-      - name: Run GPU litmus (SB/MP device-scope relaxed)
+      - name: Run GPU litmus (SB/MP device-scope relaxed, parallel slots)
         run: |
           mkdir -p data
-          ./metal_host 20000 data/litmus_metal_gpu.json || \
+          ./metal_host 200 8192 data/litmus_metal_gpu.json || \
             echo '{"test":"Metal GPU litmus","status":"UNAVAILABLE on this runner","note":"no Metal device or metallib failure — virtualized GPU limitation"}' > data/litmus_metal_gpu.json
           cat data/litmus_metal_gpu.json
       - uses: actions/upload-artifact@v4
