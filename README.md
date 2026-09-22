@@ -169,6 +169,7 @@ New harnesses live in [`linux/`](linux/): fuse probes, the quad-compiler benchma
 | **The Wall Equation** | g++ driver self-raises RLIMIT_STACK to min(rlim_max, 64MB); `wall = S_eff/1621B` predicts g++ walls to <0.3% at every stack size | Journal XIII |
 | IRIW litmus | 4-thread multi-copy-atomic discriminator in `litmus_test.c`, all CI arms | Journal XIII |
 | **The Limiter-Free Compiler** | tsgo with every fuse removed — first untruncated measurements (FREEZE_10: 36.6M inst / 20.8 GB) and the true-wall taxonomy: heap OOM, the ~10k TS2799 tuple cap, time. The relater fuse is a **silent-accept correctness hole** — stock tsgo passes mismatched deep types with zero diagnostics | Journal XIV |
+| **The Silent-Accept Hunter** | 3-compiler differential fuzzer proves the hole is a bug class: **28 confirmed silent-accepts across 11 construct families**, exact boundary = type depth 101, immune families mapped (unions, readonly, mapped types, contravariant paths) | Journal XV |
 
 ## 📂 Repository Structure
 

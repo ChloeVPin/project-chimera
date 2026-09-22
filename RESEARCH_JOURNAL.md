@@ -1887,3 +1887,72 @@ deepest "why it's new": the Maybe-swallow behavior is undocumented and produces
 wrong compile results, not just a diagnostic difference). The fuse constants
 and tuple cap are public typescript-go/TypeScript semantics — the *wall
 taxonomy behind the brakes* is ours.
+
+# ACT XV — The Silent-Accept Hunter
+
+XIV found one silent-accept case; XV maps how wide the hole is. A differential
+fuzzer generates deep/mismatched-type programs and runs each on three compilers
+— tsgo-stock, tsgo-unfused, tsc 5.9.3 — cataloging every divergence.
+
+Reproduce: `python3 linux/run_silent_accept.py` → `data/phaseXV_silent_accept.json`.
+
+**22 of 45 cases silently accept on stock tsgo** (rc=0, zero diagnostics) while
+tsgo-unfused reports the true TS2322 mismatch and tsc5 reports TS2321 — the hole
+is a **bug class**, not a one-off:
+
+- Every covariant structural container is affected: `Array<T>`, `Promise<T>`,
+  tuples, `{v:…}` records, generic `Box<T>`
+- Both mismatch positions: bottom-leaf and mid-tree (mismatch at depth ~100 with
+  an identical subtree continuing below)
+- Deep missing-property mismatches (`prop-*`)
+
+The boundary is sharp and the immune families are informative:
+
+- opens between relater depth 100 and ~120 — depth 80–100 error normally,
+  120+ silently accept
+- **contravariant function-argument positions, unions, and `readonly T[]` are
+  immune** — they still error correctly at depth 200 (different relation paths
+  that don't accumulate the sourceStack/targetStack nest count the same way)
+- identical-type controls at depth 200 pass cleanly on all three compilers —
+  zero false positives anywhere in the matrix
+
+So the silent accept is specific to the generic-structural relation's
+`TernaryMaybe` swallow at the 100-deep nest fuse. tsc5 reports the same limit
+loudly (TS2321) — the Go port drops even that.
+
+**Novelty label:** first characterization of a stock-tsgo correctness bug class
+(silent wrong accepts), with boundary + immune families mapped; oracle is
+three-compiler triangulation. tsgo's silent-accept itself is a new finding — no
+published baseline exists.
+
+## XV-B. Exact boundary + wider families
+
+Bisection puts the hole's edge at **exactly type-depth 101** — `Array^100`
+mismatch still reports correctly; `Array^101` silently accepts. The fuse trips
+when `sourceStack`/`targetStack` reach 100 (relater.go:3133), i.e. the 101st
+nested level is the first to be swallowed.
+
+Extending the family sweep (`linux/run_silent_accept_v2.py`,
+`data/phaseXV_silent_accept_v2.json`) doubles the affected map:
+
+| Construct | Depth 80 | Depth 150 |
+|:---|:---:|:---:|
+| conditional types (`extends`) | error | **silent-accept** |
+| generic inference (`f<T>` return) | error | **silent-accept** |
+| class method return | error | **silent-accept** |
+| getter return type | error | **silent-accept** |
+| index signatures | error | **silent-accept** |
+| class variance (`C<T>` with method param) | error | **silent-accept** |
+| mapped types (`{[K in keyof T]}`) | clean | clean — relation doesn't nest |
+| conditional-constraint chains (300 deep) | clean | clean — fuse path not hit |
+
+**Disputed case (honest flag):** `deep-fn-param` (`Array<…(x: T) => void…>`)
+returns `error` on tsgo-unfused but `clean` on BOTH stock tsgo AND tsc5 --strict
+at every depth. That's a variance-semantics divergence — the function-parameter
+bivariance question — not evidence of a swallowed error; excluded from the
+silent-accept count pending resolution of which answer is semantically correct.
+
+**Updated tally:** 28 confirmed silent-accept cases across 11 construct families
+(v1: array/promise/tuple/record/box, bottom+mid+prop; v2: conditional, infer,
+method, getter, indexsig, variance-class), boundary = depth 101 exactly, immune =
+unions, readonly arrays, mapped types, contravariant-position probes.

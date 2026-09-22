@@ -127,6 +127,17 @@ ${C.bold}ACT XIII: CAUSATION & PREDICTION${C.reset}
               Deep nesting itself is free: flat 33,897 inst at any depth, 60k compiles in 155 s
 `);
 
+  console.log(`${C.bold}ACT XV: THE SILENT-ACCEPT HUNTER${C.reset}
+  ${C.green}✔ XV:${C.reset}   3-compiler differential fuzzer (stock / unfused / tsc5) — the hole is a
+              BUG CLASS: 22/45 cases silently accept wrong code on stock tsgo. Hits every
+              covariant container (Array/Promise/tuple/record/Box, bottom + mid + missing-prop).
+              Immune: contravariant fn args, unions, readonly[] — different relation paths.
+              Boundary: errors ≤100, silent ≥120. Zero false positives on controls.
+  ${C.green}✔ XV-B:${C.reset} Boundary bisected to EXACTLY depth 101 (relater stack==100 → Maybe).
+              Families now 11: +conditional, inference, methods, getters, index-sigs,
+              class variance. Mapped types & conditional-constraint chains unaffected.
+`);
+
   console.log(`${C.cyan}${C.bold}┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐${C.reset}`);
   console.log(`${C.cyan}${C.bold}│                                 COMPILER & HARDWARE MICROARCHITECTURE METRICS                                   │${C.reset}`);
   console.log(`${C.cyan}${C.bold}├──────────────────────────────────────────┬─────────────────────────────────────┬────────────────────────────────┤${C.reset}`);
